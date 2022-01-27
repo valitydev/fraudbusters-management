@@ -4,8 +4,8 @@ import com.rbkmoney.fraudbusters.management.dao.AbstractDao;
 import com.rbkmoney.fraudbusters.management.dao.DefaultReferenceDao;
 import com.rbkmoney.fraudbusters.management.domain.payment.DefaultPaymentReferenceModel;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.FDefaultRefRecord;
 import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.fraudbusters.management.domain.tables.records.FDefaultRefRecord;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-
 import java.util.List;
 import java.util.Optional;
 
-import static com.rbkmoney.fraudbusters.management.domain.Tables.F_DEFAULT_REF;
+import static dev.vality.fraudbusters.management.domain.Tables.F_DEFAULT_REF;
 
 @Component
 public class DefaultPaymentReferenceDaoImpl extends AbstractDao

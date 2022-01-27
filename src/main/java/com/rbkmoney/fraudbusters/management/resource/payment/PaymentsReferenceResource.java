@@ -14,9 +14,9 @@ import com.rbkmoney.fraudbusters.management.utils.FilterRequestUtils;
 import com.rbkmoney.fraudbusters.management.utils.PagingDataUtils;
 import com.rbkmoney.fraudbusters.management.utils.PaymentUnknownTemplateFinder;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsReferencesApi;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
-import com.rbkmoney.swag.fraudbusters.management.model.ReferencesResponse;
+import dev.vality.swag.fraudbusters.management.api.PaymentsReferencesApi;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.swag.fraudbusters.management.model.ReferencesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,15 +1,15 @@
 package com.rbkmoney.fraudbusters.management;
 
-import com.rbkmoney.damsel.fraudbusters_notificator.ChannelType;
-import com.rbkmoney.damsel.fraudbusters_notificator.NotificationStatus;
-import com.rbkmoney.damsel.wb_list.*;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentCountInfo;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentListRecord;
 import com.rbkmoney.fraudbusters.management.domain.payment.request.ListRowsInsertRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
-import com.rbkmoney.swag.fraudbusters.management.model.Channel;
-import com.rbkmoney.swag.fraudbusters.management.model.Notification;
+import dev.vality.damsel.fraudbusters_notificator.ChannelType;
+import dev.vality.damsel.fraudbusters_notificator.NotificationStatus;
+import dev.vality.damsel.wb_list.*;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
+import dev.vality.swag.fraudbusters.management.model.Channel;
+import dev.vality.swag.fraudbusters.management.model.Notification;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -48,7 +48,7 @@ public abstract class TestObjectFactory {
         WbListRecordsRecord listRecord = new WbListRecordsRecord();
         listRecord.setId(id);
         listRecord.setListName(randomString());
-        listRecord.setListType(com.rbkmoney.fraudbusters.management.domain.enums.ListType.black);
+        listRecord.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
         listRecord.setInsertTime(LocalDateTime.now());
         listRecord.setPartyId(randomString());
         listRecord.setShopId(randomString());
@@ -60,7 +60,7 @@ public abstract class TestObjectFactory {
         WbListRecords listRecord = new WbListRecords();
         listRecord.setId(id);
         listRecord.setListName(randomString());
-        listRecord.setListType(com.rbkmoney.fraudbusters.management.domain.enums.ListType.black);
+        listRecord.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
         listRecord.setInsertTime(LocalDateTime.now());
         listRecord.setPartyId(randomString());
         listRecord.setShopId(randomString());
@@ -95,8 +95,8 @@ public abstract class TestObjectFactory {
         return ThreadLocalRandom.current().nextLong(1000);
     }
 
-    public static com.rbkmoney.damsel.fraudbusters_notificator.Notification testInternalNotification() {
-        var notification = new com.rbkmoney.damsel.fraudbusters_notificator.Notification();
+    public static dev.vality.damsel.fraudbusters_notificator.Notification testInternalNotification() {
+        var notification = new dev.vality.damsel.fraudbusters_notificator.Notification();
         notification.setId(randomLong());
         notification.setName(randomString());
         notification.setSubject(randomString());
@@ -110,14 +110,14 @@ public abstract class TestObjectFactory {
         return notification;
     }
 
-    public static List<com.rbkmoney.damsel.fraudbusters_notificator.Notification> testInternalNotifications(int i) {
+    public static List<dev.vality.damsel.fraudbusters_notificator.Notification> testInternalNotifications(int i) {
         return IntStream.rangeClosed(1, i)
                 .mapToObj(value -> testInternalNotification())
                 .collect(Collectors.toList());
     }
 
-    public static com.rbkmoney.damsel.fraudbusters_notificator.Channel testInternalChannel() {
-        var channel = new com.rbkmoney.damsel.fraudbusters_notificator.Channel();
+    public static dev.vality.damsel.fraudbusters_notificator.Channel testInternalChannel() {
+        var channel = new dev.vality.damsel.fraudbusters_notificator.Channel();
         channel.setType(ChannelType.mail);
         channel.setDestination(randomString());
         channel.setName(randomString());
@@ -125,14 +125,14 @@ public abstract class TestObjectFactory {
         return channel;
     }
 
-    public static List<com.rbkmoney.damsel.fraudbusters_notificator.Channel> testInternalChannels(int i) {
+    public static List<dev.vality.damsel.fraudbusters_notificator.Channel> testInternalChannels(int i) {
         return IntStream.rangeClosed(1, i)
                 .mapToObj(value -> testInternalChannel())
                 .collect(Collectors.toList());
     }
 
-    public static com.rbkmoney.damsel.fraudbusters_notificator.NotificationTemplate testNotificationTemplate() {
-        var notificationTemplate = new com.rbkmoney.damsel.fraudbusters_notificator.NotificationTemplate();
+    public static dev.vality.damsel.fraudbusters_notificator.NotificationTemplate testNotificationTemplate() {
+        var notificationTemplate = new dev.vality.damsel.fraudbusters_notificator.NotificationTemplate();
         notificationTemplate.setId(randomLong());
         notificationTemplate.setName(randomString());
         notificationTemplate.setBasicParams(randomString());
@@ -144,7 +144,7 @@ public abstract class TestObjectFactory {
         return notificationTemplate;
     }
 
-    public static List<com.rbkmoney.damsel.fraudbusters_notificator.NotificationTemplate> testNotificationTemplates(
+    public static List<dev.vality.damsel.fraudbusters_notificator.NotificationTemplate> testNotificationTemplates(
             int i) {
         return IntStream.rangeClosed(1, i)
                 .mapToObj(value -> testNotificationTemplate())

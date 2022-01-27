@@ -5,14 +5,14 @@ import com.rbkmoney.fraudbusters.management.converter.ListRecordToRowConverterIm
 import com.rbkmoney.fraudbusters.management.converter.payment.PaymentCountInfoRequestToRowConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.PaymentListRecordToRowConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordsToCountInfoListRequestConverter;
-import com.rbkmoney.fraudbusters.management.domain.enums.ListType;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
 import com.rbkmoney.fraudbusters.management.utils.CountInfoApiUtils;
 import com.rbkmoney.fraudbusters.management.utils.CountInfoUtils;
 import com.rbkmoney.fraudbusters.management.utils.PaymentCountInfoGenerator;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentCountInfo;
+import dev.vality.fraudbusters.management.domain.enums.ListType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
+import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
 import org.jooq.DSLContext;
 import org.jooq.SortOrder;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 import static com.rbkmoney.fraudbusters.management.TestObjectFactory.createWbListRecordsRecord;
 import static com.rbkmoney.fraudbusters.management.TestObjectFactory.randomString;
-import static com.rbkmoney.fraudbusters.management.domain.tables.WbListRecords.WB_LIST_RECORDS;
+import static dev.vality.fraudbusters.management.domain.tables.WbListRecords.WB_LIST_RECORDS;
 import static org.junit.jupiter.api.Assertions.*;
 
 @PostgresqlJooqITest

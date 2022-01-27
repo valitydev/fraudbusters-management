@@ -1,9 +1,9 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
-import com.rbkmoney.damsel.fraudbusters.CommandBody;
-import com.rbkmoney.damsel.fraudbusters.TemplateReference;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentReferenceModel;
+import dev.vality.damsel.fraudbusters.Command;
+import dev.vality.damsel.fraudbusters.CommandBody;
+import dev.vality.damsel.fraudbusters.TemplateReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;

@@ -1,17 +1,17 @@
 package com.rbkmoney.fraudbusters.management.kafka;
 
-import com.rbkmoney.damsel.wb_list.*;
 import com.rbkmoney.fraudbusters.management.config.KafkaITest;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentCountInfo;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentListRecord;
 import com.rbkmoney.fraudbusters.management.domain.payment.request.ListRowsInsertRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import com.rbkmoney.fraudbusters.management.service.iface.AuditService;
 import com.rbkmoney.fraudbusters.management.utils.MethodPaths;
-import com.rbkmoney.swag.fraudbusters.management.model.ListResponse;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaConsumer;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaProducer;
+import dev.vality.damsel.wb_list.*;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.swag.fraudbusters.management.model.ListResponse;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

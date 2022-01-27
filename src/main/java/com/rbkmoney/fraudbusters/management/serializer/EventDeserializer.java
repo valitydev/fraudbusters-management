@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.serializer;
 
 
-import com.rbkmoney.damsel.wb_list.Event;
 import com.rbkmoney.kafka.common.serialization.AbstractThriftDeserializer;
+import dev.vality.damsel.wb_list.Event;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

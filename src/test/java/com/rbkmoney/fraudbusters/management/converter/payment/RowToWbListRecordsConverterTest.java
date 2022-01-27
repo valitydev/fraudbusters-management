@@ -1,17 +1,16 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.wb_list.Row;
 import com.rbkmoney.fraudbusters.management.TestObjectFactory;
-import com.rbkmoney.fraudbusters.management.domain.enums.ListType;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import com.rbkmoney.fraudbusters.management.utils.RowUtilsService;
+import dev.vality.damsel.wb_list.Row;
+import dev.vality.fraudbusters.management.domain.enums.ListType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZoneOffset;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

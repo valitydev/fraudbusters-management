@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-import static com.rbkmoney.fraudbusters.management.domain.Tables.TEST_DATA_SET;
-import static com.rbkmoney.fraudbusters.management.domain.Tables.TEST_DATA_SET_CHECKING_RESULT;
+import static dev.vality.fraudbusters.management.domain.Tables.TEST_DATA_SET;
+import static dev.vality.fraudbusters.management.domain.Tables.TEST_DATA_SET_CHECKING_RESULT;
 
 public class DataSetRowMapper implements RowMapper<CheckedDataSetModel> {
 

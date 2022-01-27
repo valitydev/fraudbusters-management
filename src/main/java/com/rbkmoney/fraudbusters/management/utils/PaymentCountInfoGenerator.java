@@ -1,11 +1,11 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
-import com.rbkmoney.damsel.wb_list.Row;
 import com.rbkmoney.fraudbusters.management.converter.payment.PaymentCountInfoRequestToRowConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.PaymentListRecordToRowConverter;
 import com.rbkmoney.fraudbusters.management.exception.UnknownEventException;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentCountInfo;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentListRecord;
+import dev.vality.damsel.wb_list.Row;
+import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
+import dev.vality.swag.fraudbusters.management.model.PaymentListRecord;
 import io.micrometer.shaded.io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class PaymentCountInfoGenerator {
         var paymentCountInfo = new PaymentCountInfo();
         paymentCountInfo.setListRecord(listRecord);
         if (!StringUtil.isNullOrEmpty(rowInfo)) {
-            com.rbkmoney.swag.fraudbusters.management.model.CountInfo countInfoValue =
+            dev.vality.swag.fraudbusters.management.model.CountInfo countInfoValue =
                     countInfoApiUtils.initExternalRowCountInfo(rowInfo);
             paymentCountInfo.setCountInfo(countInfoValue);
         }
         return paymentCountInfo;
     }
 
-    public Row initRow(PaymentCountInfo record, com.rbkmoney.damsel.wb_list.ListType listType) {
+    public Row initRow(PaymentCountInfo record, dev.vality.damsel.wb_list.ListType listType) {
         Row row = null;
         switch (listType) {
             case black:

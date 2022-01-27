@@ -1,12 +1,12 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
-import com.rbkmoney.damsel.domain.BankCard;
-import com.rbkmoney.damsel.domain.Cash;
-import com.rbkmoney.damsel.domain.CurrencyRef;
-import com.rbkmoney.damsel.domain.PaymentTool;
-import com.rbkmoney.damsel.fraudbusters.*;
-import com.rbkmoney.swag.fraudbusters.management.model.ApplyRuleOnHistoricalDataSetRequest;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.damsel.domain.BankCard;
+import dev.vality.damsel.domain.Cash;
+import dev.vality.damsel.domain.CurrencyRef;
+import dev.vality.damsel.domain.PaymentTool;
+import dev.vality.damsel.fraudbusters.*;
+import dev.vality.swag.fraudbusters.management.model.ApplyRuleOnHistoricalDataSetRequest;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.List;
@@ -28,15 +28,15 @@ public class DataSourceBeanUtils {
                         .setTransaction(createDamselPayment())));
     }
 
-    public static com.rbkmoney.swag.fraudbusters.management.model.Payment createPayment() {
-        return new com.rbkmoney.swag.fraudbusters.management.model.Payment()
+    public static dev.vality.swag.fraudbusters.management.model.Payment createPayment() {
+        return new dev.vality.swag.fraudbusters.management.model.Payment()
                 .amount(100L)
                 .currency("RUB")
                 .id("1")
                 .mobile(false)
                 .recurrent(false)
-                .status(com.rbkmoney.swag.fraudbusters.management.model.Payment.StatusEnum.CAPTURED)
-                .merchantInfo(new com.rbkmoney.swag.fraudbusters.management.model.MerchantInfo()
+                .status(dev.vality.swag.fraudbusters.management.model.Payment.StatusEnum.CAPTURED)
+                .merchantInfo(new dev.vality.swag.fraudbusters.management.model.MerchantInfo()
                         .partyId(PARTY_ID)
                         .shopId(SHOP_ID));
     }
@@ -54,7 +54,7 @@ public class DataSourceBeanUtils {
     }
 
     public static ApplyRuleOnHistoricalDataSetRequest createApplyRequst(
-            com.rbkmoney.swag.fraudbusters.management.model.Payment payment) {
+            dev.vality.swag.fraudbusters.management.model.Payment payment) {
         return new ApplyRuleOnHistoricalDataSetRequest()
                 .dataSetId(1L)
                 .reference(new PaymentReference()

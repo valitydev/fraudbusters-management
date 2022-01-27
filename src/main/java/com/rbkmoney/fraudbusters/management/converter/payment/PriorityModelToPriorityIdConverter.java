@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.rbkmoney.fraudbusters.management.domain.PriorityIdModel;
-import com.rbkmoney.swag.fraudbusters.management.model.PriorityId;
+import dev.vality.swag.fraudbusters.management.model.PriorityId;
 import org.mapstruct.Mapper;
 
 

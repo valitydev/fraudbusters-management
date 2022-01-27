@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.resource.notificator.converter;
 
-import com.rbkmoney.damsel.fraudbusters_notificator.NotificationStatus;
-import com.rbkmoney.swag.fraudbusters.management.model.Notification;
+import dev.vality.damsel.fraudbusters_notificator.NotificationStatus;
+import dev.vality.swag.fraudbusters.management.model.Notification;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -10,10 +10,10 @@ import java.util.Objects;
 
 @Component
 public class NotificationConverter
-        implements BiConverter<com.rbkmoney.damsel.fraudbusters_notificator.Notification, Notification> {
+        implements BiConverter<dev.vality.damsel.fraudbusters_notificator.Notification, Notification> {
 
     @Override
-    public Notification toTarget(com.rbkmoney.damsel.fraudbusters_notificator.Notification notification) {
+    public Notification toTarget(dev.vality.damsel.fraudbusters_notificator.Notification notification) {
         if (Objects.isNull(notification)) {
             return null;
         }
@@ -38,12 +38,12 @@ public class NotificationConverter
     }
 
     @Override
-    public com.rbkmoney.damsel.fraudbusters_notificator.Notification toSource(Notification notification) {
+    public dev.vality.damsel.fraudbusters_notificator.Notification toSource(Notification notification) {
         if (Objects.isNull(notification)) {
             return null;
         }
-        com.rbkmoney.damsel.fraudbusters_notificator.Notification result =
-                new com.rbkmoney.damsel.fraudbusters_notificator.Notification();
+        dev.vality.damsel.fraudbusters_notificator.Notification result =
+                new dev.vality.damsel.fraudbusters_notificator.Notification();
         if (Objects.nonNull(notification.getId())) {
             result.setId(notification.getId());
         }

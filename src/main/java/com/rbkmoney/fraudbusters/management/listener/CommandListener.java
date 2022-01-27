@@ -1,6 +1,6 @@
 package com.rbkmoney.fraudbusters.management.listener;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
+import dev.vality.damsel.fraudbusters.Command;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 

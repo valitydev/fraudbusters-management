@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.damsel.fraudbusters.HistoricalDataSetCheckResult;
 import com.rbkmoney.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import com.rbkmoney.fraudbusters.management.domain.payment.CheckedPaymentModel;
+import dev.vality.damsel.fraudbusters.HistoricalDataSetCheckResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
@@ -30,7 +30,7 @@ public class HistoricalDataSetCheckResultToTestCheckedDataSetModelConverter
     }
 
     private CheckedPaymentModel mapToCheckedPaymentModel(
-            com.rbkmoney.damsel.fraudbusters.HistoricalTransactionCheck historicalTransactionCheck) {
+            dev.vality.damsel.fraudbusters.HistoricalTransactionCheck historicalTransactionCheck) {
         return CheckedPaymentModel.builder()
                 .testPaymentId(Long.valueOf(historicalTransactionCheck.getTransaction().getId()))
                 .checkedTemplate(historicalTransactionCheck.getCheckResult().getCheckedTemplate())

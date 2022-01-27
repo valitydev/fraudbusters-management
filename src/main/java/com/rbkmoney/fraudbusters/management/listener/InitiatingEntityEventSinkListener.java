@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.listener;
 
-import com.rbkmoney.damsel.fraudbusters.*;
 import com.rbkmoney.fraudbusters.management.dao.payment.DefaultPaymentReferenceDaoImpl;
 import com.rbkmoney.fraudbusters.management.dao.payment.reference.PaymentReferenceDaoImpl;
 import com.rbkmoney.fraudbusters.management.domain.payment.DefaultPaymentReferenceModel;
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentTemplateReferenceService;
+import dev.vality.damsel.fraudbusters.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

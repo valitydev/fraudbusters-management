@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.service.payment;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
 import com.rbkmoney.fraudbusters.management.service.CommandSender;
 import com.rbkmoney.fraudbusters.management.utils.ReferenceKeyGenerator;
+import dev.vality.damsel.fraudbusters.Command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

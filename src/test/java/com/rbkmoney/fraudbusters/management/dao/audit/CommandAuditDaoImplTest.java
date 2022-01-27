@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.dao.audit;
 
 import com.rbkmoney.fraudbusters.management.config.PostgresqlJooqITest;
-import com.rbkmoney.fraudbusters.management.domain.enums.CommandType;
-import com.rbkmoney.fraudbusters.management.domain.enums.ObjectType;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.fraudbusters.management.domain.enums.CommandType;
+import dev.vality.fraudbusters.management.domain.enums.ObjectType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
 import org.jooq.SortOrder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

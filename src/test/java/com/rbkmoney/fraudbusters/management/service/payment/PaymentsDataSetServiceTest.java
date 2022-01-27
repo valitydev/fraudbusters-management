@@ -6,8 +6,8 @@ import com.rbkmoney.fraudbusters.management.dao.payment.dataset.DataSetDaoImpl;
 import com.rbkmoney.fraudbusters.management.dao.payment.dataset.PaymentDaoImpl;
 import com.rbkmoney.fraudbusters.management.domain.payment.DataSetModel;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.TestPaymentRecord;
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
+import dev.vality.fraudbusters.management.domain.tables.records.TestPaymentRecord;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.rbkmoney.fraudbusters.management.domain.tables.TestPayment.TEST_PAYMENT;
 import static com.rbkmoney.fraudbusters.management.service.payment.DataSetModelUtils.TEST_INITIATOR;
+import static dev.vality.fraudbusters.management.domain.tables.TestPayment.TEST_PAYMENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

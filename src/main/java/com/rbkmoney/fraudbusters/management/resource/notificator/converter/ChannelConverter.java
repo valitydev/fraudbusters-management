@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.resource.notificator.converter;
 
-import com.rbkmoney.damsel.fraudbusters_notificator.ChannelType;
-import com.rbkmoney.swag.fraudbusters.management.model.Channel;
+import dev.vality.damsel.fraudbusters_notificator.ChannelType;
+import dev.vality.swag.fraudbusters.management.model.Channel;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -10,10 +10,10 @@ import java.util.Objects;
 
 @Component
 public class ChannelConverter
-        implements BiConverter<com.rbkmoney.damsel.fraudbusters_notificator.Channel, Channel> {
+        implements BiConverter<dev.vality.damsel.fraudbusters_notificator.Channel, Channel> {
 
     @Override
-    public Channel toTarget(com.rbkmoney.damsel.fraudbusters_notificator.Channel channel) {
+    public Channel toTarget(dev.vality.damsel.fraudbusters_notificator.Channel channel) {
         if (Objects.isNull(channel)) {
             return null;
         }
@@ -30,12 +30,11 @@ public class ChannelConverter
     }
 
     @Override
-    public com.rbkmoney.damsel.fraudbusters_notificator.Channel toSource(Channel channel) {
+    public dev.vality.damsel.fraudbusters_notificator.Channel toSource(Channel channel) {
         if (Objects.isNull(channel)) {
             return null;
         }
-        com.rbkmoney.damsel.fraudbusters_notificator.Channel result =
-                new com.rbkmoney.damsel.fraudbusters_notificator.Channel();
+        var result = new dev.vality.damsel.fraudbusters_notificator.Channel();
         result.setName(channel.getName());
         result.setDestination(channel.getDestination());
         if (Objects.nonNull(channel.getType())) {

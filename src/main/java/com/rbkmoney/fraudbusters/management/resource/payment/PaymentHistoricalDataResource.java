@@ -1,12 +1,12 @@
 package com.rbkmoney.fraudbusters.management.resource.payment;
 
-import com.rbkmoney.damsel.base.BoundType;
-import com.rbkmoney.damsel.base.TimestampInterval;
-import com.rbkmoney.damsel.base.TimestampIntervalBound;
-import com.rbkmoney.damsel.fraudbusters.*;
 import com.rbkmoney.fraudbusters.management.converter.payment.*;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsHistoricalDataApi;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.damsel.base.BoundType;
+import dev.vality.damsel.base.TimestampInterval;
+import dev.vality.damsel.base.TimestampIntervalBound;
+import dev.vality.damsel.fraudbusters.*;
+import dev.vality.swag.fraudbusters.management.api.PaymentsHistoricalDataApi;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

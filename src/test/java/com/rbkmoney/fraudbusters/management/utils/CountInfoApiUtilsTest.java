@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.wb_list.RowInfo;
-import com.rbkmoney.swag.fraudbusters.management.model.CountInfo;
+import dev.vality.damsel.wb_list.RowInfo;
+import dev.vality.swag.fraudbusters.management.model.CountInfo;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;

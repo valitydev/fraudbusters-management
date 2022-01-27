@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.utils.parser;
 
-import com.rbkmoney.damsel.fraudbusters.FraudPayment;
 import com.rbkmoney.fraudbusters.management.constant.CsvFraudPaymentFields;
 import com.rbkmoney.fraudbusters.management.exception.DateFormatException;
+import dev.vality.damsel.fraudbusters.FraudPayment;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Component;

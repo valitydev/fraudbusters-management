@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.config;
 
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
 import com.rbkmoney.fraudbusters.management.serializer.CommandChangeDeserializer;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaConsumer;
+import dev.vality.damsel.wb_list.ChangeCommand;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

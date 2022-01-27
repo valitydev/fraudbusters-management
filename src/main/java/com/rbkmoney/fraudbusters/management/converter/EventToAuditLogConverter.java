@@ -1,9 +1,9 @@
 package com.rbkmoney.fraudbusters.management.converter;
 
-import com.rbkmoney.damsel.wb_list.Event;
-import com.rbkmoney.fraudbusters.management.domain.enums.CommandType;
-import com.rbkmoney.fraudbusters.management.domain.enums.ObjectType;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.damsel.wb_list.Event;
+import dev.vality.fraudbusters.management.domain.enums.CommandType;
+import dev.vality.fraudbusters.management.domain.enums.ObjectType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;

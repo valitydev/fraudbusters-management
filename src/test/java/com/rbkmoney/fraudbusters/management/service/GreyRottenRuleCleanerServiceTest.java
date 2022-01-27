@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.service;
 
-import com.rbkmoney.damsel.wb_list.Command;
-import com.rbkmoney.damsel.wb_list.ListType;
-import com.rbkmoney.damsel.wb_list.Row;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
+import dev.vality.damsel.wb_list.Command;
+import dev.vality.damsel.wb_list.ListType;
+import dev.vality.damsel.wb_list.Row;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

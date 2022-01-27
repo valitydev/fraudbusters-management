@@ -1,9 +1,9 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import com.rbkmoney.fraudbusters.management.utils.PaymentCountInfoGenerator;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentCountInfo;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentListRecord;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
+import dev.vality.swag.fraudbusters.management.model.PaymentListRecord;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

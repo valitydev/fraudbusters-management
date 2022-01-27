@@ -3,9 +3,9 @@ package com.rbkmoney.fraudbusters.management.dao.payment.dataset;
 import com.rbkmoney.fraudbusters.management.dao.AbstractDao;
 import com.rbkmoney.fraudbusters.management.domain.payment.DataSetModel;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.TestDataSetRecord;
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
 import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.fraudbusters.management.domain.tables.records.TestDataSetRecord;
 import org.jooq.*;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,12 +13,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.rbkmoney.fraudbusters.management.domain.Tables.TEST_DATA_SET;
+import static dev.vality.fraudbusters.management.domain.Tables.TEST_DATA_SET;
 
 @Component
 public class DataSetDaoImpl extends AbstractDao implements DataSetDao {

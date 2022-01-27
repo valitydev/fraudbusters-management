@@ -1,9 +1,9 @@
 package com.rbkmoney.fraudbusters.management.service.iface;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
-import com.rbkmoney.damsel.wb_list.Event;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.swag.fraudbusters.management.model.FilterLogsResponse;
+import dev.vality.damsel.fraudbusters.Command;
+import dev.vality.damsel.wb_list.Event;
+import dev.vality.swag.fraudbusters.management.model.FilterLogsResponse;
 
 import java.util.List;
 

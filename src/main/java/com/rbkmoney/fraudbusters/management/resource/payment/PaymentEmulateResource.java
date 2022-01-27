@@ -4,8 +4,8 @@ import com.rbkmoney.fraudbusters.management.converter.payment.TemplateModelToTem
 import com.rbkmoney.fraudbusters.management.domain.TemplateModel;
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentEmulateService;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsEmulationsApi;
-import com.rbkmoney.swag.fraudbusters.management.model.EmulateResponse;
+import dev.vality.swag.fraudbusters.management.api.PaymentsEmulationsApi;
+import dev.vality.swag.fraudbusters.management.model.EmulateResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

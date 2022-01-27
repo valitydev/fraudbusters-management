@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
-import com.rbkmoney.swag.fraudbusters.management.model.Error;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.swag.fraudbusters.management.model.Error;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PaymentToApiPaymentConverter
-        implements Converter<com.rbkmoney.damsel.fraudbusters.Payment, Payment> {
+        implements Converter<dev.vality.damsel.fraudbusters.Payment, Payment> {
 
     @NonNull
     @Override
-    public Payment convert(com.rbkmoney.damsel.fraudbusters.Payment payment) {
+    public Payment convert(dev.vality.damsel.fraudbusters.Payment payment) {
         var paymentTool = payment.getPaymentTool();
         var bankCard = paymentTool.getBankCard();
         var cost = payment.getCost();

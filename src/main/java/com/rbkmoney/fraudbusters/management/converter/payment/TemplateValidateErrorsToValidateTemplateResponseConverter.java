@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.damsel.fraudbusters.TemplateValidateError;
-import com.rbkmoney.swag.fraudbusters.management.model.ErrorTemplate;
-import com.rbkmoney.swag.fraudbusters.management.model.ValidateTemplatesResponse;
+import dev.vality.damsel.fraudbusters.TemplateValidateError;
+import dev.vality.swag.fraudbusters.management.model.ErrorTemplate;
+import dev.vality.swag.fraudbusters.management.model.ValidateTemplatesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

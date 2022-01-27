@@ -4,7 +4,7 @@ import com.rbkmoney.fraudbusters.management.dao.payment.DefaultPaymentReferenceD
 import com.rbkmoney.fraudbusters.management.domain.payment.DefaultPaymentReferenceModel;
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,13 +1,13 @@
 package com.rbkmoney.fraudbusters.management.listener;
 
-import com.rbkmoney.damsel.wb_list.Event;
 import com.rbkmoney.dao.DaoException;
 import com.rbkmoney.fraudbusters.management.converter.payment.EventToListRecordConverter;
 import com.rbkmoney.fraudbusters.management.dao.CdDao;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import com.rbkmoney.fraudbusters.management.exception.UnknownEventException;
 import com.rbkmoney.fraudbusters.management.service.iface.AuditService;
+import dev.vality.damsel.wb_list.Event;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

@@ -2,10 +2,10 @@ package com.rbkmoney.fraudbusters.management.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.wb_list.CountInfo;
-import com.rbkmoney.damsel.wb_list.Row;
-import com.rbkmoney.damsel.wb_list.RowInfo;
-import com.rbkmoney.fraudbusters.management.domain.enums.ListType;
+import dev.vality.damsel.wb_list.CountInfo;
+import dev.vality.damsel.wb_list.Row;
+import dev.vality.damsel.wb_list.RowInfo;
+import dev.vality.fraudbusters.management.domain.enums.ListType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,11 @@
 package com.rbkmoney.fraudbusters.management.listener;
 
-import com.rbkmoney.damsel.fraudbusters.MerchantInfo;
-import com.rbkmoney.damsel.fraudbusters.ReferenceInfo;
 import com.rbkmoney.fraudbusters.management.dao.payment.DefaultPaymentReferenceDaoImpl;
 import com.rbkmoney.fraudbusters.management.dao.payment.reference.PaymentReferenceDaoImpl;
 import com.rbkmoney.fraudbusters.management.domain.payment.DefaultPaymentReferenceModel;
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentTemplateReferenceService;
+import dev.vality.damsel.fraudbusters.MerchantInfo;
+import dev.vality.damsel.fraudbusters.ReferenceInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.service.p2p;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
 import com.rbkmoney.fraudbusters.management.service.CommandSender;
+import dev.vality.damsel.fraudbusters.Command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

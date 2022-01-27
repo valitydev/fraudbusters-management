@@ -1,6 +1,6 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

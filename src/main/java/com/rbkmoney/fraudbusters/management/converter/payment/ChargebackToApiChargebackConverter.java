@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
-import com.rbkmoney.swag.fraudbusters.management.model.Chargeback;
-import com.rbkmoney.swag.fraudbusters.management.model.ClientInfo;
-import com.rbkmoney.swag.fraudbusters.management.model.MerchantInfo;
-import com.rbkmoney.swag.fraudbusters.management.model.ProviderInfo;
+import dev.vality.swag.fraudbusters.management.model.Chargeback;
+import dev.vality.swag.fraudbusters.management.model.ClientInfo;
+import dev.vality.swag.fraudbusters.management.model.MerchantInfo;
+import dev.vality.swag.fraudbusters.management.model.ProviderInfo;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ChargebackToApiChargebackConverter
-        implements Converter<com.rbkmoney.damsel.fraudbusters.Chargeback, Chargeback> {
+        implements Converter<dev.vality.damsel.fraudbusters.Chargeback, Chargeback> {
 
     @NonNull
     @Override
-    public Chargeback convert(com.rbkmoney.damsel.fraudbusters.Chargeback chargeback) {
+    public Chargeback convert(dev.vality.damsel.fraudbusters.Chargeback chargeback) {
         var paymentTool = chargeback.getPaymentTool();
         var cost = chargeback.getCost();
         var referenceInfo = chargeback.getReferenceInfo();

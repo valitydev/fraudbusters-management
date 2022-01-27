@@ -15,13 +15,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.fraudbusters.management.domain.Tables.*;
+import static dev.vality.fraudbusters.management.domain.Tables.*;
 import static org.jooq.impl.DSL.select;
 
 @Component

@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.service.iface;
 
-import com.rbkmoney.damsel.fraudbusters.Template;
-import com.rbkmoney.damsel.fraudbusters.TemplateValidateError;
+import dev.vality.damsel.fraudbusters.Template;
+import dev.vality.damsel.fraudbusters.TemplateValidateError;
 
 import java.util.List;
 

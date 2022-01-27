@@ -1,6 +1,6 @@
 package com.rbkmoney.fraudbusters.management.domain;
 
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

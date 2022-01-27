@@ -5,8 +5,8 @@ import com.rbkmoney.fraudbusters.management.dao.GroupDao;
 import com.rbkmoney.fraudbusters.management.dao.payment.group.model.GroupPriorityRow;
 import com.rbkmoney.fraudbusters.management.domain.GroupModel;
 import com.rbkmoney.fraudbusters.management.domain.PriorityIdModel;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.FGroupRecord;
 import com.rbkmoney.fraudbusters.management.utils.GroupRowToModelMapper;
+import dev.vality.fraudbusters.management.domain.tables.records.FGroupRecord;
 import org.jooq.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,14 +15,13 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.fraudbusters.management.domain.tables.FGroup.F_GROUP;
+import static dev.vality.fraudbusters.management.domain.tables.FGroup.F_GROUP;
 
 @Component
 public class PaymentGroupDao extends AbstractDao implements GroupDao {

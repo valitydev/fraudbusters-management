@@ -1,6 +1,5 @@
 package com.rbkmoney.fraudbusters.management;
 
-import com.rbkmoney.damsel.wb_list.ListType;
 import com.rbkmoney.dao.DaoException;
 import com.rbkmoney.fraudbusters.management.converter.payment.*;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
@@ -17,6 +16,7 @@ import com.rbkmoney.fraudbusters.management.service.iface.AuditService;
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentsListsService;
 import com.rbkmoney.fraudbusters.management.utils.*;
 import com.rbkmoney.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.damsel.wb_list.ListType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

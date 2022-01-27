@@ -2,19 +2,18 @@ package com.rbkmoney.fraudbusters.management.dao.payment.dataset;
 
 import com.rbkmoney.fraudbusters.management.dao.AbstractDao;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentModel;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.TestPaymentRecord;
 import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.fraudbusters.management.domain.tables.records.TestPaymentRecord;
 import org.jooq.DeleteConditionStep;
 import org.jooq.Query;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.fraudbusters.management.domain.Tables.TEST_PAYMENT;
+import static dev.vality.fraudbusters.management.domain.Tables.TEST_PAYMENT;
 
 @Component
 public class PaymentDaoImpl extends AbstractDao implements PaymentDao {

@@ -5,8 +5,8 @@ import com.rbkmoney.fraudbusters.management.dao.TemplateDao;
 import com.rbkmoney.fraudbusters.management.dao.condition.ConditionParameterSource;
 import com.rbkmoney.fraudbusters.management.domain.TemplateModel;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.FTemplateRecord;
 import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.fraudbusters.management.domain.tables.records.FTemplateRecord;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,10 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-
 import java.util.List;
 
-import static com.rbkmoney.fraudbusters.management.domain.tables.FTemplate.F_TEMPLATE;
+import static dev.vality.fraudbusters.management.domain.tables.FTemplate.F_TEMPLATE;
 
 @Component
 public class PaymentTemplateDao extends AbstractDao implements TemplateDao {

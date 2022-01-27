@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.service;
 
-import com.rbkmoney.damsel.fraudbusters_notificator.*;
 import com.rbkmoney.fraudbusters.management.exception.NotificatorCallException;
 import com.rbkmoney.fraudbusters.management.service.iface.ChannelService;
+import dev.vality.damsel.fraudbusters_notificator.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;

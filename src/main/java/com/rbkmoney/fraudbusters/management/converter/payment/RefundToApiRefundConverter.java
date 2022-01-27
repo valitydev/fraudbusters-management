@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
-import com.rbkmoney.swag.fraudbusters.management.model.Error;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.swag.fraudbusters.management.model.Error;
+import dev.vality.swag.fraudbusters.management.model.*;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RefundToApiRefundConverter
-        implements Converter<com.rbkmoney.damsel.fraudbusters.Refund, Refund> {
+        implements Converter<dev.vality.damsel.fraudbusters.Refund, Refund> {
 
     @NonNull
     @Override
-    public Refund convert(com.rbkmoney.damsel.fraudbusters.Refund refund) {
+    public Refund convert(dev.vality.damsel.fraudbusters.Refund refund) {
         var paymentTool = refund.getPaymentTool();
         var cost = refund.getCost();
         var referenceInfo = refund.getReferenceInfo();

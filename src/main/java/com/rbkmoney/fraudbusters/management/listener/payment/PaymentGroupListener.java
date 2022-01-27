@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.listener.payment;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
 import com.rbkmoney.fraudbusters.management.converter.CommandToGroupModelConverter;
 import com.rbkmoney.fraudbusters.management.dao.GroupDao;
 import com.rbkmoney.fraudbusters.management.listener.CommandListener;
 import com.rbkmoney.fraudbusters.management.service.iface.AuditService;
+import dev.vality.damsel.fraudbusters.Command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

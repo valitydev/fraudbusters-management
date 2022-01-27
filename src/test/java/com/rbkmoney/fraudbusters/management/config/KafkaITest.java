@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.config;
 
-import com.rbkmoney.testcontainers.annotations.KafkaSpringBootTest;
-import com.rbkmoney.testcontainers.annotations.kafka.KafkaTestcontainer;
+import dev.vality.testcontainers.annotations.KafkaSpringBootTest;
+import dev.vality.testcontainers.annotations.kafka.KafkaTestcontainer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;

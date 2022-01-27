@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.damsel.fraudbusters.*;
-import com.rbkmoney.swag.fraudbusters.management.model.ApplyRuleOnHistoricalDataSetRequest;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.damsel.fraudbusters.*;
+import dev.vality.swag.fraudbusters.management.model.ApplyRuleOnHistoricalDataSetRequest;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import lombok.AllArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
@@ -31,7 +31,7 @@ public class ApplyRuleOnHistoricalRequestToEmulationRuleApplyRequestConverter
                             .setPartyId(reference.getPartyId())
                             .setShopId(reference.getShopId())
                             .setTemplateId(EMULATION_TEMPLATE))
-                    .setTemplate(new com.rbkmoney.damsel.fraudbusters.Template()
+                    .setTemplate(new dev.vality.damsel.fraudbusters.Template()
                             .setId(EMULATION_TEMPLATE)
                             .setTemplate(request.getTemplate().getBytes()))
                     .setRuleSetTimestamp(request.getRuleSetTimestamp() != null
@@ -39,7 +39,7 @@ public class ApplyRuleOnHistoricalRequestToEmulationRuleApplyRequestConverter
                             : null));
         } else {
             emulationRule.setTemplateEmulation(new OnlyTemplateEmulation()
-                    .setTemplate(new com.rbkmoney.damsel.fraudbusters.Template()
+                    .setTemplate(new dev.vality.damsel.fraudbusters.Template()
                             .setId(EMULATION_TEMPLATE)
                             .setTemplate(request.getTemplate().getBytes())));
         }

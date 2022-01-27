@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.rbkmoney.fraudbusters.management.domain.payment.CheckedDataSetModel;
-import com.rbkmoney.swag.fraudbusters.management.model.CheckedDataSet;
-import com.rbkmoney.swag.fraudbusters.management.model.MerchantInfo;
+import dev.vality.swag.fraudbusters.management.model.CheckedDataSet;
+import dev.vality.swag.fraudbusters.management.model.MerchantInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

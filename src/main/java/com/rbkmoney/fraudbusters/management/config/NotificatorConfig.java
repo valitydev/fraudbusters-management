@@ -1,9 +1,9 @@
 package com.rbkmoney.fraudbusters.management.config;
 
-import com.rbkmoney.damsel.fraudbusters_notificator.ChannelServiceSrv;
-import com.rbkmoney.damsel.fraudbusters_notificator.NotificationServiceSrv;
-import com.rbkmoney.damsel.fraudbusters_notificator.NotificationTemplateServiceSrv;
-import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
+import dev.vality.damsel.fraudbusters_notificator.ChannelServiceSrv;
+import dev.vality.damsel.fraudbusters_notificator.NotificationServiceSrv;
+import dev.vality.damsel.fraudbusters_notificator.NotificationTemplateServiceSrv;
+import dev.vality.woody.thrift.impl.http.THSpawnClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

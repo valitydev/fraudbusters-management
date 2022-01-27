@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.converter;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
 import com.rbkmoney.fraudbusters.management.domain.TemplateModel;
+import dev.vality.damsel.fraudbusters.Command;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

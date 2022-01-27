@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.resource.payment;
 
-import com.rbkmoney.damsel.fraudbusters.HistoricalDataResponse;
-import com.rbkmoney.damsel.fraudbusters.HistoricalDataServiceSrv;
+import dev.vality.damsel.fraudbusters.HistoricalDataResponse;
+import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

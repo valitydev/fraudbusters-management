@@ -1,12 +1,12 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.damsel.domain.BankCard;
-import com.rbkmoney.damsel.domain.Cash;
-import com.rbkmoney.damsel.domain.CurrencyRef;
-import com.rbkmoney.damsel.domain.PaymentTool;
-import com.rbkmoney.damsel.fraudbusters.Error;
-import com.rbkmoney.damsel.fraudbusters.*;
-import com.rbkmoney.swag.fraudbusters.management.model.Payment;
+import dev.vality.damsel.domain.BankCard;
+import dev.vality.damsel.domain.Cash;
+import dev.vality.damsel.domain.CurrencyRef;
+import dev.vality.damsel.domain.PaymentTool;
+import dev.vality.damsel.fraudbusters.Error;
+import dev.vality.damsel.fraudbusters.*;
+import dev.vality.swag.fraudbusters.management.model.Payment;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -16,12 +16,12 @@ import java.util.Optional;
 
 @Component
 public class PaymentApiToPaymentConverter
-        implements Converter<Payment, com.rbkmoney.damsel.fraudbusters.Payment> {
+        implements Converter<Payment, dev.vality.damsel.fraudbusters.Payment> {
 
     @NonNull
     @Override
-    public com.rbkmoney.damsel.fraudbusters.Payment convert(Payment payment) {
-        return new com.rbkmoney.damsel.fraudbusters.Payment()
+    public dev.vality.damsel.fraudbusters.Payment convert(Payment payment) {
+        return new dev.vality.damsel.fraudbusters.Payment()
                 .setId(payment.getId())
                 .setClientInfo(createClientInfo(payment))
                 .setCost(createCash(payment))
@@ -69,7 +69,7 @@ public class PaymentApiToPaymentConverter
                 .setPartyId(payment.getMerchantInfo().getPartyId());
     }
 
-    private Error createError(com.rbkmoney.swag.fraudbusters.management.model.Payment payment) {
+    private Error createError(dev.vality.swag.fraudbusters.management.model.Payment payment) {
         return payment.getError() != null
                 ? new Error()
                 .setErrorCode(payment.getError().getErrorCode())
@@ -77,7 +77,7 @@ public class PaymentApiToPaymentConverter
                 : null;
     }
 
-    private ClientInfo createClientInfo(com.rbkmoney.swag.fraudbusters.management.model.Payment payment) {
+    private ClientInfo createClientInfo(dev.vality.swag.fraudbusters.management.model.Payment payment) {
         return payment.getClientInfo() != null
                 ? new ClientInfo()
                 .setIp(payment.getClientInfo().getIp())

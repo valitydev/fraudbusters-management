@@ -1,12 +1,12 @@
 package com.rbkmoney.fraudbusters.management.config;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
-import com.rbkmoney.damsel.fraudbusters.ReferenceInfo;
-import com.rbkmoney.damsel.wb_list.Event;
 import com.rbkmoney.fraudbusters.management.serializer.CommandFraudDeserializer;
 import com.rbkmoney.fraudbusters.management.serializer.EventDeserializer;
 import com.rbkmoney.fraudbusters.management.serializer.ReferenceInfoDeserializer;
 import com.rbkmoney.kafka.common.serialization.ThriftSerializer;
+import dev.vality.damsel.fraudbusters.Command;
+import dev.vality.damsel.fraudbusters.ReferenceInfo;
+import dev.vality.damsel.wb_list.Event;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;

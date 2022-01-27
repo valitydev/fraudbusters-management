@@ -1,13 +1,13 @@
 package com.rbkmoney.fraudbusters.management.service.payment;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
-import com.rbkmoney.damsel.fraudbusters.CommandType;
-import com.rbkmoney.damsel.fraudbusters.UserInfo;
 import com.rbkmoney.fraudbusters.management.converter.payment.GroupToCommandConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.PaymentGroupReferenceModelToCommandConverter;
 import com.rbkmoney.fraudbusters.management.service.CommandSender;
-import com.rbkmoney.swag.fraudbusters.management.model.Group;
-import com.rbkmoney.swag.fraudbusters.management.model.GroupReference;
+import dev.vality.damsel.fraudbusters.Command;
+import dev.vality.damsel.fraudbusters.CommandType;
+import dev.vality.damsel.fraudbusters.UserInfo;
+import dev.vality.swag.fraudbusters.management.model.Group;
+import dev.vality.swag.fraudbusters.management.model.GroupReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

@@ -18,9 +18,9 @@ import com.rbkmoney.fraudbusters.management.resource.payment.PaymentEmulateResou
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentEmulateService;
 import com.rbkmoney.fraudbusters.management.utils.GroupRowToModelMapper;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.model.EmulateResponse;
-import com.rbkmoney.swag.fraudbusters.management.model.Template;
-import com.rbkmoney.testcontainers.annotations.postgresql.PostgresqlTestcontainerSingleton;
+import dev.vality.swag.fraudbusters.management.model.EmulateResponse;
+import dev.vality.swag.fraudbusters.management.model.Template;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainerSingleton;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jooq.JooqTest;

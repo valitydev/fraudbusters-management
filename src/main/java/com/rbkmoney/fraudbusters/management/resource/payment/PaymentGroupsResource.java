@@ -12,8 +12,8 @@ import com.rbkmoney.fraudbusters.management.service.payment.PaymentGroupCommandS
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentGroupReferenceCommandService;
 import com.rbkmoney.fraudbusters.management.utils.PagingDataUtils;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsGroupsApi;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.swag.fraudbusters.management.api.PaymentsGroupsApi;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

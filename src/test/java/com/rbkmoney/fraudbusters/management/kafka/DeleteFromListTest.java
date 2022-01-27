@@ -1,14 +1,14 @@
 package com.rbkmoney.fraudbusters.management.kafka;
 
-import com.rbkmoney.damsel.wb_list.ChangeCommand;
-import com.rbkmoney.damsel.wb_list.Command;
-import com.rbkmoney.damsel.wb_list.ListType;
 import com.rbkmoney.fraudbusters.management.config.KafkaITest;
 import com.rbkmoney.fraudbusters.management.controller.ErrorController;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import com.rbkmoney.fraudbusters.management.resource.payment.PaymentsListsResource;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaConsumer;
+import dev.vality.damsel.wb_list.ChangeCommand;
+import dev.vality.damsel.wb_list.Command;
+import dev.vality.damsel.wb_list.ListType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.rnorth.ducttape.unreliables.Unreliables;
@@ -56,7 +56,7 @@ public class DeleteFromListTest {
         when(wbListDao.getById(test)).thenReturn(new WbListRecords("id",
                 "partyId",
                 "shopId",
-                com.rbkmoney.fraudbusters.management.domain.enums.ListType.white,
+                dev.vality.fraudbusters.management.domain.enums.ListType.white,
                 "test",
                 "test",
                 LocalDateTime.now(), null, null, LocalDateTime.now()));

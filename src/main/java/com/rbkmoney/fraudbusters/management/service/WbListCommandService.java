@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.service;
 
-import com.rbkmoney.damsel.wb_list.*;
 import com.rbkmoney.fraudbusters.management.exception.KafkaProduceException;
+import dev.vality.damsel.wb_list.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TBase;

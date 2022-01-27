@@ -1,13 +1,13 @@
 package com.rbkmoney.fraudbusters.management.resource.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.fraudbusters.HistoricalDataServiceSrv;
 import com.rbkmoney.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import com.rbkmoney.fraudbusters.management.domain.payment.DataSetModel;
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentsDataSetService;
 import com.rbkmoney.fraudbusters.management.utils.DataSourceBeanUtils;
-import com.rbkmoney.swag.fraudbusters.management.model.DataSet;
-import com.rbkmoney.swag.fraudbusters.management.model.Payment;
+import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
+import dev.vality.swag.fraudbusters.management.model.DataSet;
+import dev.vality.swag.fraudbusters.management.model.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
 
-import com.rbkmoney.damsel.wb_list.IdInfo;
-import com.rbkmoney.damsel.wb_list.PaymentId;
-import com.rbkmoney.damsel.wb_list.Row;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentListRecord;
+import dev.vality.damsel.wb_list.IdInfo;
+import dev.vality.damsel.wb_list.PaymentId;
+import dev.vality.damsel.wb_list.Row;
+import dev.vality.swag.fraudbusters.management.model.PaymentListRecord;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;

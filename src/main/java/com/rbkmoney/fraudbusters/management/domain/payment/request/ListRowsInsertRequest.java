@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.domain.payment.request;
 
-import com.rbkmoney.damsel.wb_list.ListType;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentCountInfo;
+import dev.vality.damsel.wb_list.ListType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

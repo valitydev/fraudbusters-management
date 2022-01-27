@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.filter;
 
 import com.rbkmoney.fraudbusters.management.dao.payment.template.PaymentTemplateDao;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

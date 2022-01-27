@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.converter.payment;
 
-import com.rbkmoney.damsel.fraudbusters.*;
 import com.rbkmoney.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import com.rbkmoney.fraudbusters.management.utils.DataSourceBeanUtils;
+import dev.vality.damsel.fraudbusters.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;

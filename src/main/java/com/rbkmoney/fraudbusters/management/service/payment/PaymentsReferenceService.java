@@ -1,12 +1,12 @@
 package com.rbkmoney.fraudbusters.management.service.payment;
 
-import com.rbkmoney.damsel.fraudbusters.CommandType;
 import com.rbkmoney.fraudbusters.management.converter.payment.PaymentReferenceModelToCommandConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.ReferenceToCommandConverter;
 import com.rbkmoney.fraudbusters.management.dao.payment.reference.PaymentReferenceDao;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentReferenceModel;
 import com.rbkmoney.fraudbusters.management.utils.CommandMapper;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentReference;
+import dev.vality.damsel.fraudbusters.CommandType;
+import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

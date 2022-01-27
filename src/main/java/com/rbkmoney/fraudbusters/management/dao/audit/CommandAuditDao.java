@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.dao.audit;
 
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
 
 import java.time.LocalDateTime;
 import java.util.List;

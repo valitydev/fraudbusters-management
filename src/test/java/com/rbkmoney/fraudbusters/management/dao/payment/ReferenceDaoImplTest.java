@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.rbkmoney.fraudbusters.management.domain.tables.FReference.F_REFERENCE;
+import static dev.vality.fraudbusters.management.domain.tables.FReference.F_REFERENCE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @PostgresqlJooqITest

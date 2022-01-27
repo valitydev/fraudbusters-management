@@ -1,6 +1,5 @@
 package com.rbkmoney.fraudbusters.management.resource.payment;
 
-import com.rbkmoney.damsel.wb_list.ListType;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
@@ -10,6 +9,7 @@ import com.rbkmoney.fraudbusters.management.utils.ParametersService;
 import com.rbkmoney.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
 import com.rbkmoney.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.damsel.wb_list.ListType;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.resource.utils;
 
-import com.rbkmoney.damsel.domain.*;
-import com.rbkmoney.damsel.fraudbusters.ClientInfo;
-import com.rbkmoney.damsel.fraudbusters.*;
+import dev.vality.damsel.domain.*;
+import dev.vality.damsel.fraudbusters.ClientInfo;
+import dev.vality.damsel.fraudbusters.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

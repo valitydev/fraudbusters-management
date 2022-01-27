@@ -1,7 +1,5 @@
 package com.rbkmoney.fraudbusters.management.resource.payment;
 
-import com.rbkmoney.damsel.fraudbusters.HistoricalDataServiceSrv;
-import com.rbkmoney.damsel.fraudbusters.HistoricalDataSetCheckResult;
 import com.rbkmoney.fraudbusters.management.converter.payment.*;
 import com.rbkmoney.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import com.rbkmoney.fraudbusters.management.domain.payment.DataSetModel;
@@ -9,8 +7,10 @@ import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
 import com.rbkmoney.fraudbusters.management.service.payment.PaymentsDataSetService;
 import com.rbkmoney.fraudbusters.management.utils.PagingDataUtils;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsDataSetApi;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
+import dev.vality.damsel.fraudbusters.HistoricalDataSetCheckResult;
+import dev.vality.swag.fraudbusters.management.api.PaymentsDataSetApi;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
@@ -19,7 +19,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

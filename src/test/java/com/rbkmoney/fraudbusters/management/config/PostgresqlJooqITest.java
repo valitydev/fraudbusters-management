@@ -1,6 +1,6 @@
 package com.rbkmoney.fraudbusters.management.config;
 
-import com.rbkmoney.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
 import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
 
 import java.lang.annotation.ElementType;

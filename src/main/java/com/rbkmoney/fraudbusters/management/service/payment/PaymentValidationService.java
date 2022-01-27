@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.service.payment;
 
-import com.rbkmoney.damsel.fraudbusters.PaymentServiceSrv;
-import com.rbkmoney.damsel.fraudbusters.Template;
-import com.rbkmoney.damsel.fraudbusters.TemplateValidateError;
 import com.rbkmoney.fraudbusters.management.exception.ValidationException;
 import com.rbkmoney.fraudbusters.management.service.iface.ValidationTemplateService;
+import dev.vality.damsel.fraudbusters.PaymentServiceSrv;
+import dev.vality.damsel.fraudbusters.Template;
+import dev.vality.damsel.fraudbusters.TemplateValidateError;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;

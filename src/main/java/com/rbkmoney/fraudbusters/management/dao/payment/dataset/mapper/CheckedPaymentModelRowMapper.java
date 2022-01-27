@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.rbkmoney.fraudbusters.management.domain.Tables.TEST_PAYMENT;
-import static com.rbkmoney.fraudbusters.management.domain.Tables.TEST_PAYMENT_CHECKING_RESULT;
+import static dev.vality.fraudbusters.management.domain.Tables.TEST_PAYMENT;
+import static dev.vality.fraudbusters.management.domain.Tables.TEST_PAYMENT_CHECKING_RESULT;
 
 public class CheckedPaymentModelRowMapper implements RowMapper<CheckedPaymentModel> {
 

@@ -1,9 +1,9 @@
 package com.rbkmoney.fraudbusters.management.dao.payment.wblist;
 
 import com.rbkmoney.fraudbusters.management.dao.CdDao;
-import com.rbkmoney.fraudbusters.management.domain.enums.ListType;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.fraudbusters.management.domain.enums.ListType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;

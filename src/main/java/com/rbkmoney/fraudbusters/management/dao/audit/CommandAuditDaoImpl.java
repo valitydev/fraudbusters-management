@@ -2,20 +2,19 @@ package com.rbkmoney.fraudbusters.management.dao.audit;
 
 import com.rbkmoney.fraudbusters.management.dao.AbstractDao;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.CommandAudit;
-import com.rbkmoney.fraudbusters.management.domain.tables.records.CommandAuditRecord;
 import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.fraudbusters.management.domain.tables.records.CommandAuditRecord;
 import org.jooq.*;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.rbkmoney.fraudbusters.management.domain.tables.CommandAudit.COMMAND_AUDIT;
+import static dev.vality.fraudbusters.management.domain.tables.CommandAudit.COMMAND_AUDIT;
 
 @Component
 public class CommandAuditDaoImpl extends AbstractDao implements CommandAuditDao {

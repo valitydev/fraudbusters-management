@@ -1,14 +1,14 @@
 package com.rbkmoney.fraudbusters.management.resource;
 
-import com.rbkmoney.damsel.fraudbusters.CommandType;
-import com.rbkmoney.fraudbusters.management.domain.enums.ObjectType;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
 import com.rbkmoney.fraudbusters.management.service.iface.AuditService;
 import com.rbkmoney.fraudbusters.management.utils.PagingDataUtils;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.AuditApi;
-import com.rbkmoney.swag.fraudbusters.management.model.FilterLogsResponse;
-import com.rbkmoney.swag.fraudbusters.management.model.ListResponse;
+import dev.vality.damsel.fraudbusters.CommandType;
+import dev.vality.fraudbusters.management.domain.enums.ObjectType;
+import dev.vality.swag.fraudbusters.management.api.AuditApi;
+import dev.vality.swag.fraudbusters.management.model.FilterLogsResponse;
+import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

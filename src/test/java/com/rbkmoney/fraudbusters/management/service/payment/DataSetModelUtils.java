@@ -2,7 +2,7 @@ package com.rbkmoney.fraudbusters.management.service.payment;
 
 import com.rbkmoney.fraudbusters.management.domain.payment.DataSetModel;
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentModel;
-import com.rbkmoney.swag.fraudbusters.management.model.Payment;
+import dev.vality.swag.fraudbusters.management.model.Payment;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,7 +1,5 @@
 package com.rbkmoney.fraudbusters.management.resource.payment;
 
-import com.rbkmoney.damsel.fraudbusters.CommandType;
-import com.rbkmoney.damsel.fraudbusters.TemplateValidateError;
 import com.rbkmoney.fraudbusters.management.converter.payment.TemplateValidateErrorsToValidateTemplateResponseConverter;
 import com.rbkmoney.fraudbusters.management.dao.TemplateDao;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
@@ -11,8 +9,10 @@ import com.rbkmoney.fraudbusters.management.service.payment.PaymentsTemplatesSer
 import com.rbkmoney.fraudbusters.management.utils.CommandMapper;
 import com.rbkmoney.fraudbusters.management.utils.PagingDataUtils;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsTemplatesApi;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.damsel.fraudbusters.CommandType;
+import dev.vality.damsel.fraudbusters.TemplateValidateError;
+import dev.vality.swag.fraudbusters.management.api.PaymentsTemplatesApi;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
 import java.util.List;
 
 @Slf4j
@@ -61,7 +60,7 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<CreateTemplateResponse> insertTemplate(
-            com.rbkmoney.swag.fraudbusters.management.model.@Valid Template template) {
+            dev.vality.swag.fraudbusters.management.model.@Valid Template template) {
         String userName = userInfoService.getUserName();
         log.info("insertTemplate initiator: {} templateModel: {}", userName,
                 template);
@@ -85,7 +84,7 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
         log.info("validateTemplate initiator: {} templateModel: {}", userInfoService.getUserName(),
                 template);
         List<TemplateValidateError> templateValidateErrors = paymentValidationService.validateTemplate(
-                new com.rbkmoney.damsel.fraudbusters.Template()
+                new dev.vality.damsel.fraudbusters.Template()
                         .setId(template.getId())
                         .setTemplate(template.getTemplate().getBytes()));
         log.info("validateTemplate result: {}", templateValidateErrors);

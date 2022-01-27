@@ -2,7 +2,6 @@ package com.rbkmoney.fraudbusters.management.resource.notificator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.rbkmoney.damsel.fraudbusters_notificator.*;
 import com.rbkmoney.fraudbusters.management.TestObjectFactory;
 import com.rbkmoney.fraudbusters.management.controller.ErrorController;
 import com.rbkmoney.fraudbusters.management.resource.notificator.converter.ChannelConverter;
@@ -12,10 +11,11 @@ import com.rbkmoney.fraudbusters.management.resource.notificator.converter.Valid
 import com.rbkmoney.fraudbusters.management.service.ChannelServiceImpl;
 import com.rbkmoney.fraudbusters.management.service.NotificationServiceImpl;
 import com.rbkmoney.fraudbusters.management.service.NotificationTemplateServiceImpl;
-import com.rbkmoney.swag.fraudbusters.management.model.Channel;
-import com.rbkmoney.swag.fraudbusters.management.model.Notification;
-import com.rbkmoney.swag.fraudbusters.management.model.ValidationError;
-import com.rbkmoney.swag.fraudbusters.management.model.ValidationResponse;
+import dev.vality.damsel.fraudbusters_notificator.*;
+import dev.vality.swag.fraudbusters.management.model.Channel;
+import dev.vality.swag.fraudbusters.management.model.Notification;
+import dev.vality.swag.fraudbusters.management.model.ValidationError;
+import dev.vality.swag.fraudbusters.management.model.ValidationResponse;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rbkmoney.damsel.fraudbusters_notificator.fraudbusters_notificatorConstants.VALIDATION_ERROR;
 import static com.rbkmoney.fraudbusters.management.controller.ErrorController.NOTIFICATOR_CALL_EXCEPTION;
+import static dev.vality.damsel.fraudbusters_notificator.fraudbusters_notificatorConstants.VALIDATION_ERROR;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,7 +74,7 @@ class NotificationResourceTest {
     @Test
     void createChannelWithErrorCall() throws Exception {
         Channel channel = TestObjectFactory.testChannel();
-        when(channelClient.create(any(com.rbkmoney.damsel.fraudbusters_notificator.Channel.class)))
+        when(channelClient.create(any(dev.vality.damsel.fraudbusters_notificator.Channel.class)))
                 .thenThrow(new TException());
 
         mockMvc.perform(post("/notifications/channels")
@@ -88,10 +88,10 @@ class NotificationResourceTest {
     @Test
     void createChannel() throws Exception {
         Channel channel = TestObjectFactory.testChannel();
-        var convertChannel = new com.rbkmoney.damsel.fraudbusters_notificator.Channel()
+        var convertChannel = new dev.vality.damsel.fraudbusters_notificator.Channel()
                 .setDestination(channel.getDestination())
                 .setName(channel.getName());
-        when(channelClient.create(any(com.rbkmoney.damsel.fraudbusters_notificator.Channel.class)))
+        when(channelClient.create(any(dev.vality.damsel.fraudbusters_notificator.Channel.class)))
                 .thenReturn(convertChannel);
 
         MvcResult result = mockMvc.perform(post("/notifications/channels")
@@ -103,13 +103,13 @@ class NotificationResourceTest {
         Channel resultChannel = objectMapper.readValue(result.getResponse().getContentAsString(), Channel.class);
         assertEquals(convertChannel.getName(), resultChannel.getName());
         assertEquals(convertChannel.getDestination(), resultChannel.getDestination());
-        verify(channelClient, times(1)).create(any(com.rbkmoney.damsel.fraudbusters_notificator.Channel.class));
+        verify(channelClient, times(1)).create(any(dev.vality.damsel.fraudbusters_notificator.Channel.class));
     }
 
     @Test
     void createOrUpdateNotificationWithErrorCall() throws Exception {
         Notification notification = TestObjectFactory.testNotification();
-        when(notificationClient.create(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class)))
+        when(notificationClient.create(any(dev.vality.damsel.fraudbusters_notificator.Notification.class)))
                 .thenThrow(new TException());
 
         mockMvc.perform(post("/notifications")
@@ -124,7 +124,7 @@ class NotificationResourceTest {
     void createOrUpdateNotificationWithValidationErrorCall() throws Exception {
         Notification notification = TestObjectFactory.testNotification();
         String reason = "Error call";
-        when(notificationClient.create(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class)))
+        when(notificationClient.create(any(dev.vality.damsel.fraudbusters_notificator.Notification.class)))
                 .thenThrow(new NotificationServiceException()
                         .setCode(VALIDATION_ERROR)
                         .setReason(reason));
@@ -140,11 +140,11 @@ class NotificationResourceTest {
     @Test
     void createOrUpdateNotification() throws Exception {
         Notification notification = TestObjectFactory.testNotification();
-        var convertNotification = new com.rbkmoney.damsel.fraudbusters_notificator.Notification()
+        var convertNotification = new dev.vality.damsel.fraudbusters_notificator.Notification()
                 .setName(notification.getName())
                 .setSubject(notification.getSubject())
                 .setTemplateId(notification.getTemplateId());
-        when(notificationClient.create(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class)))
+        when(notificationClient.create(any(dev.vality.damsel.fraudbusters_notificator.Notification.class)))
                 .thenReturn(convertNotification);
 
         MvcResult result = mockMvc.perform(post("/notifications")
@@ -159,7 +159,7 @@ class NotificationResourceTest {
         assertEquals(convertNotification.getSubject(), resultNotification.getSubject());
         assertEquals(convertNotification.getTemplateId(), resultNotification.getTemplateId());
         verify(notificationClient, times(1))
-                .create(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class));
+                .create(any(dev.vality.damsel.fraudbusters_notificator.Notification.class));
     }
 
     @Test
@@ -167,7 +167,7 @@ class NotificationResourceTest {
         String channelName = TestObjectFactory.randomString();
         doThrow(new TException()).when(channelClient).remove(channelName);
 
-        mockMvc.perform(delete("/notifications/channels/{name}", channelName))
+        mockMvc.perform(delete("/notifications/channels/channel/{name}", channelName))
                 .andExpect(status().isBadGateway())
                 .andExpect(jsonPath("$.code", is(NOTIFICATOR_CALL_EXCEPTION)))
                 .andExpect(jsonPath("$.message", is("Error call notificator remove channel")));
@@ -177,7 +177,7 @@ class NotificationResourceTest {
     void removeChannel() throws Exception {
         String channelName = TestObjectFactory.randomString();
 
-        mockMvc.perform(delete("/notifications/channels/{name}", channelName))
+        mockMvc.perform(delete("/notifications/channels/channel/{name}", channelName))
                 .andExpect(status().isNoContent())
                 .andReturn();
 
@@ -209,7 +209,7 @@ class NotificationResourceTest {
     @Test
     void validateNotificationWithErrorCall() throws Exception {
         Notification notification = TestObjectFactory.testNotification();
-        when(notificationClient.validate(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class)))
+        when(notificationClient.validate(any(dev.vality.damsel.fraudbusters_notificator.Notification.class)))
                 .thenThrow(new TException());
 
         mockMvc.perform(post("/notifications/validation")
@@ -223,9 +223,9 @@ class NotificationResourceTest {
     @Test
     void validateNotificationWithResult() throws Exception {
         Notification notification = TestObjectFactory.testNotification();
-        var convertValidationResponse = new com.rbkmoney.damsel.fraudbusters_notificator.ValidationResponse();
+        var convertValidationResponse = new dev.vality.damsel.fraudbusters_notificator.ValidationResponse();
         convertValidationResponse.setResult(TestObjectFactory.randomString());
-        when(notificationClient.validate(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class)))
+        when(notificationClient.validate(any(dev.vality.damsel.fraudbusters_notificator.Notification.class)))
                 .thenReturn(convertValidationResponse);
 
         MvcResult result = mockMvc.perform(post("/notifications/validation")
@@ -245,10 +245,10 @@ class NotificationResourceTest {
     @Test
     void validateNotificationWithErrors() throws Exception {
         Notification notification = TestObjectFactory.testNotification();
-        var convertValidationResponse = new com.rbkmoney.damsel.fraudbusters_notificator.ValidationResponse();
+        var convertValidationResponse = new dev.vality.damsel.fraudbusters_notificator.ValidationResponse();
         List<String> errors = List.of(TestObjectFactory.randomString(), TestObjectFactory.randomString());
         convertValidationResponse.setErrors(errors);
-        when(notificationClient.validate(any(com.rbkmoney.damsel.fraudbusters_notificator.Notification.class)))
+        when(notificationClient.validate(any(dev.vality.damsel.fraudbusters_notificator.Notification.class)))
                 .thenReturn(convertValidationResponse);
 
         MvcResult result = mockMvc.perform(post("/notifications/validation")
@@ -381,8 +381,8 @@ class NotificationResourceTest {
                 .getById(name))
                 .thenReturn(channel);
 
-        mockMvc.perform(get("/notifications/channels/{id}", name)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/notifications/channels/channel/{id}", name)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(channel.getName())))
                 .andExpect(jsonPath("$.destination", is(channel.getDestination())));
@@ -395,8 +395,8 @@ class NotificationResourceTest {
                 .getById(name))
                 .thenThrow(new TException());
 
-        mockMvc.perform(get("/notifications/channels/{name}", name)
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/notifications/channels/channel/{name}", name)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadGateway())
                 .andExpect(jsonPath("$.code", is(NOTIFICATOR_CALL_EXCEPTION)))
                 .andExpect(jsonPath("$.message", is("Error call notificator getById channel")));
@@ -404,13 +404,13 @@ class NotificationResourceTest {
 
     @Test
     void updateNotificationStatusWithErrorCall() throws Exception {
-        var status = com.rbkmoney.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue();
+        var status = dev.vality.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue();
         long id = 1L;
         doThrow(new TException()).when(notificationClient).updateStatus(id, NotificationStatus.valueOf(status));
 
         mockMvc.perform(put("/notifications/{id}/status", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(com.rbkmoney.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dev.vality.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue()))
                 .andExpect(status().isBadGateway())
                 .andExpect(jsonPath("$.code", is(NOTIFICATOR_CALL_EXCEPTION)))
                 .andExpect(jsonPath("$.message", is("Error call notificator update notification status")));
@@ -420,12 +420,12 @@ class NotificationResourceTest {
 
     @Test
     void updateNotificationStatus() throws Exception {
-        var status = com.rbkmoney.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue();
+        var status = dev.vality.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue();
         long id = 1L;
 
         mockMvc.perform(put("/notifications/{id}/status", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(com.rbkmoney.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dev.vality.swag.fraudbusters.management.model.NotificationStatus.ACTIVE.getValue()))
                 .andExpect(status().isNoContent())
                 .andReturn();
 
@@ -448,7 +448,7 @@ class NotificationResourceTest {
     @Test
     void getChannelTypes() throws Exception {
         var channelTypes =
-                List.of(com.rbkmoney.swag.fraudbusters.management.model.ChannelType.MAIL.getValue());
+                List.of(dev.vality.swag.fraudbusters.management.model.ChannelType.MAIL.getValue());
         when(channelClient.getAllTypes()).thenReturn(new ChannelTypeListResponse().setChannelTypes(channelTypes));
 
         mockMvc.perform(get("/notifications/channels/types"))

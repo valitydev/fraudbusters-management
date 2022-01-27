@@ -1,7 +1,5 @@
 package com.rbkmoney.fraudbusters.management.resource.notificator;
 
-import com.rbkmoney.damsel.fraudbusters_notificator.Filter;
-import com.rbkmoney.damsel.fraudbusters_notificator.Page;
 import com.rbkmoney.fraudbusters.management.resource.notificator.converter.ChannelConverter;
 import com.rbkmoney.fraudbusters.management.resource.notificator.converter.NotificationConverter;
 import com.rbkmoney.fraudbusters.management.resource.notificator.converter.NotificationTemplateConverter;
@@ -9,8 +7,10 @@ import com.rbkmoney.fraudbusters.management.resource.notificator.converter.Valid
 import com.rbkmoney.fraudbusters.management.service.iface.ChannelService;
 import com.rbkmoney.fraudbusters.management.service.iface.NotificationService;
 import com.rbkmoney.fraudbusters.management.service.iface.NotificationTemplateService;
-import com.rbkmoney.swag.fraudbusters.management.api.NotificationsApi;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
+import dev.vality.damsel.fraudbusters_notificator.Filter;
+import dev.vality.damsel.fraudbusters_notificator.Page;
+import dev.vality.swag.fraudbusters.management.api.NotificationsApi;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,7 +87,7 @@ public class NotificationResource implements NotificationsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<ValidationResponse> validateNotification(
-            com.rbkmoney.swag.fraudbusters.management.model.@Valid Notification notification) {
+            dev.vality.swag.fraudbusters.management.model.@Valid Notification notification) {
         var validationResponse = notificationService.validate(notificationConverter.toSource(notification));
         ValidationResponse response = validationConverter.convert(validationResponse);
         log.info("NotificationResource validate notification with result {}", response);
@@ -99,7 +98,7 @@ public class NotificationResource implements NotificationsApi {
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<Void> updateNotificationStatus(Long id,
                                                          @Valid String notificationStatus) {
-        var status = com.rbkmoney.damsel.fraudbusters_notificator.NotificationStatus
+        var status = dev.vality.damsel.fraudbusters_notificator.NotificationStatus
                 .valueOf(notificationStatus);
         notificationService.updateStatus(id, status);
         log.info("NotificationResource update notification status: {}", notificationStatus);

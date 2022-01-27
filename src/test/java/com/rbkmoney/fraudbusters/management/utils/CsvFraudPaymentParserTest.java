@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
-import com.rbkmoney.damsel.fraudbusters.FraudPayment;
 import com.rbkmoney.fraudbusters.management.utils.parser.CsvFraudPaymentParser;
+import dev.vality.damsel.fraudbusters.FraudPayment;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.Test;

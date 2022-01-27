@@ -7,10 +7,10 @@ import com.rbkmoney.fraudbusters.management.utils.PagingDataUtils;
 import com.rbkmoney.fraudbusters.management.utils.ParametersService;
 import com.rbkmoney.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
-import com.rbkmoney.swag.fraudbusters.management.api.PaymentsListsApi;
-import com.rbkmoney.swag.fraudbusters.management.model.ListResponse;
-import com.rbkmoney.swag.fraudbusters.management.model.RowListRequest;
-import com.rbkmoney.swag.fraudbusters.management.model.WbListRecordsResponse;
+import dev.vality.swag.fraudbusters.management.api.PaymentsListsApi;
+import dev.vality.swag.fraudbusters.management.model.ListResponse;
+import dev.vality.swag.fraudbusters.management.model.RowListRequest;
+import dev.vality.swag.fraudbusters.management.model.WbListRecordsResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
 
 @Slf4j
@@ -65,7 +64,7 @@ public class PaymentsListsResource implements PaymentsListsApi {
         log.info("insertRowsToList initiator: {} request {}", userInfoService.getUserName(), request);
         return wbListCommandService.sendListRecords(
                 request.getRecords(),
-                com.rbkmoney.damsel.wb_list.ListType.valueOf(request.getListType().getValue()),
+                dev.vality.damsel.wb_list.ListType.valueOf(request.getListType().getValue()),
                 paymentCountInfoGenerator::initRow,
                 userInfoService.getUserName());
     }

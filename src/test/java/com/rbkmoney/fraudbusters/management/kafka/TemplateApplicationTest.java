@@ -1,9 +1,5 @@
 package com.rbkmoney.fraudbusters.management.kafka;
 
-import com.rbkmoney.damsel.fraudbusters.MerchantInfo;
-import com.rbkmoney.damsel.fraudbusters.PaymentServiceSrv;
-import com.rbkmoney.damsel.fraudbusters.ReferenceInfo;
-import com.rbkmoney.damsel.fraudbusters.ValidateTemplateResponse;
 import com.rbkmoney.fraudbusters.management.config.KafkaITest;
 import com.rbkmoney.fraudbusters.management.dao.payment.DefaultPaymentReferenceDaoImpl;
 import com.rbkmoney.fraudbusters.management.dao.payment.group.PaymentGroupDao;
@@ -21,8 +17,12 @@ import com.rbkmoney.fraudbusters.management.resource.payment.PaymentGroupsResour
 import com.rbkmoney.fraudbusters.management.resource.payment.PaymentsReferenceResource;
 import com.rbkmoney.fraudbusters.management.resource.payment.PaymentsTemplatesResource;
 import com.rbkmoney.fraudbusters.management.service.iface.AuditService;
-import com.rbkmoney.swag.fraudbusters.management.model.*;
-import com.rbkmoney.testcontainers.annotations.kafka.config.KafkaProducer;
+import dev.vality.damsel.fraudbusters.MerchantInfo;
+import dev.vality.damsel.fraudbusters.PaymentServiceSrv;
+import dev.vality.damsel.fraudbusters.ReferenceInfo;
+import dev.vality.damsel.fraudbusters.ValidateTemplateResponse;
+import dev.vality.swag.fraudbusters.management.model.*;
+import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.Test;

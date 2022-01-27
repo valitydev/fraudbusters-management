@@ -1,19 +1,19 @@
 package com.rbkmoney.fraudbusters.management.service.payment;
 
-import com.rbkmoney.damsel.wb_list.Command;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
-import com.rbkmoney.fraudbusters.management.domain.enums.ListType;
 import com.rbkmoney.fraudbusters.management.domain.request.FilterRequest;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import com.rbkmoney.fraudbusters.management.exception.NotFoundException;
 import com.rbkmoney.fraudbusters.management.service.WbListCommandService;
 import com.rbkmoney.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import com.rbkmoney.fraudbusters.management.utils.UserInfoService;
 import com.rbkmoney.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
-import com.rbkmoney.swag.fraudbusters.management.model.PaymentCountInfo;
-import com.rbkmoney.swag.fraudbusters.management.model.WbListRecordsResponse;
+import dev.vality.damsel.wb_list.Command;
+import dev.vality.fraudbusters.management.domain.enums.ListType;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
+import dev.vality.swag.fraudbusters.management.model.WbListRecordsResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,7 +56,7 @@ public class PaymentsListsService {
                 log.info("Insert from csv paymentCountInfos size: {}", paymentCountInfos.size());
                 wbListCommandService.sendListRecords(
                         paymentCountInfos,
-                        com.rbkmoney.damsel.wb_list.ListType.valueOf(listType),
+                        dev.vality.damsel.wb_list.ListType.valueOf(listType),
                         paymentCountInfoGenerator::initRow,
                         initiator);
                 log.info("Insert loaded fraudPayments: {}", paymentCountInfos);
@@ -76,7 +76,7 @@ public class PaymentsListsService {
         log.info("removeRowFromList initiator: {} record {}", userInfoService.getUserName(), wbListRecord);
         var row = wbListRecordToRowConverter.convert(wbListRecord);
         return wbListCommandService.sendCommandSync(row,
-                com.rbkmoney.damsel.wb_list.ListType.valueOf(wbListRecord.getListType().name()),
+                dev.vality.damsel.wb_list.ListType.valueOf(wbListRecord.getListType().name()),
                 Command.DELETE,
                 userInfoService.getUserName());
     }

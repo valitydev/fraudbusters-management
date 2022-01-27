@@ -1,8 +1,8 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
-import com.rbkmoney.damsel.fraudbusters.CommandType;
-import com.rbkmoney.damsel.fraudbusters.UserInfo;
+import dev.vality.damsel.fraudbusters.Command;
+import dev.vality.damsel.fraudbusters.CommandType;
+import dev.vality.damsel.fraudbusters.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

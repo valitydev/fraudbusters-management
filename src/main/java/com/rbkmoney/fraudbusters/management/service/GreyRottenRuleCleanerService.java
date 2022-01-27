@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.service;
 
-import com.rbkmoney.damsel.wb_list.Command;
-import com.rbkmoney.damsel.wb_list.Row;
 import com.rbkmoney.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import com.rbkmoney.fraudbusters.management.dao.payment.wblist.WbListDao;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.damsel.wb_list.Command;
+import dev.vality.damsel.wb_list.Row;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +39,7 @@ public class GreyRottenRuleCleanerService {
                     Row row = wbListRecordToRowConverter.convert(record);
                     wbListCommandService.sendCommandSync(
                             row,
-                            com.rbkmoney.damsel.wb_list.ListType.valueOf(record.getListType().name()),
+                            dev.vality.damsel.wb_list.ListType.valueOf(record.getListType().name()),
                             Command.DELETE,
                             CLEAN_INITIATOR);
                 }

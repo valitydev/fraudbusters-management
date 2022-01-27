@@ -1,6 +1,6 @@
 package com.rbkmoney.fraudbusters.management.utils;
 
-import com.rbkmoney.damsel.fraudbusters.TemplateReference;
+import dev.vality.damsel.fraudbusters.TemplateReference;
 import io.micrometer.shaded.io.netty.util.internal.StringUtil;
 
 public class ReferenceKeyGenerator {

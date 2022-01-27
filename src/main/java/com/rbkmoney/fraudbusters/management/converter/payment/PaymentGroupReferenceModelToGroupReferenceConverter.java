@@ -2,7 +2,7 @@ package com.rbkmoney.fraudbusters.management.converter.payment;
 
 import com.rbkmoney.fraudbusters.management.domain.payment.PaymentGroupReferenceModel;
 import com.rbkmoney.fraudbusters.management.utils.DateTimeUtils;
-import com.rbkmoney.swag.fraudbusters.management.model.GroupReference;
+import dev.vality.swag.fraudbusters.management.model.GroupReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PaymentGroupReferenceModelToGroupReferenceConverter implements
-        Converter<PaymentGroupReferenceModel, com.rbkmoney.swag.fraudbusters.management.model.GroupReference> {
+        Converter<PaymentGroupReferenceModel, dev.vality.swag.fraudbusters.management.model.GroupReference> {
 
     @Override
-    public com.rbkmoney.swag.fraudbusters.management.model.GroupReference convert(
+    public dev.vality.swag.fraudbusters.management.model.GroupReference convert(
             PaymentGroupReferenceModel groupReferenceModel) {
         return new GroupReference()
                 .id(groupReferenceModel.getId())

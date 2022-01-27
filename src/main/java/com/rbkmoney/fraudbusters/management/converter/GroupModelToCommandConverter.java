@@ -1,10 +1,10 @@
 package com.rbkmoney.fraudbusters.management.converter;
 
-import com.rbkmoney.damsel.fraudbusters.Command;
-import com.rbkmoney.damsel.fraudbusters.CommandBody;
-import com.rbkmoney.damsel.fraudbusters.Group;
-import com.rbkmoney.damsel.fraudbusters.PriorityId;
 import com.rbkmoney.fraudbusters.management.domain.GroupModel;
+import dev.vality.damsel.fraudbusters.Command;
+import dev.vality.damsel.fraudbusters.CommandBody;
+import dev.vality.damsel.fraudbusters.Group;
+import dev.vality.damsel.fraudbusters.PriorityId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;

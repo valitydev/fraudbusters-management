@@ -1,7 +1,7 @@
 package com.rbkmoney.fraudbusters.management.converter;
 
-import com.rbkmoney.damsel.wb_list.*;
-import com.rbkmoney.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.damsel.wb_list.*;
+import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 

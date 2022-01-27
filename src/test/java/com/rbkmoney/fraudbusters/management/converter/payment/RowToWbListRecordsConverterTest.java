@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.ZoneOffset;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

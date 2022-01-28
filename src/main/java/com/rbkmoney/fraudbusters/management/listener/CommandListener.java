@@ -13,14 +13,9 @@ public abstract class CommandListener {
                               Consumer<R> deleteConsumer) {
         R model = converter.convert(command);
         switch (command.getCommandType()) {
-            case CREATE:
-                createConsumer.accept(model);
-                break;
-            case DELETE:
-                deleteConsumer.accept(model);
-                break;
-            default:
-                log.warn("CommandType not found! groupModel: {}", model);
+            case CREATE -> createConsumer.accept(model);
+            case DELETE -> deleteConsumer.accept(model);
+            default -> log.warn("CommandType not found! groupModel: {}", model);
         }
     }
 }

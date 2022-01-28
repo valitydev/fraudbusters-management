@@ -21,8 +21,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
+import org.springframework.kafka.listener.CommonLoggingErrorHandler;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
-import org.springframework.kafka.listener.LoggingErrorHandler;
 
 import java.io.File;
 import java.util.HashMap;
@@ -81,7 +81,7 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, Event> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
-        factory.setErrorHandler(new LoggingErrorHandler());
+        factory.setCommonErrorHandler(new CommonLoggingErrorHandler());
         return factory;
     }
 
@@ -114,7 +114,7 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, ReferenceInfo> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerReferenceInfoFactory);
-        factory.setErrorHandler(new LoggingErrorHandler());
+        factory.setCommonErrorHandler(new CommonLoggingErrorHandler());
         return factory;
     }
 
@@ -151,7 +151,7 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, Command> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerReferenceFactory);
-        factory.setErrorHandler(new LoggingErrorHandler());
+        factory.setCommonErrorHandler(new CommonLoggingErrorHandler());
         factory.setConcurrency(1);
         return factory;
     }

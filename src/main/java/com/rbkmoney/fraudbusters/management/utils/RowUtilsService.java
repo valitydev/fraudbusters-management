@@ -21,18 +21,13 @@ public class RowUtilsService {
     private final ObjectMapper objectMapper;
 
     public ListType initListType(Row destination) {
-        switch (destination.getListType()) {
-            case grey:
-                return ListType.grey;
-            case black:
-                return ListType.black;
-            case white:
-                return ListType.white;
-            case naming:
-                return ListType.naming;
-            default:
-                throw new RuntimeException("Unknown list type!");
-        }
+        return switch (destination.getListType()) {
+            case grey -> ListType.grey;
+            case black -> ListType.black;
+            case white -> ListType.white;
+            case naming -> ListType.naming;
+            default -> throw new RuntimeException("Unknown list type!");
+        };
     }
 
     public String initRowInfo(Row destination) {

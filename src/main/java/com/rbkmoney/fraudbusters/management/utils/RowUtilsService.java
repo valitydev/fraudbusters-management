@@ -26,7 +26,6 @@ public class RowUtilsService {
             case black -> ListType.black;
             case white -> ListType.white;
             case naming -> ListType.naming;
-            default -> throw new RuntimeException("Unknown list type!");
         };
     }
 

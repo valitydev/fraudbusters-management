@@ -39,7 +39,7 @@ public class ApplyRuleOnHistoricalRequestToEmulationRuleApplyRequestConverter
                             : null));
         } else {
             emulationRule.setTemplateEmulation(new OnlyTemplateEmulation()
-                    .setTemplate(new dev.vality.damsel.fraudbusters.Template()
+                    .setTemplate(new Template()
                             .setId(EMULATION_TEMPLATE)
                             .setTemplate(request.getTemplate().getBytes())));
         }

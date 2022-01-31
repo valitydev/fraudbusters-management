@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.resource;
 
-import com.rbkmoney.fraudbusters.management.converter.payment.TemplateModelToTemplateConverterImpl;
+import dev.vality.fraudbusters.management.converter.payment.TemplateModelToTemplateConverterImpl;
 import dev.vality.fraudbusters.management.dao.GroupDao;
 import dev.vality.fraudbusters.management.dao.TemplateDao;
 import dev.vality.fraudbusters.management.dao.payment.group.GroupReferenceDaoImpl;

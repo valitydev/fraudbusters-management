@@ -1,7 +1,8 @@
 package dev.vality.fraudbusters.management;
 
 import com.rbkmoney.dao.DaoException;
-import com.rbkmoney.fraudbusters.management.converter.payment.*;
+import dev.vality.damsel.wb_list.ListType;
+import dev.vality.fraudbusters.management.converter.payment.*;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.domain.ListRecord;
 import dev.vality.fraudbusters.management.domain.payment.PaymentCountInfo;
@@ -14,11 +15,8 @@ import dev.vality.fraudbusters.management.resource.payment.PaymentsListsResource
 import dev.vality.fraudbusters.management.service.WbListCommandService;
 import dev.vality.fraudbusters.management.service.iface.AuditService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
-import com.rbkmoney.fraudbusters.management.utils.*;
-import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
-import dev.vality.damsel.wb_list.ListType;
-import dev.vality.fraudbusters.management.converter.payment.*;
 import dev.vality.fraudbusters.management.utils.*;
+import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

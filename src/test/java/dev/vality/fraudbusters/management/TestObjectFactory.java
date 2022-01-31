@@ -3,6 +3,7 @@ package dev.vality.fraudbusters.management;
 import dev.vality.damsel.fraudbusters_notificator.ChannelType;
 import dev.vality.damsel.fraudbusters_notificator.NotificationStatus;
 import dev.vality.damsel.wb_list.*;
+import dev.vality.fraudbusters.management.domain.enums.ListType;
 import dev.vality.fraudbusters.management.domain.payment.PaymentCountInfo;
 import dev.vality.fraudbusters.management.domain.payment.PaymentListRecord;
 import dev.vality.fraudbusters.management.domain.payment.request.ListRowsInsertRequest;
@@ -31,7 +32,7 @@ public abstract class TestObjectFactory {
         row.setId(idInfo);
         row.setListName(randomString());
         row.setValue(randomString());
-        row.setListType(ListType.grey);
+        row.setListType(dev.vality.damsel.wb_list.ListType.grey);
         CountInfo countInfo = new CountInfo();
         countInfo.setTimeToLive(Instant.now().toString());
         RowInfo rowInfo = new RowInfo();
@@ -48,7 +49,7 @@ public abstract class TestObjectFactory {
         WbListRecordsRecord listRecord = new WbListRecordsRecord();
         listRecord.setId(id);
         listRecord.setListName(randomString());
-        listRecord.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
+        listRecord.setListType(ListType.black);
         listRecord.setInsertTime(LocalDateTime.now());
         listRecord.setPartyId(randomString());
         listRecord.setShopId(randomString());
@@ -60,7 +61,7 @@ public abstract class TestObjectFactory {
         WbListRecords listRecord = new WbListRecords();
         listRecord.setId(id);
         listRecord.setListName(randomString());
-        listRecord.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
+        listRecord.setListType(ListType.black);
         listRecord.setInsertTime(LocalDateTime.now());
         listRecord.setPartyId(randomString());
         listRecord.setShopId(randomString());
@@ -160,7 +161,7 @@ public abstract class TestObjectFactory {
                 })
                 .collect(Collectors.toList());
         ListRowsInsertRequest insertRequest = new ListRowsInsertRequest();
-        insertRequest.setListType(ListType.black);
+        insertRequest.setListType(dev.vality.damsel.wb_list.ListType.black);
         insertRequest.setRecords(collect);
         return insertRequest;
     }

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PaymentGroupReferenceModelToGroupReferenceConverter implements
-        Converter<PaymentGroupReferenceModel, dev.vality.swag.fraudbusters.management.model.GroupReference> {
+        Converter<PaymentGroupReferenceModel, GroupReference> {
 
     @Override
-    public dev.vality.swag.fraudbusters.management.model.GroupReference convert(
+    public GroupReference convert(
             PaymentGroupReferenceModel groupReferenceModel) {
         return new GroupReference()
                 .id(groupReferenceModel.getId())

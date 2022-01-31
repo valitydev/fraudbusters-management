@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class GroupModelToGroupConverter
-        implements Converter<GroupModel, dev.vality.swag.fraudbusters.management.model.Group> {
+        implements Converter<GroupModel, Group> {
 
     private final PriorityModelToPriorityIdConverter priorityModelToPriorityIdConverter;
 
     @NonNull
     @Override
-    public dev.vality.swag.fraudbusters.management.model.Group convert(GroupModel groupModel) {
+    public Group convert(GroupModel groupModel) {
         return new Group()
                 .groupId(groupModel.getGroupId())
                 .priorityTemplates(convertPriorityTemplates(groupModel.getPriorityTemplates()))

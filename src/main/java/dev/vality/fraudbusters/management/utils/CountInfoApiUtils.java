@@ -18,7 +18,7 @@ public class CountInfoApiUtils {
     private final ObjectMapper objectMapper;
 
     public CountInfo initExternalRowCountInfo(String rowInfo) {
-        var countInfoValue = new dev.vality.swag.fraudbusters.management.model.CountInfo();
+        var countInfoValue = new CountInfo();
         try {
             var countInfo = objectMapper.readValue(rowInfo, dev.vality.damsel.wb_list.CountInfo.class);
             countInfoValue.setCount(countInfo.getCount());

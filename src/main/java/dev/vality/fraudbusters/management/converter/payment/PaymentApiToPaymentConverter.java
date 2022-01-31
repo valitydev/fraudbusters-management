@@ -69,7 +69,7 @@ public class PaymentApiToPaymentConverter
                 .setPartyId(payment.getMerchantInfo().getPartyId());
     }
 
-    private Error createError(dev.vality.swag.fraudbusters.management.model.Payment payment) {
+    private Error createError(Payment payment) {
         return payment.getError() != null
                 ? new Error()
                 .setErrorCode(payment.getError().getErrorCode())
@@ -77,7 +77,7 @@ public class PaymentApiToPaymentConverter
                 : null;
     }
 
-    private ClientInfo createClientInfo(dev.vality.swag.fraudbusters.management.model.Payment payment) {
+    private ClientInfo createClientInfo(Payment payment) {
         return payment.getClientInfo() != null
                 ? new ClientInfo()
                 .setIp(payment.getClientInfo().getIp())

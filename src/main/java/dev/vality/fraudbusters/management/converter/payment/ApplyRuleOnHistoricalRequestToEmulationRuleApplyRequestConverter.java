@@ -31,7 +31,7 @@ public class ApplyRuleOnHistoricalRequestToEmulationRuleApplyRequestConverter
                             .setPartyId(reference.getPartyId())
                             .setShopId(reference.getShopId())
                             .setTemplateId(EMULATION_TEMPLATE))
-                    .setTemplate(new dev.vality.damsel.fraudbusters.Template()
+                    .setTemplate(new Template()
                             .setId(EMULATION_TEMPLATE)
                             .setTemplate(request.getTemplate().getBytes()))
                     .setRuleSetTimestamp(request.getRuleSetTimestamp() != null

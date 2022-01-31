@@ -6,8 +6,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import static dev.vality.fraudbusters.management.domain.payment.PaymentModel.PaymentModelBuilder;
-import static dev.vality.fraudbusters.management.domain.payment.PaymentModel.builder;
 
 
 @Component
@@ -17,7 +15,7 @@ public class PaymentToTestPaymentModelConverter
     @NonNull
     @Override
     public PaymentModel convert(dev.vality.damsel.fraudbusters.Payment payment) {
-        PaymentModelBuilder builder = builder();
+        PaymentModel.PaymentModelBuilder builder = PaymentModel.builder();
         if (payment.isSetReferenceInfo()) {
             updateReferenceInfo(builder, payment.getReferenceInfo());
         }
@@ -48,26 +46,26 @@ public class PaymentToTestPaymentModelConverter
                 .build();
     }
 
-    private void updateError(PaymentModelBuilder builder, dev.vality.damsel.fraudbusters.Error error) {
+    private void updateError(PaymentModel.PaymentModelBuilder builder, dev.vality.damsel.fraudbusters.Error error) {
         builder.errorCode(error.getErrorCode())
                 .errorReason(error.getErrorReason());
     }
 
-    private void updateClientInfo(PaymentModelBuilder builder,
+    private void updateClientInfo(PaymentModel.PaymentModelBuilder builder,
                                   dev.vality.damsel.fraudbusters.ClientInfo clientInfo) {
         builder.ip(clientInfo.getIp())
                 .fingerprint(clientInfo.getFingerprint())
                 .email(clientInfo.getEmail());
     }
 
-    private void updateProviderInfo(PaymentModelBuilder builder,
+    private void updateProviderInfo(PaymentModel.PaymentModelBuilder builder,
                                     dev.vality.damsel.fraudbusters.ProviderInfo providerInfo) {
         builder.terminalId(providerInfo.getTerminalId())
                 .providerId(providerInfo.getProviderId())
                 .country(providerInfo.getCountry());
     }
 
-    private void updateBankCardData(PaymentModelBuilder builder,
+    private void updateBankCardData(PaymentModel.PaymentModelBuilder builder,
                                     dev.vality.damsel.domain.BankCard bankCard) {
         builder.paymentSystem(bankCard.isSetPaymentSystem() ? bankCard.getPaymentSystem().getId() : null)
                 .paymentCountry(bankCard.isSetIssuerCountry() ? bankCard.getIssuerCountry().name() : null)
@@ -76,7 +74,7 @@ public class PaymentToTestPaymentModelConverter
                 .lastDigits(bankCard.getLastDigits());
     }
 
-    private void updateReferenceInfo(PaymentModelBuilder builder,
+    private void updateReferenceInfo(PaymentModel.PaymentModelBuilder builder,
                                      dev.vality.damsel.fraudbusters.ReferenceInfo referenceInfo) {
         builder.partyId(referenceInfo.getMerchantInfo().getPartyId())
                 .shopId(referenceInfo.getMerchantInfo().getShopId());

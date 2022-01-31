@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.resource;
 
-import dev.vality.fraudbusters.management.converter.payment.TemplateModelToTemplateConverter;
+import dev.vality.fraudbusters.management.converter.payment.TemplateModelToTemplateConverterImpl;
 import dev.vality.fraudbusters.management.dao.GroupDao;
 import dev.vality.fraudbusters.management.dao.TemplateDao;
 import dev.vality.fraudbusters.management.dao.payment.group.GroupReferenceDaoImpl;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @PostgresqlTestcontainerSingleton
 @ContextConfiguration(classes = {PaymentEmulateResource.class, PaymentGroupDao.class, PaymentTemplateDao.class,
         GroupReferenceDaoImpl.class, PaymentReferenceDaoImpl.class, GroupRowToModelMapper.class, UserInfoService.class,
-        TemplateModelToTemplateConverter.class, PaymentEmulateService.class})
+        TemplateModelToTemplateConverterImpl.class, PaymentEmulateService.class})
 public class PaymentEmulateResourceTest {
 
     private static final String PARTY_ID = "partyId";

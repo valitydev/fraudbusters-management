@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.management.utils;
 
 import dev.vality.damsel.fraudbusters.TemplateReference;
-import io.micrometer.shaded.io.netty.util.internal.StringUtil;
+import org.springframework.util.StringUtils;
 
 public class ReferenceKeyGenerator {
 
@@ -16,11 +16,11 @@ public class ReferenceKeyGenerator {
     }
 
     public static String generateTemplateKey(String partyId, String shopId) {
-        if (StringUtil.isNullOrEmpty(shopId)
-                && !StringUtil.isNullOrEmpty(partyId)) {
+        if (!StringUtils.hasLength(shopId)
+                && StringUtils.hasLength(partyId)) {
             return partyId;
-        } else if (!StringUtil.isNullOrEmpty(shopId)
-                && !StringUtil.isNullOrEmpty(partyId)) {
+        } else if (StringUtils.hasLength(shopId)
+                && StringUtils.hasLength(partyId)) {
             return partyId + SEPARATOR + shopId;
         }
         return null;

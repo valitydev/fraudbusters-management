@@ -3,9 +3,9 @@ package dev.vality.fraudbusters.management.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.wb_list.RowInfo;
 import dev.vality.swag.fraudbusters.management.model.CountInfo;
-import io.micrometer.shaded.io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -32,9 +32,9 @@ public class CountInfoApiUtils {
 
     public RowInfo initRowInfo(CountInfo countInfo) {
         String startCountTime =
-                StringUtil.isNullOrEmpty(countInfo.getStartCountTime().toInstant(ZoneOffset.UTC).toString())
-                        ? Instant.now().toString()
-                        : countInfo.getStartCountTime().toInstant(ZoneOffset.UTC).toString();
+                StringUtils.hasLength(countInfo.getStartCountTime().toInstant(ZoneOffset.UTC).toString())
+                        ? countInfo.getStartCountTime().toInstant(ZoneOffset.UTC).toString()
+                        : Instant.now().toString();
         return RowInfo.count_info(new dev.vality.damsel.wb_list.CountInfo()
                 .setCount(countInfo.getCount())
                 .setStartCountTime(startCountTime)

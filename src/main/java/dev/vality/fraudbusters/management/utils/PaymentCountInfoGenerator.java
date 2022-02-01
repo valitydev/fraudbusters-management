@@ -6,9 +6,9 @@ import dev.vality.fraudbusters.management.converter.payment.PaymentListRecordToR
 import dev.vality.fraudbusters.management.exception.UnknownEventException;
 import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
 import dev.vality.swag.fraudbusters.management.model.PaymentListRecord;
-import io.micrometer.shaded.io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class PaymentCountInfoGenerator {
     public PaymentCountInfo initDestination(String rowInfo, PaymentListRecord listRecord) {
         var paymentCountInfo = new PaymentCountInfo();
         paymentCountInfo.setListRecord(listRecord);
-        if (!StringUtil.isNullOrEmpty(rowInfo)) {
+        if (StringUtils.hasLength(rowInfo)) {
             dev.vality.swag.fraudbusters.management.model.CountInfo countInfoValue =
                     countInfoApiUtils.initExternalRowCountInfo(rowInfo);
             paymentCountInfo.setCountInfo(countInfoValue);

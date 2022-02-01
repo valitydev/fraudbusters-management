@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.wb_list.Row;
 import dev.vality.damsel.wb_list.RowInfo;
 import dev.vality.fraudbusters.management.domain.CountInfo;
-import io.micrometer.shaded.io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -31,9 +31,9 @@ public class CountInfoUtils {
     }
 
     public void initRowCountInfo(CountInfo countInfo, Row row) {
-        String startCountTime = StringUtil.isNullOrEmpty(countInfo.getStartCountTime())
-                ? Instant.now().toString()
-                : countInfo.getStartCountTime();
+        String startCountTime = StringUtils.hasLength(countInfo.getStartCountTime())
+                ? countInfo.getStartCountTime()
+                : Instant.now().toString();
         row.setRowInfo(RowInfo.count_info(new dev.vality.damsel.wb_list.CountInfo()
                 .setCount(countInfo.getCount())
                 .setStartCountTime(startCountTime)

@@ -7,10 +7,6 @@ management:
     enabled: false
   server:
     port: @management.port@
-  metrics:
-    export:
-      statsd:
-        flavor: etsy
   endpoint:
     metrics:
       enabled: true

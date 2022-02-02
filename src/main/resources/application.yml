@@ -3,8 +3,6 @@ server:
   servlet:
     context-path: "/fb-management/v1"
 management:
-  security:
-    enabled: false
   server:
     port: @management.port@
   endpoint:

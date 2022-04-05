@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.listener;
 
-import com.rbkmoney.dao.DaoException;
+import dev.vality.dao.DaoException;
 import dev.vality.damsel.wb_list.Event;
 import dev.vality.fraudbusters.management.converter.payment.EventToListRecordConverter;
 import dev.vality.fraudbusters.management.dao.CdDao;

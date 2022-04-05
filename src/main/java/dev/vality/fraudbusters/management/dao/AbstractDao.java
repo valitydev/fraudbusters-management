@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.dao;
 
-import com.rbkmoney.dao.impl.AbstractGenericDao;
+import dev.vality.dao.impl.AbstractGenericDao;
 import dev.vality.fraudbusters.management.dao.condition.ConditionField;
 import dev.vality.fraudbusters.management.dao.condition.ConditionParameterSource;
 import org.jooq.Record;

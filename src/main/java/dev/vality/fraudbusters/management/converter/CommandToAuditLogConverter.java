@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.management.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.geck.common.util.TBaseUtil;
+import dev.vality.geck.common.util.TBaseUtil;
 import dev.vality.damsel.fraudbusters.Command;
 import dev.vality.fraudbusters.management.domain.enums.CommandType;
 import dev.vality.fraudbusters.management.domain.enums.ObjectType;

@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.dao.payment.reference;
 
-import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.management.dao.AbstractDao;
 import dev.vality.fraudbusters.management.dao.condition.ConditionParameterSource;
 import dev.vality.fraudbusters.management.domain.payment.PaymentReferenceModel;

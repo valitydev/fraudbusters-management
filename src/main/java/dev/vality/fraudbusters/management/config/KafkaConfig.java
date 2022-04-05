@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.config;
 
-import com.rbkmoney.kafka.common.serialization.ThriftSerializer;
+import dev.vality.kafka.common.serialization.ThriftSerializer;
 import dev.vality.damsel.fraudbusters.Command;
 import dev.vality.damsel.fraudbusters.ReferenceInfo;
 import dev.vality.damsel.wb_list.Event;

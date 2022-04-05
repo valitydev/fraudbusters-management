@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.dao.audit;
 
-import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.management.dao.AbstractDao;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;

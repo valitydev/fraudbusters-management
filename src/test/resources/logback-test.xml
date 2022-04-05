@@ -6,7 +6,7 @@
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
-    <logger name="com.rbkmoney.fraudbusters.management" level="info"/>
+    <logger name="dev.vality.fraudbusters.management" level="info"/>
     <logger name="org.springframework.kafka" level="WARN"/>
     <logger name="org.apache.http" level="DEBUG"/>
     <logger name="org.keycloak" level="ALL"/>

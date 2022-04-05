@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.serializer;
 
-
-import com.rbkmoney.kafka.common.serialization.AbstractThriftDeserializer;
+import dev.vality.kafka.common.serialization.AbstractThriftDeserializer;
 import dev.vality.damsel.fraudbusters.ReferenceInfo;
 import lombok.extern.slf4j.Slf4j;
 

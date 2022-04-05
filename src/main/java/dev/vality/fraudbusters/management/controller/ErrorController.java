@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.controller;
 
-import com.rbkmoney.dao.DaoException;
+import dev.vality.dao.DaoException;
 import dev.vality.fraudbusters.management.domain.response.ErrorResponse;
 import dev.vality.fraudbusters.management.exception.KafkaProduceException;
 import dev.vality.fraudbusters.management.exception.KafkaSerializationException;

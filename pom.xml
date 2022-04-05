@@ -6,7 +6,7 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.14</version>
     </parent>
 
     <artifactId>fraudbusters-management</artifactId>
@@ -31,7 +31,7 @@
         <db.schema>af</db.schema>
         <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
         <fraudbusters.proto.version>1.102-269908f</fraudbusters.proto.version>
-        <fraudo.version>0.2.0</fraudo.version>
+        <fraudo.version>0.3.0</fraudo.version>
         <swag-fraudbusters-management.version>1.1-e65b064-server</swag-fraudbusters-management.version>
         <fraudbusters.notificator.proto.version>1.27-4907168</fraudbusters.notificator.proto.version>
         <testcontainers.annotations.version>1.3.2</testcontainers.annotations.version>
@@ -49,15 +49,15 @@
             <artifactId>woody-thrift</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>shared-resources</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney.geck</groupId>
+            <groupId>dev.vality.geck</groupId>
             <artifactId>filter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney.geck</groupId>
+            <groupId>dev.vality.geck</groupId>
             <artifactId>serializer</artifactId>
         </dependency>
         <dependency>
@@ -66,7 +66,7 @@
             <version>${wb.list.proto.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>kafka-common-lib</artifactId>
             <exclusions>
                 <exclusion>
@@ -76,7 +76,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>db-common-lib</artifactId>
         </dependency>
         <dependency>
@@ -85,7 +85,7 @@
             <version>${fraudbusters.proto.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>fraudo</artifactId>
             <version>${fraudo.version}</version>
         </dependency>
@@ -226,7 +226,7 @@
         <dependency>
             <groupId>dev.vality</groupId>
             <artifactId>testcontainers-annotations</artifactId>
-            <version>1.3.2</version>
+            <version>1.4.0</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -303,7 +303,7 @@
                 </dependencies>
                 <configuration>
                     <resourceBundles>
-                        <resourceBundle>com.rbkmoney:shared-resources:${shared-resources.version}</resourceBundle>
+                        <resourceBundle>dev.vality:shared-resources:${shared-resources.version}</resourceBundle>
                     </resourceBundles>
                     <attachToMain>false</attachToMain>
                     <attachToTest>false</attachToTest>
@@ -380,9 +380,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.rbkmoney.maven.plugins</groupId>
+                <groupId>dev.vality.maven.plugins</groupId>
                 <artifactId>pg-embedded-plugin</artifactId>
-                <version>1.8</version>
+                <version>1.0.1</version>
                 <configuration>
                     <port>${db.port}</port>
                     <dbName>${db.name}</dbName>

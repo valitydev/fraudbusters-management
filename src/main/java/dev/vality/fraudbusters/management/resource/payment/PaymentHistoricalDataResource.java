@@ -194,7 +194,7 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
     private Sort createSort(String sortOrder, String sortBy) {
         return new Sort()
                 .setField(sortBy)
-                .setOrder(sortOrder != null ? SortOrder.valueOf(sortOrder) : SortOrder.ASC);
+                .setOrder(sortOrder != null ? SortOrder.valueOf(sortOrder) : SortOrder.DESC);
     }
 
     private Page createPage(String lastId, Integer size) {

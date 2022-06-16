@@ -1,6 +1,8 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
+import dev.vality.damsel.wb_list.ListType;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
+import dev.vality.fraudbusters.management.exception.SaveRowsException;
 import dev.vality.fraudbusters.management.service.WbListCommandService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
 import dev.vality.fraudbusters.management.utils.PagingDataUtils;
@@ -8,6 +10,7 @@ import dev.vality.fraudbusters.management.utils.ParametersService;
 import dev.vality.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.swag.fraudbusters.management.api.PaymentsListsApi;
+import dev.vality.swag.fraudbusters.management.model.IdResponse;
 import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import dev.vality.swag.fraudbusters.management.model.RowListRequest;
 import dev.vality.swag.fraudbusters.management.model.WbListRecordsResponse;
@@ -60,13 +63,19 @@ public class PaymentsListsResource implements PaymentsListsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
-    public ResponseEntity<List<String>> insertRow(@Valid RowListRequest request) {
+    public ResponseEntity<ListResponse> insertRow(@Valid RowListRequest request) {
         log.info("insertRowsToList initiator: {} request {}", userInfoService.getUserName(), request);
-        return wbListCommandService.sendListRecords(
-                request.getRecords(),
-                dev.vality.damsel.wb_list.ListType.valueOf(request.getListType().getValue()),
-                paymentCountInfoGenerator::initRow,
-                userInfoService.getUserName());
+        try {
+            List<String> ids = wbListCommandService.sendListRecords(
+                    request.getRecords(),
+                    ListType.valueOf(request.getListType().getValue()),
+                    paymentCountInfoGenerator::initRow,
+                    userInfoService.getUserName());
+            return ResponseEntity.ok().body(new ListResponse()
+                    .result(ids));
+        } catch (SaveRowsException e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @Override
@@ -88,9 +97,12 @@ public class PaymentsListsResource implements PaymentsListsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
-    public ResponseEntity<String> removeRow(String id) {
+    public ResponseEntity<IdResponse> removeRow(String id) {
         String idMessage = paymentsListsService.removeListRecord(id);
-        return ResponseEntity.ok().body(idMessage);
+        return ResponseEntity.ok().body(
+                new IdResponse()
+                        .id(idMessage)
+        );
     }
 
 }

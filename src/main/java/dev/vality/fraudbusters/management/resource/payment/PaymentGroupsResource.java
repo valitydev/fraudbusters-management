@@ -85,13 +85,15 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> insertGroup(@Valid Group group) {
+    public ResponseEntity<IdResponse> insertGroup(@Valid Group group) {
         String userName = userInfoService.getUserName();
         log.info("insertTemplate initiator: {} group: {}", userName, group);
         var command = groupToCommandConverter.convert(group);
         command = paymentGroupCommandService.initCreateCommand(command, userName);
         String idMessage = paymentGroupCommandService.sendCommandSync(command);
-        return ResponseEntity.ok().body(idMessage);
+        return ResponseEntity.ok().body(
+                new IdResponse().id(idMessage)
+        );
     }
 
     @Override
@@ -110,12 +112,14 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> removeGroup(String id) {
+    public ResponseEntity<IdResponse> removeGroup(String id) {
         String userName = userInfoService.getUserName();
         log.info("removeGroup initiator: {} id: {}", userName, id);
         var command = paymentGroupCommandService.initDeleteGroupReferenceCommand(id, userName);
         String idMessage = paymentGroupCommandService.sendCommandSync(command);
-        return ResponseEntity.ok().body(idMessage);
+        return ResponseEntity.ok().body(
+                new IdResponse().id(idMessage)
+        );
     }
 
     @Override

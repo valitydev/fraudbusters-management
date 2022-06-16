@@ -2,11 +2,11 @@ package dev.vality.fraudbusters.management.service;
 
 import dev.vality.damsel.wb_list.*;
 import dev.vality.fraudbusters.management.exception.KafkaProduceException;
+import dev.vality.fraudbusters.management.exception.SaveRowsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TBase;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -51,10 +51,10 @@ public class WbListCommandService {
                         .setUserId(initiator));
     }
 
-    public <T> ResponseEntity<List<String>> sendListRecords(List<T> records,
-                                                            ListType listType,
-                                                            BiFunction<T, ListType, Row> func,
-                                                            String initiator) {
+    public <T> List<String> sendListRecords(List<T> records,
+                                            ListType listType,
+                                            BiFunction<T, ListType, Row> func,
+                                            String initiator) {
         try {
             List<String> recordIds = records.stream()
                     .map(record -> func.apply(record, listType))
@@ -63,11 +63,10 @@ public class WbListCommandService {
                         return sendCommandSync(row, listType, Command.CREATE, initiator);
                     })
                     .collect(Collectors.toList());
-            return ResponseEntity.ok()
-                    .body(recordIds);
+            return recordIds;
         } catch (Exception e) {
             log.error("Error when insert rows: {} e: ", records, e);
-            return ResponseEntity.status(500).build();
+            throw new SaveRowsException(e);
         }
     }
 

@@ -98,7 +98,7 @@ class PaymentDataSetsResourceTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
-                        .string("1"));
+                        .json("{\"id\":\"1\"}"));
     }
 
     @Test
@@ -121,7 +121,7 @@ class PaymentDataSetsResourceTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
-                        .string("id"));
+                        .json("{\"id\":\"id\"}"));
     }
 
 }

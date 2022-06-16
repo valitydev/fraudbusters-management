@@ -17,6 +17,7 @@ import dev.vality.fraudbusters.management.service.iface.AuditService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
 import dev.vality.fraudbusters.management.utils.*;
 import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -108,13 +109,13 @@ public class ExceptionApplicationTest {
     void executionRestTest() {
         RestTemplate restTemplate = restTemplateBuilder.build();
         Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any()))
-                .thenReturn(ResponseEntity.ok(List.of(ID_TEST)));
+                .thenReturn(List.of(ID_TEST));
 
-        ResponseEntity<List<String>> response = restTemplate.exchange(paymentListPath, HttpMethod.POST,
+        ResponseEntity<ListResponse> response = restTemplate.exchange(paymentListPath, HttpMethod.POST,
                 new HttpEntity<>(createRequest()), new ParameterizedTypeReference<>() {
                 });
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(response.getBody().get(0), ID_TEST);
+        assertEquals(response.getBody().getResult().get(0), ID_TEST);
     }
 
     @Test

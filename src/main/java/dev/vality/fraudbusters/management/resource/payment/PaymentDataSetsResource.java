@@ -94,24 +94,27 @@ public class PaymentDataSetsResource implements PaymentsDataSetApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> insertDataSet(@Valid DataSet dataSet) {
+    public ResponseEntity<IdResponse> insertDataSet(@Valid DataSet dataSet) {
         String userName = userInfoService.getUserName();
         log.info("insertDataSet initiator: {} dataSet: {}", userName, dataSet);
         DataSetModel dataSetModel = dataSetToTestDataSetModelConverter.convert(dataSet);
         dataSetModel.setLastModificationInitiator(userName);
         Long id = paymentsDataSetService.insertDataSet(dataSetModel);
         log.info("insertDataSet succeeded dataSet: {}", dataSet);
-        return ResponseEntity.ok(String.valueOf(id));
+        return ResponseEntity.ok(new IdResponse()
+                .id(String.valueOf(id))
+        );
     }
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> removeDataSet(String id) {
+    public ResponseEntity<IdResponse> removeDataSet(String id) {
         String userName = userInfoService.getUserName();
         log.info("removeDataSet initiator: {} id: {}", userName, id);
         paymentsDataSetService.removeDataSet(id, userName);
         log.info("removeDataSet succeeded id: {}", id);
-        return ResponseEntity.ok(id);
+        return ResponseEntity.ok(new IdResponse()
+                .id(id));
     }
 
     private CheckedDataSetModel createCheckedDataSet(ApplyRuleOnHistoricalDataSetRequest request,

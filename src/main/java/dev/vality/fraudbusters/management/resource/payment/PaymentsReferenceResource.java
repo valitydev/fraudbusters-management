@@ -15,6 +15,8 @@ import dev.vality.fraudbusters.management.utils.PagingDataUtils;
 import dev.vality.fraudbusters.management.utils.PaymentUnknownTemplateFinder;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.swag.fraudbusters.management.api.PaymentsReferencesApi;
+import dev.vality.swag.fraudbusters.management.model.IdResponse;
+import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import dev.vality.swag.fraudbusters.management.model.PaymentReference;
 import dev.vality.swag.fraudbusters.management.model.ReferencesResponse;
 import lombok.RequiredArgsConstructor;
@@ -66,20 +68,22 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> insertDefaultReference(@Valid PaymentReference paymentReference) {
+    public ResponseEntity<IdResponse> insertDefaultReference(@Valid PaymentReference paymentReference) {
         log.info("insertDefaultReference initiator: {} referenceModels: {}", userInfoService.getUserName(),
                 paymentReference);
         String uid = paymentsDefaultReferenceService.insertDefaultReference(paymentReference);
-        return ResponseEntity.ok().body(uid);
+        return ResponseEntity.ok().body(new IdResponse()
+                .id(uid));
     }
 
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> removeDefaultReference(String id) {
+    public ResponseEntity<IdResponse> removeDefaultReference(String id) {
         log.info("removeDefaultReference initiator: {} id: {}", userInfoService.getUserName(), id);
         defaultPaymentReferenceDao.remove(id);
-        return ResponseEntity.ok().body(id);
+        return ResponseEntity.ok().body(new IdResponse()
+                .id(id));
     }
 
     @Override
@@ -101,25 +105,31 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<List<String>> insertReferences(@Valid List<PaymentReference> paymentReference) {
+    public ResponseEntity<ListResponse> insertReferences(@Valid List<PaymentReference> paymentReference) {
         String userName = userInfoService.getUserName();
         log.info("insertReference initiator: {} referenceModels: {}", userName, paymentReference);
         List<String> unknownTemplates =
                 unknownTemplateFinder.find(paymentReference, templateInReferenceFilter);
         if (!CollectionUtils.isEmpty(unknownTemplates)) {
-            return new ResponseEntity<>(unknownTemplates, HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(
+                    new ListResponse()
+                            .result(unknownTemplates),
+                    HttpStatus.UNPROCESSABLE_ENTITY
+            );
         }
         List<String> ids = paymentsReferenceService.insertReferences(paymentReference, userName);
-        return ResponseEntity.ok().body(ids);
+        return ResponseEntity.ok().body(new ListResponse()
+                .result(ids));
     }
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> removeReference(String id) {
+    public ResponseEntity<IdResponse> removeReference(String id) {
         String userName = userInfoService.getUserName();
         log.info("removeReference initiator: {} id: {}", userName, id);
         String commandSendDeletedId = paymentsReferenceService.removeReference(id, userName);
-        return ResponseEntity.ok().body(commandSendDeletedId);
+        return ResponseEntity.ok().body(new IdResponse()
+                .id(commandSendDeletedId));
     }
 
 }

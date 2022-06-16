@@ -146,12 +146,13 @@ public class TemplateApplicationTest {
         when(unknownPaymentTemplateInReferenceFilter.test(any())).thenReturn(true);
         PaymentReference referenceModel = createPaymentReference(TEMPLATE_ID);
 
-        final ResponseEntity<List<String>> references =
+        final ResponseEntity<ListResponse> references =
                 paymentsReferenceResource.insertReferences(Collections.singletonList(referenceModel));
 
-        when(referenceDao.getById(references.getBody().get(0))).thenReturn(createPaymentReferenceModel(TEMPLATE_ID));
+        when(referenceDao.getById(references.getBody().getResult().get(0)))
+                .thenReturn(createPaymentReferenceModel(TEMPLATE_ID));
 
-        paymentsReferenceResource.removeReference(references.getBody().get(0));
+        paymentsReferenceResource.removeReference(references.getBody().getResult().get(0));
         await().untilAsserted(() -> {
             verify(referenceDao, times(1)).insert(any());
             verify(referenceDao, times(1)).remove((PaymentReferenceModel) any());
@@ -160,11 +161,11 @@ public class TemplateApplicationTest {
         when(unknownPaymentTemplateInReferenceFilter.test(any())).thenReturn(false);
         Mockito.clearInvocations(referenceDao);
         referenceModel = createPaymentReference(TEMPLATE_ID);
-        ResponseEntity<List<String>> listResponseEntity =
+        ResponseEntity<ListResponse> listResponseEntity =
                 paymentsReferenceResource.insertReferences(Collections.singletonList(referenceModel));
 
         assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, listResponseEntity.getStatusCode());
-        assertEquals(TEMPLATE_ID, listResponseEntity.getBody().get(0));
+        assertEquals(TEMPLATE_ID, listResponseEntity.getBody().getResult().get(0));
         verify(referenceDao, times(0)).insert(any());
     }
 

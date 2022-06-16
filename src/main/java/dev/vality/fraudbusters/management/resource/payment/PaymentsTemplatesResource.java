@@ -69,13 +69,15 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> removeTemplate(String id) {
+    public ResponseEntity<IdResponse> removeTemplate(String id) {
         String userName = userInfoService.getUserName();
         log.info("removeTemplate initiator: {} id: {}", userName, id);
         var command = paymentTemplateCommandService.createTemplateCommandById(id);
         String messageId = paymentTemplateCommandService
                 .sendCommandSync(commandMapper.mapToConcreteCommand(userName, command, CommandType.DELETE));
-        return ResponseEntity.ok().body(messageId);
+        return ResponseEntity.ok().body(
+                new IdResponse().id(messageId)
+        );
     }
 
     @Override

@@ -149,7 +149,8 @@ public class TemplateApplicationTest {
         final ResponseEntity<ListResponse> references =
                 paymentsReferenceResource.insertReferences(Collections.singletonList(referenceModel));
 
-        when(referenceDao.getById(references.getBody().getResult().get(0))).thenReturn(createPaymentReferenceModel(TEMPLATE_ID));
+        when(referenceDao.getById(references.getBody().getResult().get(0)))
+                .thenReturn(createPaymentReferenceModel(TEMPLATE_ID));
 
         paymentsReferenceResource.removeReference(references.getBody().getResult().get(0));
         await().untilAsserted(() -> {

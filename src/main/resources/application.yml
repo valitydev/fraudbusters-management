@@ -81,6 +81,9 @@ service:
   notification-template:
     url: http://localhost:8999/notification-template/v1
     networkTimeout: 5000
+  warehouse:
+    url: http://localhost:8022/change_it
+    networkTimeout: 10000
 
 keycloak:
   auth-server-url: http://localhost:8080/auth

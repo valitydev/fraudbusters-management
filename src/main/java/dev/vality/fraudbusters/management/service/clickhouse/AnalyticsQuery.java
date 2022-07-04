@@ -22,18 +22,18 @@ public class AnalyticsQuery {
 
     public static final String BLOCKED_FRAUD_PAYMENTS_COUNT_RATIO =
             """
-                       SELECT
-                          countIf(status = 'failed' AND errorCode='no_route_found:risk_score_is_too_high') / count() AS ratio
-                       FROM fraud.fraud_payment
-                       WHERE
-                          timestamp >= toDate(:from)
-                          AND timestamp <= toDate(:to)
-                          AND toDateTime(eventTime) >= toDateTime(:from)
-                          AND toDateTime(eventTime) <= toDateTime(:to)
-                          AND currency = :currency
-                          AND shopId = :shopId
-                          AND partyId = :partyId
-                    """;
+               SELECT
+                  countIf(status = 'failed' AND errorCode='no_route_found:risk_score_is_too_high') / count() AS ratio
+               FROM fraud.fraud_payment
+               WHERE
+                  timestamp >= toDate(:from)
+                  AND timestamp <= toDate(:to)
+                  AND toDateTime(eventTime) >= toDateTime(:from)
+                  AND toDateTime(eventTime) <= toDateTime(:to)
+                  AND currency = :currency
+                  AND shopId = :shopId
+                  AND partyId = :partyId
+            """;
 
     public static final String BLOCKED_FRAUD_PAYMENTS_SUM =
             """

@@ -30,7 +30,7 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
 
     @Override
     public Long calculateSplitOffset(Map<String, String> row, SplitUnit splitUnit) {
-        switch (splitUnit) {
+        return switch (splitUnit) {
             case MINUTE -> {
                 int hour = Integer.parseInt(row.get(HOUR.getValue()));
                 int minutes = Integer.parseInt(row.get(MINUTE.getValue()));
@@ -39,7 +39,7 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
                         .atStartOfDay()
                         .plusHours(hour)
                         .plusMinutes(minutes);
-                return localDateTime
+                yield localDateTime
                         .atZone(UTC)
                         .toInstant().toEpochMilli();
             }
@@ -49,20 +49,20 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
                 LocalDateTime localDateTime = date.toLocalDate()
                         .atStartOfDay()
                         .plusHours(hour);
-                return localDateTime
+                yield localDateTime
                         .atZone(UTC)
                         .toInstant().toEpochMilli();
             }
             case DAY -> {
                 Date date = new Date(Long.parseLong(row.get(DAY.getValue())));
-                return date.toLocalDate()
+                yield date.toLocalDate()
                         .atStartOfDay()
                         .atZone(UTC)
                         .toInstant().toEpochMilli();
             }
             case WEEK -> {
                 Date date = new Date(Long.parseLong(row.get(WEEK.getValue())));
-                return date.toLocalDate()
+                yield date.toLocalDate()
                         .atStartOfDay()
                         .atZone(UTC)
                         .toInstant().toEpochMilli();
@@ -70,19 +70,18 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
             case MONTH -> {
                 int year = Integer.parseInt(row.get(YEAR.getValue()));
                 int months = Integer.parseInt(row.get(MONTH.getValue()));
-                return LocalDate.of(year, months, 1)
+                yield LocalDate.of(year, months, 1)
                         .atStartOfDay()
                         .atZone(UTC)
                         .toInstant().toEpochMilli();
             }
             case YEAR -> {
                 int date = Integer.parseInt(row.get(YEAR.getValue()));
-                return LocalDate.of(date, 1, 1)
+                yield LocalDate.of(date, 1, 1)
                         .atStartOfDay()
                         .atZone(UTC)
                         .toInstant().toEpochMilli();
             }
-            default -> throw new RuntimeException();
-        }
+        };
     }
 }

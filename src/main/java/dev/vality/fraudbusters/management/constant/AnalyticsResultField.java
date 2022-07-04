@@ -1,8 +1,9 @@
 package dev.vality.fraudbusters.management.constant;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@UtilityClass
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsResultField {
 
     public static final String COUNT = "count";

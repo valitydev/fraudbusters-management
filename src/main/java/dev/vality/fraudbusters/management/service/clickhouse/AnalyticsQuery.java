@@ -1,8 +1,9 @@
 package dev.vality.fraudbusters.management.service.clickhouse;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@UtilityClass
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsQuery {
 
     public static final String BLOCKED_FRAUD_PAYMENTS_COUNT =

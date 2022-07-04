@@ -1,8 +1,9 @@
 package dev.vality.fraudbusters.management.constant;
 
-import lombok.experimental.UtilityClass;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@UtilityClass
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FraudPaymentQueryParam {
 
     public static final String FROM = "from";

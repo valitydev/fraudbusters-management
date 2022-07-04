@@ -13,8 +13,8 @@ import java.io.IOException;
 public class WarehouseConfig {
 
     @Bean
-    public QueryServiceSrv.Iface bouncerClient(@Value("${warehouse.url}") Resource resource,
-                                               @Value("${warehouse.networkTimeout}") int networkTimeout)
+    public QueryServiceSrv.Iface bouncerClient(@Value("${service.warehouse.url}") Resource resource,
+                                               @Value("${service.warehouse.networkTimeout}") int networkTimeout)
             throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)

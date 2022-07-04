@@ -67,7 +67,8 @@ class AnalyticsResourceTest {
 
     @Test
     void getBlockedFraudPaymentsCountWithFailResult() throws Exception {
-        when(warehouseQueryService.execute(any(Query.class))).thenReturn(TestObjectFactory.testResult(TestObjectFactory.randomString(), 123));
+        when(warehouseQueryService.execute(any(Query.class)))
+                .thenReturn(TestObjectFactory.testResult(TestObjectFactory.randomString(), 123));
 
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/count")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
@@ -174,8 +175,9 @@ class AnalyticsResourceTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        String responseAsString = mvcResult.getResponse().getContentAsString();
         var response =
-                objectMapper.readValue(mvcResult.getResponse().getContentAsString(), FraudResultListSummaryResponse.class);
+                objectMapper.readValue(responseAsString, FraudResultListSummaryResponse.class);
 
         assertTrue(response.getResult().isEmpty());
     }
@@ -195,8 +197,9 @@ class AnalyticsResourceTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        String responseAsString = mvcResult.getResponse().getContentAsString();
         var response =
-                objectMapper.readValue(mvcResult.getResponse().getContentAsString(), FraudResultListSummaryResponse.class);
+                objectMapper.readValue(responseAsString, FraudResultListSummaryResponse.class);
 
         FraudResultSummary fraudResultSummary = response.getResult().get(0);
         assertNull(fraudResultSummary.getCheckedRule());
@@ -224,8 +227,9 @@ class AnalyticsResourceTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        String responseAsString = mvcResult.getResponse().getContentAsString();
         var response =
-                objectMapper.readValue(mvcResult.getResponse().getContentAsString(), FraudResultListSummaryResponse.class);
+                objectMapper.readValue(responseAsString, FraudResultListSummaryResponse.class);
 
         assertEquals(rows.size(), response.getResult().size());
         assertTrue(response.getResult().stream()
@@ -288,8 +292,9 @@ class AnalyticsResourceTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        String responseAsString = mvcResult.getResponse().getContentAsString();
         var response =
-                objectMapper.readValue(mvcResult.getResponse().getContentAsString(), SplitRiskScoreCountRatioResponse.class);
+                objectMapper.readValue(responseAsString, SplitRiskScoreCountRatioResponse.class);
 
         assertEquals(DAY, response.getSplitUnit());
         assertTrue(response.getOffsetCountRatios().isEmpty());
@@ -313,20 +318,23 @@ class AnalyticsResourceTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        String responseAsString = mvcResult.getResponse().getContentAsString();
         var response =
-                objectMapper.readValue(mvcResult.getResponse().getContentAsString(), SplitRiskScoreCountRatioResponse.class);
-        long currentDate = LocalDate.now().atStartOfDay(UTC).toInstant().toEpochMilli();
+                objectMapper.readValue(responseAsString, SplitRiskScoreCountRatioResponse.class);
 
         assertEquals(DAY, response.getSplitUnit());
         assertEquals(3, response.getOffsetCountRatios().size());
         assertTrue(hasCorrectCountRatio(firstRow, response, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(secondRow, response, LOW_SCORE));
-        assertTrue(hasCorrectOffset(response, currentDate, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(firstRow, response, HIGH_SCORE));
         assertTrue(hasCorrectCountRatio(secondRow, response, HIGH_SCORE));
-        assertTrue(hasCorrectOffset(response, currentDate, HIGH_SCORE));
         assertTrue(hasCorrectCountRatio(firstRow, response, FATAL_SCORE));
         assertTrue(hasCorrectCountRatio(secondRow, response, FATAL_SCORE));
+
+        long currentDate = LocalDate.now().atStartOfDay(UTC).toInstant().toEpochMilli();
+
+        assertTrue(hasCorrectOffset(response, currentDate, LOW_SCORE));
+        assertTrue(hasCorrectOffset(response, currentDate, HIGH_SCORE));
         assertTrue(hasCorrectOffset(response, currentDate, FATAL_SCORE));
     }
 
@@ -334,7 +342,11 @@ class AnalyticsResourceTest {
         return response.getOffsetCountRatios().stream()
                 .filter(riscScoreOffsetCountRatio -> riscScoreOffsetCountRatio.getScore().equals(score))
                 .flatMap(riscScoreOffsetCountRatio -> riscScoreOffsetCountRatio.getOffsetCountRatio().stream())
-                .anyMatch(offsetCountRatio -> offsetCountRatio.getCountRatio().toString().equals(row.getValues().get(score)));
+                .anyMatch(offsetCountRatio -> isEqualRatio(row, score, offsetCountRatio.getCountRatio()));
+    }
+
+    private boolean isEqualRatio(Row row, String score, Long countRatio) {
+        return countRatio.toString().equals(row.getValues().get(score));
     }
 
     private boolean hasCorrectOffset(SplitRiskScoreCountRatioResponse response, long currentDate, String score) {
@@ -346,8 +358,10 @@ class AnalyticsResourceTest {
 
     @Test
     void getFraudPaymentsScoreSplitCountRatioByMonthWithSuccessResult() throws Exception {
-        Row firstRow = TestObjectFactory.testRow(TestObjectFactory.testRiskScoreOffsetCountRatioByMonthRowFieldsMap(1));
-        Row secondRow = TestObjectFactory.testRow(TestObjectFactory.testRiskScoreOffsetCountRatioByMonthRowFieldsMap(2));
+        Row firstRow = TestObjectFactory.testRow(
+                TestObjectFactory.testRiskScoreOffsetCountRatioByMonthRowFieldsMap(1));
+        Row secondRow = TestObjectFactory.testRow(
+                TestObjectFactory.testRiskScoreOffsetCountRatioByMonthRowFieldsMap(2));
         List<Row> rows = List.of(firstRow, secondRow);
         Result result = TestObjectFactory.testResult(rows);
         when(warehouseQueryService.execute(any(Query.class))).thenReturn(result);
@@ -362,23 +376,26 @@ class AnalyticsResourceTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+        String responseAsString = mvcResult.getResponse().getContentAsString();
         var response =
-                objectMapper.readValue(mvcResult.getResponse().getContentAsString(), SplitRiskScoreCountRatioResponse.class);
-        long previousMonthDate = getDateWithMonthOffset(1);
-        long previousTwoMonthsDate = getDateWithMonthOffset(2);
+                objectMapper.readValue(responseAsString, SplitRiskScoreCountRatioResponse.class);
 
         assertEquals(MONTH, response.getSplitUnit());
         assertEquals(3, response.getOffsetCountRatios().size());
         assertTrue(hasCorrectCountRatio(firstRow, response, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(secondRow, response, LOW_SCORE));
-        assertTrue(hasCorrectOffset(response, previousMonthDate, LOW_SCORE));
-        assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(firstRow, response, HIGH_SCORE));
         assertTrue(hasCorrectCountRatio(secondRow, response, HIGH_SCORE));
-        assertTrue(hasCorrectOffset(response, previousMonthDate, HIGH_SCORE));
-        assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, HIGH_SCORE));
         assertTrue(hasCorrectCountRatio(firstRow, response, FATAL_SCORE));
         assertTrue(hasCorrectCountRatio(secondRow, response, FATAL_SCORE));
+
+        long previousMonthDate = getDateWithMonthOffset(1);
+        long previousTwoMonthsDate = getDateWithMonthOffset(2);
+
+        assertTrue(hasCorrectOffset(response, previousMonthDate, LOW_SCORE));
+        assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, LOW_SCORE));
+        assertTrue(hasCorrectOffset(response, previousMonthDate, HIGH_SCORE));
+        assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, HIGH_SCORE));
         assertTrue(hasCorrectOffset(response, previousMonthDate, FATAL_SCORE));
         assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, FATAL_SCORE));
     }

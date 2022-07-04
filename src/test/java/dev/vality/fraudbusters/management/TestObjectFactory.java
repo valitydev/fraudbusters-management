@@ -182,15 +182,16 @@ public abstract class TestObjectFactory {
         return result;
     }
 
-    public static dev.vality.fraudbusters.warehouse.Row testRow(Map<String, String> fields) {
-        return new dev.vality.fraudbusters.warehouse.Row()
-                .setValues(fields);
-    }
-
-    public static dev.vality.fraudbusters.warehouse.Result testResult(List<dev.vality.fraudbusters.warehouse.Row> rows) {
+    public static dev.vality.fraudbusters.warehouse.Result testResult(
+            List<dev.vality.fraudbusters.warehouse.Row> rows) {
         var result = new dev.vality.fraudbusters.warehouse.Result();
         result.setValues(rows);
         return result;
+    }
+
+    public static dev.vality.fraudbusters.warehouse.Row testRow(Map<String, String> fields) {
+        return new dev.vality.fraudbusters.warehouse.Row()
+                .setValues(fields);
     }
 
     public static Map<String, String> testSummaryRowFieldsMap() {

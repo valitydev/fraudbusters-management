@@ -33,9 +33,9 @@ public class RowListToRiskScoreOffsetCountRatioListConverter {
             OffsetCountRatio fatalOffsetCountRatio = buildOffsetCountRatio(splitUnit, row, FATAL_SCORE);
             fatalOffsetCountRatios.add(fatalOffsetCountRatio);
         }
-        RiscScoreOffsetCountRatio lowRiscScoreOffsetCountRatio = buildRiscScoreOffsetCountRatio(LOW_SCORE, lowOffsetCountRatios);
-        RiscScoreOffsetCountRatio highRiscScoreOffsetCountRatio = buildRiscScoreOffsetCountRatio(HIGH_SCORE, highOffsetCountRatios);
-        RiscScoreOffsetCountRatio fatalRiscScoreOffsetCountRatio = buildRiscScoreOffsetCountRatio(FATAL_SCORE, fatalOffsetCountRatios);
+        var lowRiscScoreOffsetCountRatio = buildRiscScoreOffsetCountRatio(LOW_SCORE, lowOffsetCountRatios);
+        var highRiscScoreOffsetCountRatio = buildRiscScoreOffsetCountRatio(HIGH_SCORE, highOffsetCountRatios);
+        var fatalRiscScoreOffsetCountRatio = buildRiscScoreOffsetCountRatio(FATAL_SCORE, fatalOffsetCountRatios);
         return List.of(
                 lowRiscScoreOffsetCountRatio,
                 highRiscScoreOffsetCountRatio,
@@ -55,7 +55,8 @@ public class RowListToRiskScoreOffsetCountRatioListConverter {
         return lowOffsetCountRatio;
     }
 
-    private RiscScoreOffsetCountRatio buildRiscScoreOffsetCountRatio(String lowScore, List<OffsetCountRatio> offsetCountRatioForLow) {
+    private RiscScoreOffsetCountRatio buildRiscScoreOffsetCountRatio(String lowScore,
+                                                                     List<OffsetCountRatio> offsetCountRatioForLow) {
         RiscScoreOffsetCountRatio lowRiscScoreOffsetCountRatio = new RiscScoreOffsetCountRatio();
         lowRiscScoreOffsetCountRatio.setScore(lowScore);
         lowRiscScoreOffsetCountRatio.setOffsetCountRatio(offsetCountRatioForLow);

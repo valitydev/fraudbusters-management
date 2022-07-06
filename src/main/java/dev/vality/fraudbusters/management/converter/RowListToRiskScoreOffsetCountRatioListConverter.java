@@ -2,7 +2,7 @@ package dev.vality.fraudbusters.management.converter;
 
 import dev.vality.fraudbusters.management.service.iface.SqlTimeSplitService;
 import dev.vality.swag.fraudbusters.management.model.OffsetCountRatio;
-import dev.vality.swag.fraudbusters.management.model.RiscScoreOffsetCountRatio;
+import dev.vality.swag.fraudbusters.management.model.RiskScoreOffsetCountRatio;
 import dev.vality.swag.fraudbusters.management.model.SplitUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class RowListToRiskScoreOffsetCountRatioListConverter {
 
     private final SqlTimeSplitService sqlTimeSplitService;
 
-    public List<RiscScoreOffsetCountRatio> convert(List<Map<String, String>> rows, SplitUnit splitUnit) {
+    public List<RiskScoreOffsetCountRatio> convert(List<Map<String, String>> rows, SplitUnit splitUnit) {
         if (isEmpty(rows)) {
             return Collections.emptyList();
         }
@@ -50,14 +50,14 @@ public class RowListToRiskScoreOffsetCountRatioListConverter {
 
     private OffsetCountRatio buildOffsetCountRatio(SplitUnit splitUnit, Map<String, String> row, String score) {
         OffsetCountRatio lowOffsetCountRatio = new OffsetCountRatio();
-        lowOffsetCountRatio.setCountRatio(Objects.nonNull(row.get(score)) ? Long.parseLong(row.get(score)) : -1);
+        lowOffsetCountRatio.setCountRatio(Objects.nonNull(row.get(score)) ? Float.parseFloat(row.get(score)) : -1);
         lowOffsetCountRatio.setOffset(sqlTimeSplitService.calculateSplitOffset(row, splitUnit));
         return lowOffsetCountRatio;
     }
 
-    private RiscScoreOffsetCountRatio buildRiscScoreOffsetCountRatio(String lowScore,
+    private RiskScoreOffsetCountRatio buildRiscScoreOffsetCountRatio(String lowScore,
                                                                      List<OffsetCountRatio> offsetCountRatioForLow) {
-        RiscScoreOffsetCountRatio lowRiscScoreOffsetCountRatio = new RiscScoreOffsetCountRatio();
+        RiskScoreOffsetCountRatio lowRiscScoreOffsetCountRatio = new RiskScoreOffsetCountRatio();
         lowRiscScoreOffsetCountRatio.setScore(lowScore);
         lowRiscScoreOffsetCountRatio.setOffsetCountRatio(offsetCountRatioForLow);
         return lowRiscScoreOffsetCountRatio;

@@ -207,18 +207,18 @@ public abstract class TestObjectFactory {
 
     public static Map<String, String> testRiskScoreOffsetCountRatioByDayRowFieldsMap() {
         return Map.of(
-                LOW_SCORE, TestObjectFactory.randomLong().toString(),
-                HIGH_SCORE, TestObjectFactory.randomLong().toString(),
-                FATAL_SCORE, TestObjectFactory.randomLong().toString(),
+                LOW_SCORE, TestObjectFactory.randomFloat().toString(),
+                HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
+                FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
                 DAY.getValue(), String.valueOf(System.currentTimeMillis() + randomLong())
         );
     }
 
     public static Map<String, String> testRiskScoreOffsetCountRatioByMonthRowFieldsMap(int monthOffset) {
         return Map.of(
-                LOW_SCORE, TestObjectFactory.randomLong().toString(),
-                HIGH_SCORE, TestObjectFactory.randomLong().toString(),
-                FATAL_SCORE, TestObjectFactory.randomLong().toString(),
+                LOW_SCORE, TestObjectFactory.randomFloat().toString(),
+                HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
+                FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
                 YEAR.getValue(), String.valueOf(LocalDate.now().getYear()),
                 MONTH.getValue(), String.valueOf(LocalDate.now().getMonth().getValue() - monthOffset)
         );

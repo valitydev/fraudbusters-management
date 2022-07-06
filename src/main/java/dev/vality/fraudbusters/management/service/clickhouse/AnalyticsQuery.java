@@ -17,8 +17,8 @@ public class AnalyticsQuery {
                             AND toDateTime(eventTime) >= toDateTime(:from)
                             AND toDateTime(eventTime) <= toDateTime(:to)
                             AND currency = :currency
-                            AND shopId = :shopId
-                            AND partyId = :partyId
+                            AND like(shopId, :shopId)
+                            AND like(partyId, :partyId)
                     """;
 
     public static final String BLOCKED_FRAUD_PAYMENTS_COUNT_RATIO =
@@ -32,8 +32,8 @@ public class AnalyticsQuery {
                   AND toDateTime(eventTime) >= toDateTime(:from)
                   AND toDateTime(eventTime) <= toDateTime(:to)
                   AND currency = :currency
-                  AND shopId = :shopId
-                  AND partyId = :partyId
+                  AND like(shopId, :shopId)
+                  AND like(partyId, :partyId)
             """;
 
     public static final String BLOCKED_FRAUD_PAYMENTS_SUM =
@@ -49,8 +49,8 @@ public class AnalyticsQuery {
                             AND status = 'failed'
                             AND errorCode='no_route_found:risk_score_is_too_high'
                             AND currency = :currency
-                            AND shopId = :shopId
-                            AND partyId = :partyId
+                            AND like(shopId, :shopId)
+                            AND like(partyId, :partyId)
                     """;
 
     public static final String FRAUD_PAYMENTS_COUNT =
@@ -64,8 +64,8 @@ public class AnalyticsQuery {
                             AND toDateTime(eventTime) >= toDateTime(:from)
                             AND toDateTime(eventTime) <= toDateTime(:to)
                             AND currency = :currency
-                            AND shopId = :shopId
-                            AND partyId = :partyId
+                            AND like(shopId, :shopId)
+                            AND like(partyId, :partyId)
                     """;
 
     public static final String FRAUD_PAYMENTS_RESULTS_SUMMARY =
@@ -92,8 +92,8 @@ public class AnalyticsQuery {
                             AND toDateTime(eventTime) >= toDateTime(:from)
                             AND toDateTime(eventTime) <= toDateTime(:to)
                             AND currency = :currency
-                            AND shopId = :shopId
-                            AND partyId = :partyId
+                            AND like(shopId, :shopId)
+                            AND like(partyId, :partyId)
                     """;
 
     public static final String FRAUD_PAYMENTS_SCORE_SPLIT_COUNT_RATIO =
@@ -118,11 +118,18 @@ public class AnalyticsQuery {
                                 AND toDateTime(eventTime) >= toDateTime(:from)
                                 AND toDateTime(eventTime) <= toDateTime(:to)
                                 and shopId!='TEST'
-                                AND shopId = :shopId
                                 AND currency = :currency
-                                AND partyId = :partyId
+                                AND like(shopId, :shopId)
+                                AND like(partyId, :partyId)
                             GROUP BY %1$s
                             ORDER BY %1$s
                         )
+                    """;
+
+    public static final String CURRENCIES =
+            """
+                        SELECT DISTINCT
+                            currency
+                        FROM fraud.fraud_payment
                     """;
 }

@@ -3,6 +3,7 @@ package dev.vality.fraudbusters.management.resource.analytics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.fraudbusters.management.TestObjectFactory;
 import dev.vality.fraudbusters.management.controller.ErrorController;
+import dev.vality.fraudbusters.management.converter.QueryParamsToAnalyticParamsConverter;
 import dev.vality.fraudbusters.management.converter.RowListToFraudResultSummaryListConverter;
 import dev.vality.fraudbusters.management.converter.RowListToRiskScoreOffsetCountRatioListConverter;
 import dev.vality.fraudbusters.management.service.BaseAnalyticsServiceImpl;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 class AnalyticsResourceTest {
 
+    private static final String CURRENCY = "currency";
     private MockMvc mockMvc;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -61,7 +64,8 @@ class AnalyticsResourceTest {
                 new AnalyticsResource(
                         baseAnalyticsService,
                         resultSummaryListConverter,
-                        scoreOffsetCountRatioListConverter);
+                        scoreOffsetCountRatioListConverter,
+                        new QueryParamsToAnalyticParamsConverter());
         this.mockMvc = MockMvcBuilders.standaloneSetup(analyticsResource, new ErrorController()).build();
     }
 
@@ -73,7 +77,7 @@ class AnalyticsResourceTest {
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/count")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -92,7 +96,7 @@ class AnalyticsResourceTest {
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/count")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -111,7 +115,7 @@ class AnalyticsResourceTest {
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/count/ratio")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -130,7 +134,7 @@ class AnalyticsResourceTest {
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/sum")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -149,7 +153,7 @@ class AnalyticsResourceTest {
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/count")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -169,7 +173,7 @@ class AnalyticsResourceTest {
         MvcResult mvcResult = mockMvc.perform(get("/analytics/fraud-payments/results/summary")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -191,7 +195,7 @@ class AnalyticsResourceTest {
         MvcResult mvcResult = mockMvc.perform(get("/analytics/fraud-payments/results/summary")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -221,7 +225,7 @@ class AnalyticsResourceTest {
         MvcResult mvcResult = mockMvc.perform(get("/analytics/fraud-payments/results/summary")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678"))
                 .andExpect(status().isOk())
@@ -285,7 +289,7 @@ class AnalyticsResourceTest {
         MvcResult mvcResult = mockMvc.perform(get("/analytics/fraud-payments/scores/split-count/ratio")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678")
                         .queryParam("splitUnit", DAY.getValue()))
@@ -311,7 +315,7 @@ class AnalyticsResourceTest {
         MvcResult mvcResult = mockMvc.perform(get("/analytics/fraud-payments/scores/split-count/ratio")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678")
                         .queryParam("splitUnit", DAY.getValue()))
@@ -345,8 +349,9 @@ class AnalyticsResourceTest {
                 .anyMatch(offsetCountRatio -> isEqualRatio(row, score, offsetCountRatio.getCountRatio()));
     }
 
-    private boolean isEqualRatio(Row row, String score, Long countRatio) {
-        return countRatio.toString().equals(row.getValues().get(score));
+    private boolean isEqualRatio(Row row, String score, Float actualCountRatio) {
+        Float expectedCountRatio = Float.parseFloat(row.getValues().get(score));
+        return new BigDecimal(actualCountRatio).compareTo(new BigDecimal(expectedCountRatio)) == 0;
     }
 
     private boolean hasCorrectOffset(SplitRiskScoreCountRatioResponse response, long currentDate, String score) {
@@ -369,7 +374,7 @@ class AnalyticsResourceTest {
         MvcResult mvcResult = mockMvc.perform(get("/analytics/fraud-payments/scores/split-count/ratio")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
                         .queryParam("toTime", "2016-06-30T06:12:27Z")
-                        .queryParam("currency", "KZT")
+                        .queryParam(CURRENCY, "KZT")
                         .queryParam("merchantId", "1234")
                         .queryParam("shopId", "5678")
                         .queryParam("splitUnit", MONTH.getValue()))
@@ -405,5 +410,43 @@ class AnalyticsResourceTest {
                 .atStartOfDay()
                 .atZone(UTC)
                 .toInstant().toEpochMilli();
+    }
+
+    @Test
+    void getCurrenciesWithEmptyResult() throws Exception {
+        Row row = TestObjectFactory.testRow(Collections.emptyMap());
+        Result result = TestObjectFactory.testResult(List.of(row));
+        when(warehouseQueryService.execute(any(Query.class))).thenReturn(result);
+
+        MvcResult mvcResult = mockMvc.perform(get("/analytics/currencies"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String responseAsString = mvcResult.getResponse().getContentAsString();
+        var response =
+                objectMapper.readValue(responseAsString, ListResponse.class);
+
+        assertTrue(response.getResult().isEmpty());
+    }
+
+    @Test
+    void getCurrenciesWithSuccessResult() throws Exception {
+        String rubCurrency = "RUB";
+        String eurCurrency = "EUR";
+        Row firstRow = TestObjectFactory.testRow(Map.of(CURRENCY, rubCurrency));
+        Row secondRow = TestObjectFactory.testRow(Map.of(CURRENCY, eurCurrency));
+        Result result = TestObjectFactory.testResult(List.of(firstRow, secondRow));
+        when(warehouseQueryService.execute(any(Query.class))).thenReturn(result);
+
+        MvcResult mvcResult = mockMvc.perform(get("/analytics/currencies"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String responseAsString = mvcResult.getResponse().getContentAsString();
+        var response =
+                objectMapper.readValue(responseAsString, ListResponse.class);
+
+        assertTrue(response.getResult().stream().anyMatch(currency -> currency.equals(rubCurrency)));
+        assertTrue(response.getResult().stream().anyMatch(currency -> currency.equals(eurCurrency)));
     }
 }

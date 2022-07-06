@@ -4,6 +4,7 @@ import dev.vality.fraudbusters.management.service.clickhouse.AnalyticsQuery;
 import dev.vality.fraudbusters.management.service.iface.BaseAnalyticsService;
 import dev.vality.fraudbusters.management.service.iface.SqlTimeSplitService;
 import dev.vality.fraudbusters.management.service.iface.WarehouseQueryService;
+import dev.vality.fraudbusters.management.utils.ResultExtractorUtil;
 import dev.vality.fraudbusters.warehouse.Query;
 import dev.vality.fraudbusters.warehouse.Result;
 import dev.vality.fraudbusters.warehouse.Row;
@@ -28,7 +29,7 @@ public class BaseAnalyticsServiceImpl implements BaseAnalyticsService {
     public Integer getBlockedFraudPaymentsCount(Map<String, String> params) {
         Query query = buildQuery(params, AnalyticsQuery.BLOCKED_FRAUD_PAYMENTS_COUNT);
         Result result = warehouseQueryService.execute(query);
-        return getResultIntegerField(result, COUNT);
+        return ResultExtractorUtil.getIntegerField(result, COUNT);
     }
 
     private Query buildQuery(Map<String, String> params, String statement) {
@@ -38,43 +39,25 @@ public class BaseAnalyticsServiceImpl implements BaseAnalyticsService {
         return query;
     }
 
-    private Integer getResultIntegerField(Result result, String field) {
-        return result.getValues().stream()
-                .findFirst()
-                .map(Row::getValues)
-                .map(rowFieldMap -> rowFieldMap.get(field))
-                .map(Integer::parseInt)
-                .orElse(-1);
-    }
-
     @Override
     public Float getBlockedFraudPaymentsCountRatio(Map<String, String> params) {
         Query query = buildQuery(params, AnalyticsQuery.BLOCKED_FRAUD_PAYMENTS_COUNT_RATIO);
         Result result = warehouseQueryService.execute(query);
-        return getResultFloatField(result);
-    }
-
-    private Float getResultFloatField(Result result) {
-        return result.getValues().stream()
-                .findFirst()
-                .map(Row::getValues)
-                .map(rowFieldMap -> rowFieldMap.get(RATIO))
-                .map(Float::parseFloat)
-                .orElse(-1F);
+        return ResultExtractorUtil.getFloatField(result, RATIO);
     }
 
     @Override
     public Integer getBlockedFraudPaymentsSum(Map<String, String> params) {
         Query query = buildQuery(params, AnalyticsQuery.BLOCKED_FRAUD_PAYMENTS_SUM);
         Result result = warehouseQueryService.execute(query);
-        return getResultIntegerField(result, SUM);
+        return ResultExtractorUtil.getIntegerField(result, SUM);
     }
 
     @Override
     public Integer getFraudPaymentsCount(Map<String, String> params) {
         Query query = buildQuery(params, AnalyticsQuery.FRAUD_PAYMENTS_COUNT);
         Result result = warehouseQueryService.execute(query);
-        return getResultIntegerField(result, COUNT);
+        return ResultExtractorUtil.getIntegerField(result, COUNT);
     }
 
 
@@ -96,6 +79,16 @@ public class BaseAnalyticsServiceImpl implements BaseAnalyticsService {
         Result result = warehouseQueryService.execute(query);
         return result.getValues().stream()
                 .map(Row::getValues)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getCurrencies() {
+        Query query = buildQuery(null, AnalyticsQuery.CURRENCIES);
+        Result result = warehouseQueryService.execute(query);
+        return result.getValues().stream()
+                .map(Row::getValues)
+                .flatMap(stringStringMap -> stringStringMap.values().stream())
                 .collect(Collectors.toList());
     }
 }

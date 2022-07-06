@@ -19,4 +19,6 @@ public interface BaseAnalyticsService {
 
     List<Map<String, String>> getFraudPaymentsScoreSplitCountRatio(Map<String, String> params, SplitUnit splintUnit);
 
+    List<String> getCurrencies();
+
 }

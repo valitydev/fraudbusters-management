@@ -13,12 +13,17 @@ import dev.vality.swag.fraudbusters.management.model.Channel;
 import dev.vality.swag.fraudbusters.management.model.Notification;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static dev.vality.fraudbusters.management.constant.AnalyticsResultField.*;
+import static dev.vality.swag.fraudbusters.management.model.SplitUnit.*;
 
 public abstract class TestObjectFactory {
 
@@ -96,6 +101,10 @@ public abstract class TestObjectFactory {
         return ThreadLocalRandom.current().nextLong(1000);
     }
 
+    public static Float randomFloat() {
+        return ThreadLocalRandom.current().nextFloat();
+    }
+
     public static dev.vality.damsel.fraudbusters_notificator.Notification testInternalNotification() {
         var notification = new dev.vality.damsel.fraudbusters_notificator.Notification();
         notification.setId(randomLong());
@@ -164,6 +173,55 @@ public abstract class TestObjectFactory {
         insertRequest.setListType(dev.vality.damsel.wb_list.ListType.black);
         insertRequest.setRecords(collect);
         return insertRequest;
+    }
+
+    public static dev.vality.fraudbusters.warehouse.Result testResult(String nameField, Number value) {
+        var result = new dev.vality.fraudbusters.warehouse.Result();
+        result.setValues(
+                List.of(testRow(Map.of(nameField, value.toString()))));
+        return result;
+    }
+
+    public static dev.vality.fraudbusters.warehouse.Result testResult(
+            List<dev.vality.fraudbusters.warehouse.Row> rows) {
+        var result = new dev.vality.fraudbusters.warehouse.Result();
+        result.setValues(rows);
+        return result;
+    }
+
+    public static dev.vality.fraudbusters.warehouse.Row testRow(Map<String, String> fields) {
+        return new dev.vality.fraudbusters.warehouse.Row()
+                .setValues(fields);
+    }
+
+    public static Map<String, String> testSummaryRowFieldsMap() {
+        return Map.of(
+                TEMPLATE, TestObjectFactory.randomString(),
+                RULE, TestObjectFactory.randomString(),
+                STATUS, TestObjectFactory.randomString(),
+                COUNT, TestObjectFactory.randomLong().toString(),
+                SUM, TestObjectFactory.randomLong().toString(),
+                RATIO, TestObjectFactory.randomFloat().toString()
+        );
+    }
+
+    public static Map<String, String> testRiskScoreOffsetCountRatioByDayRowFieldsMap() {
+        return Map.of(
+                LOW_SCORE, TestObjectFactory.randomFloat().toString(),
+                HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
+                FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
+                DAY.getValue(), String.valueOf(System.currentTimeMillis() + randomLong())
+        );
+    }
+
+    public static Map<String, String> testRiskScoreOffsetCountRatioByMonthRowFieldsMap(int monthOffset) {
+        return Map.of(
+                LOW_SCORE, TestObjectFactory.randomFloat().toString(),
+                HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
+                FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
+                YEAR.getValue(), String.valueOf(LocalDate.now().getYear()),
+                MONTH.getValue(), String.valueOf(LocalDate.now().getMonth().getValue() - monthOffset)
+        );
     }
 
 }

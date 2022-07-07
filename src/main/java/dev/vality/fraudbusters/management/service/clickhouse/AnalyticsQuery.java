@@ -85,7 +85,7 @@ public class AnalyticsQuery {
                                           AND toDateTime(eventTime) >= toDateTime(:from)
                                           AND toDateTime(eventTime) <= toDateTime(:to)
                                           AND shopId != 'TEST') AS ratio
-                        FROM fraud.fraud_payment
+                        FROM fraud.events_unique
                         WHERE
                             timestamp >= toDate(:from)
                             AND timestamp <= toDate(:to)
@@ -111,7 +111,7 @@ public class AnalyticsQuery {
                                 countIf(resultStatus = 'THREE_DS') AS normal,
                                 countIf(resultStatus = 'DECLINE') AS fatal,
                                 count() as all
-                            FROM fraud.fraud_payment
+                            FROM fraud.events_unique
                             WHERE
                                 timestamp >= toDate(:from)
                                 AND timestamp <= toDate(:to)

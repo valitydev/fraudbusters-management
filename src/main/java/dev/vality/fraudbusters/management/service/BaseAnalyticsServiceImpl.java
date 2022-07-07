@@ -47,10 +47,10 @@ public class BaseAnalyticsServiceImpl implements BaseAnalyticsService {
     }
 
     @Override
-    public Integer getBlockedFraudPaymentsSum(Map<String, String> params) {
+    public Float getBlockedFraudPaymentsSum(Map<String, String> params) {
         Query query = buildQuery(params, AnalyticsQuery.BLOCKED_FRAUD_PAYMENTS_SUM);
         Result result = warehouseQueryService.execute(query);
-        return ResultExtractorUtil.getIntegerField(result, SUM);
+        return ResultExtractorUtil.getFloatField(result, SUM);
     }
 
     @Override

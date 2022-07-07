@@ -70,9 +70,9 @@ class AnalyticsResourceTest {
     }
 
     @Test
-    void getBlockedFraudPaymentsCountWithFailResult() throws Exception {
+    void getBlockedFraudPaymentsCountWithEmptyResult() throws Exception {
         when(warehouseQueryService.execute(any(Query.class)))
-                .thenReturn(TestObjectFactory.testResult(TestObjectFactory.randomString(), 123));
+                .thenReturn(new Result());
 
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/count")
                         .queryParam("fromTime", "2022-06-22T06:12:27Z")
@@ -85,7 +85,7 @@ class AnalyticsResourceTest {
 
         var countResponse = objectMapper.readValue(result.getResponse().getContentAsString(), CountResponse.class);
 
-        assertEquals(-1, countResponse.getCount());
+        assertEquals(0, countResponse.getCount());
     }
 
     @Test
@@ -108,6 +108,24 @@ class AnalyticsResourceTest {
     }
 
     @Test
+    void getBlockedFraudPaymentsCountRatioWithEmptyResult() throws Exception {
+        when(warehouseQueryService.execute(any(Query.class))).thenReturn(new Result());
+
+        MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/count/ratio")
+                        .queryParam("fromTime", "2022-06-22T06:12:27Z")
+                        .queryParam("toTime", "2016-06-30T06:12:27Z")
+                        .queryParam(CURRENCY, "KZT")
+                        .queryParam("merchantId", "1234")
+                        .queryParam("shopId", "5678"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var ratioResponse = objectMapper.readValue(result.getResponse().getContentAsString(), RatioResponse.class);
+
+        assertEquals(0.0f, ratioResponse.getRatio());
+    }
+
+    @Test
     void getBlockedFraudPaymentsCountRatio() throws Exception {
         float ratio = 1.456f;
         when(warehouseQueryService.execute(any(Query.class))).thenReturn(TestObjectFactory.testResult(RATIO, ratio));
@@ -127,8 +145,26 @@ class AnalyticsResourceTest {
     }
 
     @Test
+    void getBlockedFraudPaymentsSumWithEmptyResult() throws Exception {
+        when(warehouseQueryService.execute(any(Query.class))).thenReturn(new Result());
+
+        MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/sum")
+                        .queryParam("fromTime", "2022-06-22T06:12:27Z")
+                        .queryParam("toTime", "2016-06-30T06:12:27Z")
+                        .queryParam(CURRENCY, "KZT")
+                        .queryParam("merchantId", "1234")
+                        .queryParam("shopId", "5678"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var sumResponse = objectMapper.readValue(result.getResponse().getContentAsString(), SumResponse.class);
+
+        assertEquals(0.0f, sumResponse.getSum());
+    }
+
+    @Test
     void getBlockedFraudPaymentsSum() throws Exception {
-        int sum = 1000;
+        float sum = 1000F;
         when(warehouseQueryService.execute(any(Query.class))).thenReturn(TestObjectFactory.testResult(SUM, sum));
 
         MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/blocked/sum")
@@ -143,6 +179,24 @@ class AnalyticsResourceTest {
         var sumResponse = objectMapper.readValue(result.getResponse().getContentAsString(), SumResponse.class);
 
         assertEquals(sum, sumResponse.getSum());
+    }
+
+    @Test
+    void getFraudPaymentsCountWithEmptyResult() throws Exception {
+        when(warehouseQueryService.execute(any(Query.class))).thenReturn(new Result());
+
+        MvcResult result = mockMvc.perform(get("/analytics/fraud-payments/count")
+                        .queryParam("fromTime", "2022-06-22T06:12:27Z")
+                        .queryParam("toTime", "2016-06-30T06:12:27Z")
+                        .queryParam(CURRENCY, "KZT")
+                        .queryParam("merchantId", "1234")
+                        .queryParam("shopId", "5678"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var countResponse = objectMapper.readValue(result.getResponse().getContentAsString(), CountResponse.class);
+
+        assertEquals(0, countResponse.getCount());
     }
 
     @Test

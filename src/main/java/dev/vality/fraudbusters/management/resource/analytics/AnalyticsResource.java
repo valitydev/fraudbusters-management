@@ -75,7 +75,7 @@ public class AnalyticsResource implements AnalyticsApi {
             @Valid String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getBlockedFraudPaymentsSum with params: {}", params);
-        Integer blockedFraudPaymentsSum = baseAnalyticsService.getBlockedFraudPaymentsSum(params);
+        Float blockedFraudPaymentsSum = baseAnalyticsService.getBlockedFraudPaymentsSum(params);
         log.info("<- getBlockedFraudPaymentsSum result: {}", blockedFraudPaymentsSum);
         return ResponseEntity.ok(
                 new SumResponse()

@@ -11,7 +11,7 @@ public interface BaseAnalyticsService {
 
     Float getBlockedFraudPaymentsCountRatio(Map<String, String> params);
 
-    Integer getBlockedFraudPaymentsSum(Map<String, String> params);
+    Float getBlockedFraudPaymentsSum(Map<String, String> params);
 
     Integer getFraudPaymentsCount(Map<String, String> params);
 

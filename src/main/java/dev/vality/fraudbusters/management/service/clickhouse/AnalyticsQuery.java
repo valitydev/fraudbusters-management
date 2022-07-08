@@ -10,7 +10,7 @@ public class AnalyticsQuery {
             """
                         SELECT
                             countIf(status = 'failed' AND errorCode='no_route_found:risk_score_is_too_high') AS count
-                        FROM fraud.fraud_payment
+                        FROM fraud.payment
                         WHERE
                             timestamp >= toDate(:from)
                             AND timestamp <= toDate(:to)
@@ -25,7 +25,7 @@ public class AnalyticsQuery {
             """
                SELECT
                   countIf(status = 'failed' AND errorCode='no_route_found:risk_score_is_too_high') / count() AS ratio
-               FROM fraud.fraud_payment
+               FROM fraud.payment
                WHERE
                   timestamp >= toDate(:from)
                   AND timestamp <= toDate(:to)
@@ -40,7 +40,7 @@ public class AnalyticsQuery {
             """
                         SELECT
                             sum(amount) / 100 AS sum
-                        FROM fraud.fraud_payment
+                        FROM fraud.payment
                         WHERE
                             timestamp >= toDate(:from)
                             AND timestamp <= toDate(:to)
@@ -57,7 +57,7 @@ public class AnalyticsQuery {
             """
                         SELECT
                             count(*) AS count
-                        FROM fraud.fraud_payment
+                        FROM fraud.payment
                         WHERE
                             timestamp >= toDate(:from)
                             AND timestamp <= toDate(:to)
@@ -78,7 +78,7 @@ public class AnalyticsQuery {
                             sum(amount / 100) AS sum,
                             count() /(SELECT
                                           count() AS all
-                                      FROM fraud.fraud_payment
+                                      FROM fraud.payment
                                       WHERE
                                           timestamp >= toDate(:from)
                                           AND timestamp <= toDate(:to)

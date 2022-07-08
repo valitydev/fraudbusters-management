@@ -99,7 +99,7 @@ public class AnalyticsQuery {
     public static final String FRAUD_PAYMENTS_SCORE_SPLIT_COUNT_RATIO =
             """
                         SELECT
-                            %1$s,
+                            %2$s,
                             low * 100 / all AS low,
                             normal * 100 / all AS high,
                             fatal * 100 / all AS fatal
@@ -121,8 +121,8 @@ public class AnalyticsQuery {
                                 AND currency = :currency
                                 AND like(shopId, :shopId)
                                 AND like(partyId, :partyId)
-                            GROUP BY %1$s
-                            ORDER BY %1$s
+                            GROUP BY %2$s
+                            ORDER BY %2$s
                         )
                     """;
 

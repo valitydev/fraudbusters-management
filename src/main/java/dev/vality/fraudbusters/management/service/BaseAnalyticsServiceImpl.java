@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.service;
 
+import dev.vality.fraudbusters.management.domain.TimeSplitInfo;
 import dev.vality.fraudbusters.management.service.clickhouse.AnalyticsQuery;
 import dev.vality.fraudbusters.management.service.iface.BaseAnalyticsService;
 import dev.vality.fraudbusters.management.service.iface.SqlTimeSplitService;
@@ -73,8 +74,12 @@ public class BaseAnalyticsServiceImpl implements BaseAnalyticsService {
     @Override
     public List<Map<String, String>> getFraudPaymentsScoreSplitCountRatio(Map<String, String> params,
                                                                           SplitUnit splintUnit) {
-        String splitStatement = sqlTimeSplitService.getSplitStatement(splintUnit);
-        String statement = String.format(AnalyticsQuery.FRAUD_PAYMENTS_SCORE_SPLIT_COUNT_RATIO, splitStatement);
+        TimeSplitInfo timeSplitInfo = sqlTimeSplitService.getSplitInfo(splintUnit);
+        String statement = String.format(
+                AnalyticsQuery.FRAUD_PAYMENTS_SCORE_SPLIT_COUNT_RATIO,
+                timeSplitInfo.getStatement(),
+                timeSplitInfo.getTimeUnit()
+        );
         Query query = buildQuery(params, statement);
         Result result = warehouseQueryService.execute(query);
         return result.getValues().stream()

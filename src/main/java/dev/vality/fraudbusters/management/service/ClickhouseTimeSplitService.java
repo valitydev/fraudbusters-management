@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.service;
 
+import dev.vality.fraudbusters.management.domain.TimeSplitInfo;
 import dev.vality.fraudbusters.management.service.iface.SqlTimeSplitService;
 import dev.vality.swag.fraudbusters.management.model.SplitUnit;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Map;
 
 import static dev.vality.swag.fraudbusters.management.model.SplitUnit.*;
@@ -16,16 +18,56 @@ import static java.time.ZoneOffset.UTC;
 public class ClickhouseTimeSplitService implements SqlTimeSplitService {
 
     @Override
-    public String getSplitStatement(SplitUnit splitUnit) {
+    public TimeSplitInfo getSplitInfo(SplitUnit splitUnit) {
         return switch (splitUnit) {
-            case MINUTE -> "timestamp as day, toHour(toDateTime(eventTime, 'UTC')) as hour, " +
-                    "toMinute(toDateTime(eventTime, 'UTC')) as minutes";
-            case HOUR -> "timestamp as day, toHour(toDateTime(eventTime, 'UTC')) as hour";
-            case DAY -> "timestamp as day";
-            case WEEK -> "toStartOfWeek(timestamp, 1) as week";
-            case MONTH -> "toYear(timestamp) as year, toMonth(timestamp) as month";
-            case YEAR -> "toYear(timestamp) as year";
+            case MINUTE -> {
+                String statement = "timestamp as day, toHour(toDateTime(eventTime, 'UTC')) as hour, " +
+                        "toMinute(toDateTime(eventTime, 'UTC')) as minute";
+                yield TimeSplitInfo.builder()
+                        .statement(statement)
+                        .timeUnit(buildTimeUnit(DAY.getValue(), HOUR.getValue(), MINUTE.getValue()))
+                        .build();
+            }
+            case HOUR -> {
+                String statement = "timestamp as day, toHour(toDateTime(eventTime, 'UTC')) as hour";
+                yield TimeSplitInfo.builder()
+                        .statement(statement)
+                        .timeUnit(buildTimeUnit(DAY.getValue(), HOUR.getValue()))
+                        .build();
+            }
+            case DAY -> {
+                String statement = "timestamp as day";
+                yield TimeSplitInfo.builder()
+                        .statement(statement)
+                        .timeUnit(DAY.getValue())
+                        .build();
+            }
+            case WEEK -> {
+                String statement = "toStartOfWeek(timestamp, 1) as week";
+                yield TimeSplitInfo.builder()
+                        .statement(statement)
+                        .timeUnit(WEEK.getValue())
+                        .build();
+            }
+            case MONTH -> {
+                String statement = "toYear(timestamp) as year, toMonth(timestamp) as month";
+                yield TimeSplitInfo.builder()
+                        .statement(statement)
+                        .timeUnit(buildTimeUnit(YEAR.getValue(), MONTH.getValue()))
+                        .build();
+            }
+            case YEAR -> {
+                String statement = "toYear(timestamp) as year";
+                yield TimeSplitInfo.builder()
+                        .statement(statement)
+                        .timeUnit(YEAR.getValue())
+                        .build();
+            }
         };
+    }
+
+    private String buildTimeUnit(String... units) {
+        return String.join(", ", Arrays.asList(units));
     }
 
     @Override

@@ -200,7 +200,7 @@ public abstract class TestObjectFactory {
                 RULE, TestObjectFactory.randomString(),
                 STATUS, TestObjectFactory.randomString(),
                 COUNT, TestObjectFactory.randomLong().toString(),
-                SUM, TestObjectFactory.randomLong().toString(),
+                SUM, TestObjectFactory.randomFloat().toString(),
                 RATIO, TestObjectFactory.randomFloat().toString()
         );
     }

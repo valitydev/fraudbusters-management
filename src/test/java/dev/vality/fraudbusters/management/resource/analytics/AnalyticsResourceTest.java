@@ -319,19 +319,19 @@ class AnalyticsResourceTest {
         assertTrue(response.getResult().stream()
                 .map(FraudResultSummary::getSummary)
                 .map(Summary::getSum)
-                .anyMatch(sum -> firstRow.getValues().get(SUM).equals(sum.toString())));
+                .anyMatch(sum -> isEqualFloat(firstRow, SUM, sum)));
         assertTrue(response.getResult().stream()
                 .map(FraudResultSummary::getSummary)
                 .map(Summary::getSum)
-                .anyMatch(sum -> secondRow.getValues().get(SUM).equals(sum.toString())));
+                .anyMatch(sum -> isEqualFloat(secondRow, SUM, sum)));
         assertTrue(response.getResult().stream()
                 .map(FraudResultSummary::getSummary)
                 .map(Summary::getRatio)
-                .anyMatch(ratio -> firstRow.getValues().get(RATIO).equals(ratio.toString())));
+                .anyMatch(ratio -> isEqualFloat(firstRow, RATIO, ratio)));
         assertTrue(response.getResult().stream()
                 .map(FraudResultSummary::getSummary)
                 .map(Summary::getRatio)
-                .anyMatch(ratio -> secondRow.getValues().get(RATIO).equals(ratio.toString())));
+                .anyMatch(ratio -> isEqualFloat(secondRow, RATIO, ratio)));
     }
 
     @Test
@@ -400,12 +400,12 @@ class AnalyticsResourceTest {
         return response.getOffsetCountRatios().stream()
                 .filter(riscScoreOffsetCountRatio -> riscScoreOffsetCountRatio.getScore().equals(score))
                 .flatMap(riscScoreOffsetCountRatio -> riscScoreOffsetCountRatio.getOffsetCountRatio().stream())
-                .anyMatch(offsetCountRatio -> isEqualRatio(row, score, offsetCountRatio.getCountRatio()));
+                .anyMatch(offsetCountRatio -> isEqualFloat(row, score, offsetCountRatio.getCountRatio()));
     }
 
-    private boolean isEqualRatio(Row row, String score, Float actualCountRatio) {
-        Float expectedCountRatio = Float.parseFloat(row.getValues().get(score));
-        return new BigDecimal(actualCountRatio).compareTo(new BigDecimal(expectedCountRatio)) == 0;
+    private boolean isEqualFloat(Row row, String field, Float actual) {
+        float expected = Float.parseFloat(row.getValues().get(field));
+        return new BigDecimal(actual).compareTo(new BigDecimal(expected)) == 0;
     }
 
     private boolean hasCorrectOffset(SplitRiskScoreCountRatioResponse response, long currentDate, String score) {

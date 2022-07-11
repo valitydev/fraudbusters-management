@@ -32,7 +32,7 @@ public class RowListToFraudResultSummaryListConverter {
                 .status(fieldRow.get(STATUS))
                 .summary(new Summary()
                         .count(Objects.nonNull(fieldRow.get(COUNT)) ? Integer.parseInt(fieldRow.get(COUNT)) : -1)
-                        .sum(Objects.nonNull(fieldRow.get(SUM)) ? Integer.parseInt(fieldRow.get(SUM)) : -1)
+                        .sum(Objects.nonNull(fieldRow.get(SUM)) ? Float.parseFloat(fieldRow.get(SUM)) : -1)
                         .ratio(Objects.nonNull(fieldRow.get(RATIO)) ? Float.parseFloat(fieldRow.get(RATIO)) : -1)
                 );
 

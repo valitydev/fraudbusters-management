@@ -94,6 +94,7 @@ public class AnalyticsQuery {
                             AND currency = :currency
                             AND like(shopId, :shopId)
                             AND like(partyId, :partyId)
+                        GROUP BY status, rule, template
                     """;
 
     public static final String FRAUD_PAYMENTS_SCORE_SPLIT_COUNT_RATIO =

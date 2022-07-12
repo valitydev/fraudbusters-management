@@ -76,7 +76,7 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
             case MINUTE -> {
                 int hour = Integer.parseInt(row.get(HOUR.getValue()));
                 int minutes = Integer.parseInt(row.get(MINUTE.getValue()));
-                Date date = new Date(Long.parseLong(row.get(DAY.getValue())));
+                Date date = Date.valueOf(row.get(DAY.getValue()));
                 LocalDateTime localDateTime = date.toLocalDate()
                         .atStartOfDay()
                         .plusHours(hour)
@@ -87,7 +87,7 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
             }
             case HOUR -> {
                 int hour = Integer.parseInt(row.get(HOUR.getValue()));
-                Date date = new Date(Long.parseLong(row.get(DAY.getValue())));
+                Date date = Date.valueOf(row.get(DAY.getValue()));
                 LocalDateTime localDateTime = date.toLocalDate()
                         .atStartOfDay()
                         .plusHours(hour);
@@ -96,7 +96,7 @@ public class ClickhouseTimeSplitService implements SqlTimeSplitService {
                         .toInstant().toEpochMilli();
             }
             case DAY -> {
-                Date date = new Date(Long.parseLong(row.get(DAY.getValue())));
+                Date date = Date.valueOf(row.get(DAY.getValue()));
                 yield date.toLocalDate()
                         .atStartOfDay()
                         .atZone(UTC)

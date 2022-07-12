@@ -98,7 +98,7 @@ public abstract class TestObjectFactory {
     }
 
     public static Long randomLong() {
-        return ThreadLocalRandom.current().nextLong(1000);
+        return ThreadLocalRandom.current().nextLong(200);
     }
 
     public static Float randomFloat() {
@@ -210,7 +210,7 @@ public abstract class TestObjectFactory {
                 LOW_SCORE, TestObjectFactory.randomFloat().toString(),
                 HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
                 FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
-                DAY.getValue(), String.valueOf(System.currentTimeMillis() + randomLong())
+                DAY.getValue(), LocalDate.now().plusDays(randomLong()).toString()
         );
     }
 

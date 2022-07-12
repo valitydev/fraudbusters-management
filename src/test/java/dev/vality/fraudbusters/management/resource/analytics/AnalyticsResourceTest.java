@@ -361,13 +361,7 @@ class AnalyticsResourceTest {
     @Test
     void getFraudPaymentsScoreSplitCountRatioByDayWithSuccessResult() throws Exception {
         Row firstRow = TestObjectFactory.testRow(TestObjectFactory.testRiskScoreOffsetCountRatioByDayRowFieldsMap());
-        long firstRowOffset = LocalDate.parse(firstRow.getValues().get(DAY.getValue()))
-                .atStartOfDay(UTC).toInstant()
-                .toEpochMilli();
         Row secondRow = TestObjectFactory.testRow(TestObjectFactory.testRiskScoreOffsetCountRatioByDayRowFieldsMap());
-        long secondRowOffset = LocalDate.parse(secondRow.getValues().get(DAY.getValue()))
-                .atStartOfDay(UTC).toInstant()
-                .toEpochMilli();
         List<Row> rows = List.of(firstRow, secondRow);
         Result result = TestObjectFactory.testResult(rows);
         when(warehouseQueryService.execute(any(Query.class))).thenReturn(result);
@@ -388,24 +382,29 @@ class AnalyticsResourceTest {
 
         assertEquals(DAY, response.getSplitUnit());
         assertEquals(3, response.getOffsetCountRatios().size());
-        assertTrue(hasCorrectCountRatio(firstRow, response, LOW_SCORE));
-        assertTrue(hasCorrectCountRatio(secondRow, response, LOW_SCORE));
-        assertTrue(hasCorrectCountRatio(firstRow, response, HIGH_SCORE));
-        assertTrue(hasCorrectCountRatio(secondRow, response, HIGH_SCORE));
-        assertTrue(hasCorrectCountRatio(firstRow, response, FATAL_SCORE));
-        assertTrue(hasCorrectCountRatio(secondRow, response, FATAL_SCORE));
+        assertTrue(hasCorrectCountRatio(response, firstRow, LOW_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, LOW_SCORE));
+        assertTrue(hasCorrectCountRatio(response, firstRow, HIGH_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, HIGH_SCORE));
+        assertTrue(hasCorrectCountRatio(response, firstRow, FATAL_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, FATAL_SCORE));
 
-        long currentDate = LocalDate.now().atStartOfDay(UTC).toInstant().toEpochMilli();
-
+        long firstRowOffset = LocalDate.parse(firstRow.getValues().get(DAY.getValue()))
+                .atStartOfDay(UTC).toInstant()
+                .toEpochMilli();
         assertTrue(hasCorrectOffset(response, firstRowOffset, LOW_SCORE));
         assertTrue(hasCorrectOffset(response, firstRowOffset, HIGH_SCORE));
         assertTrue(hasCorrectOffset(response, firstRowOffset, FATAL_SCORE));
+
+        long secondRowOffset = LocalDate.parse(secondRow.getValues().get(DAY.getValue()))
+                .atStartOfDay(UTC).toInstant()
+                .toEpochMilli();
         assertTrue(hasCorrectOffset(response, secondRowOffset, LOW_SCORE));
         assertTrue(hasCorrectOffset(response, secondRowOffset, HIGH_SCORE));
         assertTrue(hasCorrectOffset(response, secondRowOffset, FATAL_SCORE));
     }
 
-    private boolean hasCorrectCountRatio(Row row, SplitRiskScoreCountRatioResponse response, String score) {
+    private boolean hasCorrectCountRatio(SplitRiskScoreCountRatioResponse response, Row row, String score) {
         return response.getOffsetCountRatios().stream()
                 .filter(riscScoreOffsetCountRatio -> riscScoreOffsetCountRatio.getScore().equals(score))
                 .flatMap(riscScoreOffsetCountRatio -> riscScoreOffsetCountRatio.getOffsetCountRatio().stream())
@@ -450,12 +449,12 @@ class AnalyticsResourceTest {
 
         assertEquals(MONTH, response.getSplitUnit());
         assertEquals(3, response.getOffsetCountRatios().size());
-        assertTrue(hasCorrectCountRatio(firstRow, response, LOW_SCORE));
-        assertTrue(hasCorrectCountRatio(secondRow, response, LOW_SCORE));
-        assertTrue(hasCorrectCountRatio(firstRow, response, HIGH_SCORE));
-        assertTrue(hasCorrectCountRatio(secondRow, response, HIGH_SCORE));
-        assertTrue(hasCorrectCountRatio(firstRow, response, FATAL_SCORE));
-        assertTrue(hasCorrectCountRatio(secondRow, response, FATAL_SCORE));
+        assertTrue(hasCorrectCountRatio(response, firstRow, LOW_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, LOW_SCORE));
+        assertTrue(hasCorrectCountRatio(response, firstRow, HIGH_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, HIGH_SCORE));
+        assertTrue(hasCorrectCountRatio(response, firstRow, FATAL_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, FATAL_SCORE));
 
         long previousMonthDate = getDateWithMonthOffset(1);
         long previousTwoMonthsDate = getDateWithMonthOffset(2);

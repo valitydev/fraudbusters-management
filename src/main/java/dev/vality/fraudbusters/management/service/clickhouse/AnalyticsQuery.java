@@ -131,6 +131,6 @@ public class AnalyticsQuery {
             """
                         SELECT DISTINCT
                             currency
-                        FROM fraud.fraud_payment
+                        FROM fraud.payment
                     """;
 }

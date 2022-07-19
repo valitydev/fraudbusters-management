@@ -30,7 +30,7 @@ public class AnalyticsResource implements AnalyticsApi {
     private final QueryParamsToAnalyticParamsConverter paramsConverter;
 
     @Override
-    @PreAuthorize("hasAnyRole('fraud-officer')")
+    @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<CountResponse> getBlockedFraudPaymentsCount(
             @NotNull @Valid String fromTime,
             @NotNull @Valid String toTime,
@@ -48,7 +48,7 @@ public class AnalyticsResource implements AnalyticsApi {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('fraud-officer')")
+    @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<RatioResponse> getBlockedFraudPaymentsCountRatio(
             @NotNull @Valid String fromTime,
             @NotNull @Valid String toTime,
@@ -66,7 +66,7 @@ public class AnalyticsResource implements AnalyticsApi {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('fraud-officer')")
+    @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<SumResponse> getBlockedFraudPaymentsSum(
             @NotNull @Valid String fromTime,
             @NotNull @Valid String toTime,
@@ -84,7 +84,7 @@ public class AnalyticsResource implements AnalyticsApi {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('fraud-officer')")
+    @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<CountResponse> getFraudPaymentsCount(
             @NotNull @Valid String fromTime,
             @NotNull @Valid String toTime,
@@ -102,7 +102,7 @@ public class AnalyticsResource implements AnalyticsApi {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('fraud-officer')")
+    @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<FraudResultListSummaryResponse> getFraudPaymentsResultsSummary(
             @NotNull @Valid String fromTime,
             @NotNull @Valid String toTime,
@@ -130,7 +130,7 @@ public class AnalyticsResource implements AnalyticsApi {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('fraud-officer')")
+    @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<SplitRiskScoreCountRatioResponse> getFraudPaymentsScoreSplitCountRatio(
             @NotNull @Valid String fromTime,
             @NotNull @Valid String toTime,

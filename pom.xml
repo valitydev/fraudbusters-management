@@ -6,7 +6,7 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.0.14</version>
+        <version>1.0.18</version>
     </parent>
 
     <artifactId>fraudbusters-management</artifactId>
@@ -22,7 +22,7 @@
         <server.port>8080</server.port>
         <management.port>8023</management.port>
         <exposed.ports>${server.port} ${management.port}</exposed.ports>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
         <db.name>fraudbusters</db.name>
         <db.port>5432</db.port>
         <db.url>jdbc:postgresql://localhost:${db.port}/${db.name}</db.url>
@@ -30,9 +30,9 @@
         <db.password>postgres</db.password>
         <db.schema>af</db.schema>
         <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
-        <fraudbusters.proto.version>1.102-269908f</fraudbusters.proto.version>
+        <fraudbusters.proto.version>1.108-0800fde</fraudbusters.proto.version>
         <fraudo.version>0.3.0</fraudo.version>
-        <swag-fraudbusters-management.version>1.120-37280c3-server</swag-fraudbusters-management.version>
+        <swag-fraudbusters-management.version>1.122-edbe5f9-server</swag-fraudbusters-management.version>
         <fraudbusters.notificator.proto.version>1.27-4907168</fraudbusters.notificator.proto.version>
         <warehouse.proto.version>1.12-afdcd48</warehouse.proto.version>
         <testcontainers.annotations.version>1.3.2</testcontainers.annotations.version>
@@ -199,7 +199,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
-            <version>1.8</version>
+            <version>1.9.0</version>
         </dependency>
 
         <!--test-->
@@ -216,12 +216,12 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>4.0.3</version>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.benas</groupId>
             <artifactId>random-beans</artifactId>
-            <version>3.6.0</version>
+            <version>3.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -232,7 +232,7 @@
         <dependency>
             <groupId>dev.vality</groupId>
             <artifactId>testcontainers-annotations</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.2</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -273,7 +273,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>15</source>
                     <target>15</target>
@@ -299,7 +299,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>1.7.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.shared</groupId>

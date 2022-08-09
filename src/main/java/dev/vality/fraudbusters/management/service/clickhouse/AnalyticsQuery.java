@@ -84,6 +84,7 @@ public class AnalyticsQuery {
                                           AND timestamp <= toDate(:to)
                                           AND toDateTime(eventTime) >= toDateTime(:from)
                                           AND toDateTime(eventTime) <= toDateTime(:to)
+                                          AND currency = :currency
                                           AND shopId != 'TEST') AS ratio
                         FROM fraud.events_unique
                         WHERE

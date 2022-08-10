@@ -78,13 +78,15 @@ public class AnalyticsQuery {
                             sum(amount / 100) AS sum,
                             count() /(SELECT
                                           count() AS all
-                                      FROM fraud.payment
+                                      FROM fraud.events_unique
                                       WHERE
                                           timestamp >= toDate(:from)
                                           AND timestamp <= toDate(:to)
                                           AND toDateTime(eventTime) >= toDateTime(:from)
                                           AND toDateTime(eventTime) <= toDateTime(:to)
                                           AND currency = :currency
+                                          AND like(shopId, :shopId)
+                                          AND like(partyId, :partyId)
                                           AND shopId != 'TEST') AS ratio
                         FROM fraud.events_unique
                         WHERE

@@ -55,8 +55,12 @@ class WbListCandidateDaoImplTest {
         List<WbListCandidate> candidates = wbListCandidateDao.getList(new FilterRequest());
 
         assertEquals(2, candidates.size());
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record1.getListName())));
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record2.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record1.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record2.getListName())));
     }
 
     @Test
@@ -75,7 +79,9 @@ class WbListCandidateDaoImplTest {
         List<WbListCandidate> candidates = wbListCandidateDao.getList(filter);
 
         assertEquals(1, candidates.size());
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record1.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record1.getListName())));
     }
 
     @Test
@@ -102,8 +108,12 @@ class WbListCandidateDaoImplTest {
         List<WbListCandidate> candidates = wbListCandidateDao.getList(filter);
 
         assertEquals(2, candidates.size());
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record2.getListName())));
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record3.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record2.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record3.getListName())));
     }
 
     @Test
@@ -153,7 +163,11 @@ class WbListCandidateDaoImplTest {
         List<WbListCandidate> candidates = wbListCandidateDao.getByIds(ids);
 
         assertEquals(2, candidates.size());
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record1.getListName())));
-        assertTrue(candidates.stream().map(WbListCandidate::getListName).anyMatch(s -> s.equals(record2.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record1.getListName())));
+        assertTrue(candidates.stream()
+                .map(WbListCandidate::getListName)
+                .anyMatch(s -> s.equals(record2.getListName())));
     }
 }

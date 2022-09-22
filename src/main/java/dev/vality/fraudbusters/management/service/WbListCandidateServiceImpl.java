@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -71,12 +70,12 @@ public class WbListCandidateServiceImpl implements WbListCandidateService {
         List<WbListCandidate> candidateList = wbListCandidateDao.getList(filter);
         FilterResponse<WbListCandidate> response = new FilterResponse<>();
         response.setResult(candidateList);
-        Long continuationId = buildContinuationId(filter.getSize(), candidateList);
-        response.setContinuationId(String.valueOf(continuationId));
+        Long lastId = buildLastId(filter.getSize(), candidateList);
+        response.setNumericLastId(lastId);
         return response;
     }
 
-    private Long buildContinuationId(Integer filterSize, List<WbListCandidate> candidates) {
+    private Long buildLastId(Integer filterSize, List<WbListCandidate> candidates) {
         if (candidates.size() == filterSize) {
             var lastCandidate = candidates.get(candidates.size() - 1);
             return lastCandidate.getId();
@@ -86,17 +85,14 @@ public class WbListCandidateServiceImpl implements WbListCandidateService {
 
     @Override
     @Transactional
-    public void approve(List<String> ids, String initiator) {
-        List<Long> longIds = ids.stream()  // TODO сделать long в swag
-                .map(Long::valueOf)
-                .collect(Collectors.toList());
-        List<WbListCandidate> candidates = wbListCandidateDao.getByIds(longIds);
+    public void approve(List<Long> ids, String initiator) {
+        List<WbListCandidate> candidates = wbListCandidateDao.getByIds(ids);
         for (WbListCandidate candidate : candidates) {
             Row row = rowConverter.convert(candidate);
             ListType listType = ListType.valueOf(candidate.getListType().getLiteral());
             wbListCommandService.sendCommandSync(row, listType, Command.CREATE, initiator);
         }
-        log.info("WbListCandidateService send approved candidates with ids: {}", Arrays.toString(longIds.toArray()));
-        wbListCandidateDao.approve(longIds);
+        log.info("WbListCandidateService send approved candidates with ids: {}", Arrays.toString(ids.toArray()));
+        wbListCandidateDao.approve(ids);
     }
 }

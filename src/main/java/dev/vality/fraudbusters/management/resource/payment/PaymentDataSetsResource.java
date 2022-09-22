@@ -69,8 +69,13 @@ public class PaymentDataSetsResource implements PaymentsDataSetApi {
                                                            @Valid String sortBy, @Valid Integer size,
                                                            @Valid String from, @Valid String to,
                                                            @Valid String dataSetName) {
-        var filterRequest = new FilterRequest(dataSetName, continuationId, null, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .searchValue(dataSetName)
+                .lastId(continuationId)
+                .size(size)
+                .sortBy(sortBy)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .build();
         String userName = userInfoService.getUserName();
         log.info("filterDataSets initiator: {} filterRequest: {}", userName, filterRequest);
         List<DataSetModel> dataSetModels = paymentsDataSetService.filterDataSets(from, to, filterRequest);

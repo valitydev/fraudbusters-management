@@ -1,10 +1,11 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
-import dev.vality.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
-import dev.vality.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
+import dev.vality.fraudbusters.management.converter.payment.*;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.service.WbListCommandService;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
 import dev.vality.fraudbusters.management.utils.ParametersService;
 import dev.vality.fraudbusters.management.utils.PaymentCountInfoGenerator;
@@ -45,6 +46,16 @@ public class PaymentListLoadDataResourceTest {
     UserInfoService userInfoService;
     @MockBean
     ParametersService parametersService;
+    @MockBean
+    WbListCandidateBatchService wbListCandidateBatchService;
+    @MockBean
+    WbListCandidateService wbListCandidateService;
+    @MockBean
+    WbListCandidateToWbListRecordConverter wbListCandidateToWbListRecordConverter;
+    @MockBean
+    CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
+    @MockBean
+    ChargebacksToFraudDataCandidatesConverter chargebackConverter;
 
     @Autowired
     PaymentsListsResource paymentsListsResource;

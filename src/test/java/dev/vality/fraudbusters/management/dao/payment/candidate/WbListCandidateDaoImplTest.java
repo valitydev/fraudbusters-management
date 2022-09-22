@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.List;
 
 import static dev.vality.fraudbusters.management.domain.tables.WbListCandidate.WB_LIST_CANDIDATE;
+import static dev.vality.fraudbusters.management.domain.tables.WbListCandidateBatch.WB_LIST_CANDIDATE_BATCH;
 import static org.junit.jupiter.api.Assertions.*;
 
 @PostgresqlJooqITest
@@ -34,7 +35,12 @@ class WbListCandidateDaoImplTest {
 
     @Test
     void save() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidate wbListCandidate = TestObjectFactory.testWbListCandidate();
+        wbListCandidate.setBatchId(batchRecord.getId());
 
         wbListCandidateDao.save(wbListCandidate);
 
@@ -43,9 +49,14 @@ class WbListCandidateDaoImplTest {
 
     @Test
     void getListWithoutFilter() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord record1 = TestObjectFactory.testWbListCandidateRecord();
+        record1.setBatchId(batchRecord.getId());
         WbListCandidateRecord record2 = TestObjectFactory.testWbListCandidateRecord();
-
+        record2.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(record1)
                 .newRecord()
@@ -65,17 +76,22 @@ class WbListCandidateDaoImplTest {
 
     @Test
     void getListWithSearchValueFilter() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord record1 = TestObjectFactory.testWbListCandidateRecord();
+        record1.setBatchId(batchRecord.getId());
         WbListCandidateRecord record2 = TestObjectFactory.testWbListCandidateRecord();
-
+        record2.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(record1)
                 .newRecord()
                 .set(record2)
                 .execute();
-
         FilterRequest filter = new FilterRequest();
         filter.setSearchValue(record1.getValue());
+
         List<WbListCandidate> candidates = wbListCandidateDao.getList(filter);
 
         assertEquals(1, candidates.size());
@@ -86,13 +102,19 @@ class WbListCandidateDaoImplTest {
 
     @Test
     void getListWithLastIdFilter() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord record1 = TestObjectFactory.testWbListCandidateRecord();
         record1.setValue("a");
+        record1.setBatchId(batchRecord.getId());
         WbListCandidateRecord record2 = TestObjectFactory.testWbListCandidateRecord();
         record2.setValue("b");
+        record2.setBatchId(batchRecord.getId());
         WbListCandidateRecord record3 = TestObjectFactory.testWbListCandidateRecord();
         record3.setValue("c");
-
+        record3.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(record1)
                 .newRecord()
@@ -100,11 +122,11 @@ class WbListCandidateDaoImplTest {
                 .newRecord()
                 .set(record3)
                 .execute();
-
         FilterRequest filter = new FilterRequest();
         filter.setLastId("1");
         filter.setSortBy("value");
         filter.setSortFieldValue("a");
+
         List<WbListCandidate> candidates = wbListCandidateDao.getList(filter);
 
         assertEquals(2, candidates.size());
@@ -118,29 +140,39 @@ class WbListCandidateDaoImplTest {
 
     @Test
     void approve() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord wbListCandidate = TestObjectFactory.testWbListCandidateRecord();
+        wbListCandidate.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(wbListCandidate)
                 .execute();
         WbListCandidateRecord savedWbListCandidate = dslContext.fetchAny(WB_LIST_CANDIDATE);
-
         assertFalse(savedWbListCandidate.getApproved());
 
         wbListCandidateDao.approve(List.of(savedWbListCandidate.getId()));
 
         WbListCandidateRecord approvedWbListCandidate = dslContext.fetchAny(WB_LIST_CANDIDATE);
-
         assertTrue(approvedWbListCandidate.getApproved());
     }
 
     @Test
     void getByIds() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord record1 = TestObjectFactory.testWbListCandidateRecord();
-        record1.setApproved(Boolean.TRUE);
+        record1.setApproved(Boolean.FALSE);
+        record1.setBatchId(batchRecord.getId());
         WbListCandidateRecord record2 = TestObjectFactory.testWbListCandidateRecord();
-        record2.setApproved(Boolean.TRUE);
+        record2.setApproved(Boolean.FALSE);
+        record2.setBatchId(batchRecord.getId());
         WbListCandidateRecord record3 = TestObjectFactory.testWbListCandidateRecord();
-        record3.setApproved(Boolean.FALSE);
+        record3.setApproved(Boolean.TRUE);
+        record3.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(record1)
                 .newRecord()
@@ -148,7 +180,6 @@ class WbListCandidateDaoImplTest {
                 .newRecord()
                 .set(record3)
                 .execute();
-
         Result<WbListCandidateRecord> actualCandidates = dslContext.fetch(WB_LIST_CANDIDATE);
         WbListCandidateRecord wbListCandidateRecord1 = actualCandidates.stream()
                 .filter(wbListCandidateRecord -> wbListCandidateRecord.getListName().equals(record1.getListName()))
@@ -159,7 +190,15 @@ class WbListCandidateDaoImplTest {
                 .findFirst()
                 .get();
 
-        List<Long> ids = List.of(wbListCandidateRecord1.getId(), wbListCandidateRecord2.getId());
+        WbListCandidateRecord wbListCandidateRecord3 = actualCandidates.stream()
+                .filter(wbListCandidateRecord -> wbListCandidateRecord.getListName().equals(record3.getListName()))
+                .findFirst()
+                .get();
+        List<Long> ids = List.of(
+                wbListCandidateRecord1.getId(),
+                wbListCandidateRecord2.getId(),
+                wbListCandidateRecord3.getId()
+        );
         List<WbListCandidate> candidates = wbListCandidateDao.getByIds(ids);
 
         assertEquals(2, candidates.size());

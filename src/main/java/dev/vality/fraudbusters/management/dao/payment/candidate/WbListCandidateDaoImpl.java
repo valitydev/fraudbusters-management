@@ -43,11 +43,11 @@ public class WbListCandidateDaoImpl extends AbstractDao implements WbListCandida
                 .selectFrom(WB_LIST_CANDIDATE);
         Field<String> sortField = StringUtils.hasLength(filter.getSortBy())
                 ? WB_LIST_CANDIDATE.field(filter.getSortBy(), String.class)
-                : WB_LIST_CANDIDATE.SOURCE;
+                : WB_LIST_CANDIDATE.LIST_NAME;
         SelectConditionStep<WbListCandidateRecord> whereQuery = StringUtils.hasLength(filter.getSearchValue())
                 ? from.where(WB_LIST_CANDIDATE.VALUE.like(filter.getSearchValue())
                 .or(WB_LIST_CANDIDATE.LIST_NAME.like(filter.getSearchValue()))
-                .or(WB_LIST_CANDIDATE.SOURCE.like(filter.getSearchValue())))
+                .or(WB_LIST_CANDIDATE.BATCH_ID.like(filter.getSearchValue())))
                 : from.where(DSL.trueCondition());
         SelectSeekStep2<WbListCandidateRecord, String, Long> candidateRecords = addSortCondition(WB_LIST_CANDIDATE.ID,
                 sortField, filter.getSortOrder(), whereQuery);
@@ -72,7 +72,8 @@ public class WbListCandidateDaoImpl extends AbstractDao implements WbListCandida
     public List<WbListCandidate> getByIds(List<Long> ids) {
         SelectConditionStep<WbListCandidateRecord> where = getDslContext()
                 .selectFrom(WB_LIST_CANDIDATE)
-                .where(WB_LIST_CANDIDATE.ID.in(ids));
+                .where(WB_LIST_CANDIDATE.ID.in(ids))
+                .and(WB_LIST_CANDIDATE.APPROVED.eq(Boolean.FALSE));
         return fetch(where, candidateRowMapper);
     }
 

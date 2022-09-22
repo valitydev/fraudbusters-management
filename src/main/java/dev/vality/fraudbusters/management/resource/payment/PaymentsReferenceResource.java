@@ -52,8 +52,14 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
                                                                       @Valid String searchValue, @Valid String sortBy,
                                                                       @Valid String sortFieldValue,
                                                                       @Valid Integer size) {
-        var filterRequest = new FilterRequest(searchValue, lastId, sortFieldValue, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .searchValue(searchValue)
+                .lastId(lastId)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .sortBy(sortBy)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .build();
         log.info("filterReferences initiator: {} filterRequest: {}", userInfoService.getUserName(), filterRequest);
         filterRequest.setSearchValue(FilterRequestUtils.prepareSearchValue(filterRequest.getSearchValue()));
         List<DefaultPaymentReferenceModel> paymentReferenceModels =
@@ -91,8 +97,14 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
     public ResponseEntity<ReferencesResponse> filterReferences(@Valid String lastId, @Valid String sortOrder,
                                                                @Valid String searchValue, @Valid String sortBy,
                                                                @Valid String sortFieldValue, @Valid Integer size) {
-        var filterRequest = new FilterRequest(searchValue, lastId, sortFieldValue, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .searchValue(searchValue)
+                .lastId(lastId)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .sortBy(sortBy)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .build();
         log.info("filterReferences initiator: {} filterRequest: {}", userInfoService.getUserName(), filterRequest);
         List<PaymentReferenceModel> paymentReferenceModels = referenceDao.filterReferences(filterRequest);
         Integer count = referenceDao.countFilterModel(filterRequest.getSearchValue());

@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FraudDataEventToFraudCandidateConverter implements Converter<FraudDataCandidate, WbListCandidate> {
+public class FraudDataEventToWbListCandidateConverter implements Converter<FraudDataCandidate, WbListCandidate> {
 
     @Override
     public WbListCandidate convert(FraudDataCandidate source) {
@@ -18,6 +18,7 @@ public class FraudDataEventToFraudCandidateConverter implements Converter<FraudD
         candidate.setListName(source.getType());
         candidate.setPartyId(source.getMerchantId());
         candidate.setShopId(source.getShopId());
+        candidate.setBatchId(source.getBatchId());
         return candidate;
     }
 }

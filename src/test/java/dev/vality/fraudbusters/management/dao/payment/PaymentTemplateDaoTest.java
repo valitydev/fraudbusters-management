@@ -87,59 +87,48 @@ public class PaymentTemplateDaoTest {
         templateModel = createTemplateModel("filter_id_2");
         templateDao.insert(templateModel);
 
-        List<TemplateModel> list = templateDao.filterModel(new FilterRequest(
-                null,
-                null,
-                null,
-                1,
-                null,
-                SortOrder.DESC));
+        List<TemplateModel> list = templateDao.filterModel(FilterRequest.builder()
+                .size(1)
+                .sortOrder(SortOrder.DESC)
+                .build());
         log.info("list: {}", list);
         assertEquals(1, list.size());
 
         TemplateModel templateModel1 = list.get(0);
-        list = templateDao.filterModel(new FilterRequest(
-                null,
-                templateModel1.getId(),
-                null,
-                1,
-                null,
-                SortOrder.DESC));
+        list = templateDao.filterModel(FilterRequest.builder()
+                .lastId(templateModel1.getId())
+                .size(1)
+                .sortOrder(SortOrder.DESC)
+                .build());
         log.info("list: {}", list);
         assertEquals(1, list.size());
         assertNotEquals(templateModel1.getId(), list.get(0).getId());
 
         //filter by id
         String filterIdRegexp = "filter_%";
-        list = templateDao.filterModel(new FilterRequest(
-                filterIdRegexp,
-                null,
-                null,
-                2,
-                null,
-                SortOrder.DESC));
+        list = templateDao.filterModel(FilterRequest.builder()
+                .searchValue(filterIdRegexp)
+                .size(2)
+                .sortOrder(SortOrder.DESC)
+                .build());
         log.info("list: {}", list);
         assertEquals(2, list.size());
 
         //filter and pagination by id
-        list = templateDao.filterModel(new FilterRequest(
-                filterIdRegexp,
-                null,
-                null,
-                1,
-                null,
-                SortOrder.DESC));
+        list = templateDao.filterModel(FilterRequest.builder()
+                .searchValue(filterIdRegexp)
+                .size(1)
+                .sortOrder(SortOrder.DESC)
+                .build());
         log.info("list: {}", list);
         assertEquals(1, list.size());
 
         String id = list.get(0).getId();
-        list = templateDao.filterModel(new FilterRequest(
-                null,
-                id,
-                null,
-                1,
-                null,
-                SortOrder.DESC));
+        list = templateDao.filterModel(FilterRequest.builder()
+                .lastId(id)
+                .size(2)
+                .sortOrder(SortOrder.DESC)
+                .build());
         log.info("list: {}", list);
         assertEquals(1, list.size());
         assertNotEquals(id, list.get(0).getId());

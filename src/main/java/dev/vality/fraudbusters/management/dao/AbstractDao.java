@@ -84,4 +84,15 @@ public abstract class AbstractDao extends AbstractGenericDao {
         }
     }
 
+    protected <T extends Record, E, P> SelectSeekStep2<T, E, P> addSortCondition(Field<P> sortField,
+                                                                                 Field<E> sortFieldSecond,
+                                                                                 SortOrder sortOrder,
+                                                                                 SelectHavingStep<T> groupQuery) {
+        if (sortOrder == SortOrder.DESC) {
+            return groupQuery.orderBy(sortFieldSecond.desc(), sortField.desc());
+        } else {
+            return groupQuery.orderBy(sortFieldSecond.asc(), sortField.desc());
+        }
+    }
+
 }

@@ -31,7 +31,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static dev.vality.fraudbusters.management.domain.tables.WbListCandidate.WB_LIST_CANDIDATE;
-import static org.junit.jupiter.api.Assertions.*;
+import static dev.vality.fraudbusters.management.domain.tables.WbListCandidateBatch.WB_LIST_CANDIDATE_BATCH;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -69,11 +71,10 @@ class WbListCandidateServiceImplTest {
     }
 
     @Test
-    void sendToCandidate() throws Exception {
+    void sendToCandidate() {
         int count = 3;
         List<FraudDataCandidate> fraudDataCandidates = TestObjectFactory.testFraudDataCandidates(count);
         when(kafkaTemplate.send(anyString(), any(), any())).thenReturn(listenableFuture);
-
         List<String> ids = wbListCandidateService.sendToCandidate(fraudDataCandidates);
 
         assertEquals(count, ids.size());
@@ -82,14 +83,21 @@ class WbListCandidateServiceImplTest {
 
     @Test
     void getList() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord record1 = TestObjectFactory.testWbListCandidateRecord();
-        record1.setApproved(Boolean.TRUE);
+        record1.setApproved(Boolean.FALSE);
+        record1.setBatchId(batchRecord.getId());
         WbListCandidateRecord record2 = TestObjectFactory.testWbListCandidateRecord();
-        record2.setApproved(Boolean.TRUE);
-        record2.setSource(record1.getSource());
+        record2.setApproved(Boolean.FALSE);
+        record2.setListName(record1.getListName());
+        record2.setBatchId(batchRecord.getId());
         WbListCandidateRecord record3 = TestObjectFactory.testWbListCandidateRecord();
         record3.setApproved(Boolean.FALSE);
-        record3.setSource(record1.getSource());
+        record3.setListName(record1.getListName());
+        record3.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(record1)
                 .newRecord()
@@ -97,32 +105,37 @@ class WbListCandidateServiceImplTest {
                 .newRecord()
                 .set(record3)
                 .execute();
-
-        List<String> ids = dslContext.fetch(WB_LIST_CANDIDATE).stream()
+        List<Long> ids = dslContext.fetch(WB_LIST_CANDIDATE).stream()
                 .map(WbListCandidateRecord::getId)
                 .sorted(Comparator.reverseOrder())
-                .map(String::valueOf)
                 .collect(Collectors.toList());
-
         FilterRequest filter = new FilterRequest();
         int size = ids.size() - 1;
         filter.setSize(size);
+
         FilterResponse<WbListCandidate> filterResponse = wbListCandidateService.getList(filter);
 
         assertEquals(size, filterResponse.getResult().size());
-        assertNotNull(filterResponse.getContinuationId());
-        String lastId = ids.get(ids.size() - 2);
-        assertEquals(String.valueOf(lastId), filterResponse.getContinuationId());
+        assertTrue(filterResponse.getNumericLastId() > 0);
+        Long lastId = ids.get(ids.size() - 2);
+        assertEquals(lastId, filterResponse.getNumericLastId());
     }
 
     @Test
     void approve() {
+        var batchRecord = TestObjectFactory.testWbListCandidateBatchRecord();
+        dslContext.insertInto(WB_LIST_CANDIDATE_BATCH)
+                .set(batchRecord)
+                .execute();
         WbListCandidateRecord record1 = TestObjectFactory.testWbListCandidateRecord();
-        record1.setApproved(Boolean.TRUE);
+        record1.setApproved(Boolean.FALSE);
+        record1.setBatchId(batchRecord.getId());
         WbListCandidateRecord record2 = TestObjectFactory.testWbListCandidateRecord();
-        record2.setApproved(Boolean.TRUE);
+        record2.setApproved(Boolean.FALSE);
+        record2.setBatchId(batchRecord.getId());
         WbListCandidateRecord record3 = TestObjectFactory.testWbListCandidateRecord();
         record3.setApproved(Boolean.FALSE);
+        record3.setBatchId(batchRecord.getId());
         dslContext.insertInto(WB_LIST_CANDIDATE)
                 .set(record1)
                 .newRecord()
@@ -130,9 +143,8 @@ class WbListCandidateServiceImplTest {
                 .newRecord()
                 .set(record3)
                 .execute();
-        List<String> ids = dslContext.fetch(WB_LIST_CANDIDATE).stream()
+        List<Long> ids = dslContext.fetch(WB_LIST_CANDIDATE).stream()
                 .map(WbListCandidateRecord::getId)
-                .map(String::valueOf)
                 .collect(Collectors.toList());
         when(wbListCommandService.sendCommandSync(any(Row.class), any(ListType.class), any(Command.class), anyString()))
                 .thenReturn(TestObjectFactory.randomString());

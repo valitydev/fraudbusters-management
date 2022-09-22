@@ -1,13 +1,14 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.fraudbusters.management.TestObjectFactory;
+import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.response.FilterResponse;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidate;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
-import dev.vality.swag.fraudbusters.management.model.FraudCandidatesRequest;
-import dev.vality.swag.fraudbusters.management.model.ListRequest;
-import org.hamcrest.Matchers;
+import dev.vality.swag.fraudbusters.management.model.IdListRequest;
+import dev.vality.swag.fraudbusters.management.model.WbListCandidatesRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -30,13 +31,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class})
-class FraudDataCandidateResourceTest {
+class PaymentListCandidateResourceTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -44,37 +46,44 @@ class FraudDataCandidateResourceTest {
     @MockBean
     private WbListCandidateService wbListCandidateService;
 
+    @MockBean
+    private WbListCandidateBatchService wbListCandidateBatchService;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void approveFraudCandidates() throws Exception {
-        List<String> ids = TestObjectFactory.listRandomStrings(3);
+    void approveListCandidates() throws Exception {
+        List<Long> ids = List.of(
+                TestObjectFactory.randomLong(),
+                TestObjectFactory.randomLong(),
+                TestObjectFactory.randomLong());
         doNothing().when(wbListCandidateService).approve(anyList(), anyString());
 
-        this.mockMvc.perform(post("/fraud-candidates/approved")
-                        .content(objectMapper.writeValueAsString(new ListRequest().records(ids)))
+        this.mockMvc.perform(post("/payments-lists/candidates/approved")
+                        .content(objectMapper.writeValueAsString(new IdListRequest().ids(ids)))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.result", hasSize(ids.size())))
-                .andExpect(jsonPath("$.result", Matchers.contains(ids.toArray())));
+                .andExpect(status().isCreated());
 
     }
 
     @Test
-    void filterFraudCandidates() throws Exception {
+    void listCandidates() throws Exception {
         int count = 3;
+        String source = "chargebacks";
         List<WbListCandidate> wbListCandidates = TestObjectFactory.testWbListCandidates(count);
+        wbListCandidates.forEach(wbListCandidate -> wbListCandidate.setSource(source));
         FilterResponse<WbListCandidate> response = new FilterResponse<>();
         response.setResult(wbListCandidates);
-        String continuationId = TestObjectFactory.randomString();
-        response.setContinuationId(continuationId);
+        Long lastId = TestObjectFactory.randomLong();
+        response.setNumericLastId(lastId);
         when(wbListCandidateService.getList(any(FilterRequest.class))).thenReturn(response);
 
-        this.mockMvc.perform(get("/fraud-candidates")
+        this.mockMvc.perform(get("/payments-lists/candidates")
                         .queryParams(createParams()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.result", hasSize(count)))
-                .andExpect(jsonPath("$.continuationId", equalTo(continuationId)));
+                .andExpect(jsonPath("$.source", equalTo(source)))
+                .andExpect(jsonPath("$.lastId", equalTo(lastId.intValue())));
 
     }
 
@@ -87,18 +96,37 @@ class FraudDataCandidateResourceTest {
     }
 
     @Test
-    void insertFraudCandidates() throws Exception {
-        FraudCandidatesRequest request = new FraudCandidatesRequest();
+    void insertListCandidates() throws Exception {
+        WbListCandidatesRequest request = new WbListCandidatesRequest();
         int count = 3;
-        request.setRecords(TestObjectFactory.testFraudCandidates(count));
+        request.setRecords(TestObjectFactory.testChargebacks(count));
         List<String> uuids = TestObjectFactory.listRandomStrings(count);
         when(wbListCandidateService.sendToCandidate(anyList())).thenReturn(uuids);
 
-        this.mockMvc.perform(post("/fraud-candidates")
+        this.mockMvc.perform(post("/payments-lists/candidates")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void listCandidatesBatches() throws Exception {
+        int count = 3;
+        String source = "Chargebacks";
+        var wbListCandidates = TestObjectFactory.testWbListCandidateBatchModels(count);
+        wbListCandidates.forEach(wbListCandidate -> wbListCandidate.setSource(source));
+        FilterResponse<WbListCandidateBatchModel> response = new FilterResponse<>();
+        response.setResult(wbListCandidates);
+        String lastId = TestObjectFactory.randomString();
+        response.setLastId(lastId);
+        when(wbListCandidateBatchService.getList(any(FilterRequest.class))).thenReturn(response);
+
+        this.mockMvc.perform(get("/payments-lists/candidates-batches")
+                        .queryParams(createParams()))
+                .andDo(print())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.result", hasSize(count)))
-                .andExpect(jsonPath("$.result", Matchers.contains(uuids.toArray())));
+                .andExpect(jsonPath("$.lastId", equalTo(lastId)));
+
     }
 }

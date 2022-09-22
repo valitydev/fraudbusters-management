@@ -15,6 +15,6 @@ public interface WbListCandidateService {
 
     FilterResponse<WbListCandidate> getList(FilterRequest filter);
 
-    void approve(List<String> ids, String initiator);
+    void approve(List<Long> ids, String initiator);
 
 }

@@ -13,10 +13,12 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilterRequest {
+
     String searchValue;
     String lastId;
     String sortFieldValue;
     Integer size;
     String sortBy;
     SortOrder sortOrder;
+    Long numericLastId;
 }

@@ -40,8 +40,14 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
     public ResponseEntity<TemplatesResponse> filterTemplates(@Valid String lastId, @Valid String sortOrder,
                                                              @Valid String searchValue, @Valid String sortBy,
                                                              @Valid String sortFieldValue, @Valid Integer size) {
-        var filterRequest = new FilterRequest(searchValue, lastId, sortFieldValue, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .searchValue(searchValue)
+                .lastId(lastId)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .sortBy(sortBy)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .build();
         String userName = userInfoService.getUserName();
         log.info("filterTemplates initiator: {} filterRequest: {}", userName, filterRequest);
         TemplatesResponse templatesResponse = paymentsTemplatesService.filterTemplates(filterRequest);

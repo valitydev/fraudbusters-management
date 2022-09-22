@@ -319,15 +319,15 @@ public abstract class TestObjectFactory {
     }
 
     public static Chargeback testChargeback() {
-        Chargeback chargeback = new Chargeback();
         ClientInfo clientInfo = new ClientInfo();
         clientInfo.setEmail(randomString());
         clientInfo.setFingerprint(randomString());
         clientInfo.setIp(randomString());
-        chargeback.setClientInfo(clientInfo);
         MerchantInfo merchantInfo = new MerchantInfo();
         merchantInfo.setPartyId(randomString());
         merchantInfo.setShopId(randomString());
+        Chargeback chargeback = new Chargeback();
+        chargeback.setClientInfo(clientInfo);
         chargeback.setMerchantInfo(merchantInfo);
         return chargeback;
     }

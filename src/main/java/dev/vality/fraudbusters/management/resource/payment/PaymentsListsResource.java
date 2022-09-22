@@ -181,7 +181,8 @@ public class PaymentsListsResource implements PaymentsListsApi {
     public ResponseEntity<Void> insertListCandidates(@Valid WbListCandidatesRequest wbListCandidatesRequest) {
         String batchId = UUID.randomUUID().toString();
         log.info("insertListCandidates with request: {}, batchId: {}", wbListCandidatesRequest, batchId);
-        List<FraudDataCandidate> fraudDataCandidates = chargebackConverter.toCandidates(wbListCandidatesRequest.getRecords(), batchId);
+        List<FraudDataCandidate> fraudDataCandidates =
+                chargebackConverter.toCandidates(wbListCandidatesRequest.getRecords(), batchId);
         List<String> uuids = wbListCandidateService.sendToCandidate(fraudDataCandidates);
         log.info("Success insertListCandidates with ids: {}", uuids);
         return ResponseEntity

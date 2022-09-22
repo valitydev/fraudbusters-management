@@ -4,6 +4,7 @@ import dev.vality.fraud_data_crawler.FraudDataCandidate;
 import dev.vality.fraudbusters.management.TestObjectFactory;
 import dev.vality.fraudbusters.management.config.KafkaITest;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidate;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
@@ -24,6 +25,9 @@ class WbListCandidateTest {
     @MockBean
     public WbListCandidateService wbListCandidateService;
 
+    @MockBean
+    public WbListCandidateBatchService wbListCandidateBatchService;
+
     @Autowired
     private KafkaProducer<TBase<?, ?>> testThriftKafkaProducer;
 
@@ -31,6 +35,7 @@ class WbListCandidateTest {
     void listenCandidate() {
         FraudDataCandidate fraudDataCandidate = TestObjectFactory.testFraudDataCandidate();
         doNothing().when(wbListCandidateService).save(any(WbListCandidate.class));
+        doNothing().when(wbListCandidateBatchService).save(anyString(), anyString());
 
         testThriftKafkaProducer.send(topicCandidate, fraudDataCandidate);
 

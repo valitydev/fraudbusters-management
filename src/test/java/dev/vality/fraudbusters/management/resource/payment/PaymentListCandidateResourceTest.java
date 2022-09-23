@@ -100,8 +100,8 @@ class PaymentListCandidateResourceTest {
         WbListCandidatesRequest request = new WbListCandidatesRequest();
         int count = 3;
         request.setRecords(TestObjectFactory.testChargebacks(count));
-        List<String> uuids = TestObjectFactory.listRandomStrings(count);
-        when(wbListCandidateService.sendToCandidate(anyList())).thenReturn(uuids);
+        String key = TestObjectFactory.randomString();
+        when(wbListCandidateService.sendToCandidate(anyList())).thenReturn(key);
 
         this.mockMvc.perform(post("/payments-lists/candidates")
                         .content(objectMapper.writeValueAsString(request))

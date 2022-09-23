@@ -1,4 +1,4 @@
-package dev.vality.fraudbusters.management.converter.payment;
+package dev.vality.fraudbusters.management.converter.candidate;
 
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidate;
 import dev.vality.swag.fraudbusters.management.model.WbListRecord;

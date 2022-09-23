@@ -2,9 +2,9 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.fraud_data_crawler.FraudDataCandidate;
+import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
+import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelToCandidateBatchConverter;
-import dev.vality.fraudbusters.management.converter.payment.ChargebacksToFraudDataCandidatesConverter;
-import dev.vality.fraudbusters.management.converter.payment.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.response.FilterResponse;
@@ -48,7 +48,7 @@ public class PaymentsListsResource implements PaymentsListsApi {
     private final WbListCandidateBatchService wbListCandidateBatchService;
     private final WbListCandidateToWbListRecordConverter candidateConverter;
     private final CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
-    private final ChargebacksToFraudDataCandidatesConverter chargebackConverter;
+    private final ChargebacksToFraudDataCandidatesConverter chargebacksConverter;
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
@@ -182,9 +182,9 @@ public class PaymentsListsResource implements PaymentsListsApi {
         String batchId = UUID.randomUUID().toString();
         log.info("insertListCandidates with request: {}, batchId: {}", wbListCandidatesRequest, batchId);
         List<FraudDataCandidate> fraudDataCandidates =
-                chargebackConverter.toCandidates(wbListCandidatesRequest.getRecords(), batchId);
-        List<String> uuids = wbListCandidateService.sendToCandidate(fraudDataCandidates);
-        log.info("Success insertListCandidates with ids: {}", uuids);
+                chargebacksConverter.toCandidates(wbListCandidatesRequest.getRecords(), batchId);
+        String key = wbListCandidateService.sendToCandidate(fraudDataCandidates);
+        log.info("Success insertListCandidates with key: {}", key);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .build();

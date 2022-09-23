@@ -6,7 +6,7 @@ import dev.vality.damsel.wb_list.Row;
 import dev.vality.fraud_data_crawler.FraudDataCandidate;
 import dev.vality.fraudbusters.management.TestObjectFactory;
 import dev.vality.fraudbusters.management.config.PostgresqlJooqITest;
-import dev.vality.fraudbusters.management.converter.payment.WbListCandidateToRowConverter;
+import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToRowConverter;
 import dev.vality.fraudbusters.management.dao.payment.candidate.WbListCandidateDao;
 import dev.vality.fraudbusters.management.dao.payment.candidate.WbListCandidateDaoImpl;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
@@ -75,9 +75,9 @@ class WbListCandidateServiceImplTest {
         int count = 3;
         List<FraudDataCandidate> fraudDataCandidates = TestObjectFactory.testFraudDataCandidates(count);
         when(kafkaTemplate.send(anyString(), any(), any())).thenReturn(listenableFuture);
-        List<String> ids = wbListCandidateService.sendToCandidate(fraudDataCandidates);
+        String key = wbListCandidateService.sendToCandidate(fraudDataCandidates);
 
-        assertEquals(count, ids.size());
+        assertEquals(fraudDataCandidates.get(0).getBatchId(), key);
         verify(kafkaTemplate, times(count)).send(anyString(), anyString(), any(FraudDataCandidate.class));
     }
 

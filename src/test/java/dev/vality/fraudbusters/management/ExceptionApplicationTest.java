@@ -2,6 +2,8 @@ package dev.vality.fraudbusters.management;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.dao.DaoException;
+import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
+import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.*;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.domain.ListRecord;

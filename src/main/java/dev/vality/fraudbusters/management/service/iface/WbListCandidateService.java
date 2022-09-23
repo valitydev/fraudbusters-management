@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface WbListCandidateService {
 
-    List<String> sendToCandidate(List<FraudDataCandidate> candidates);
+    String sendToCandidate(List<FraudDataCandidate> candidates);
 
     void save(WbListCandidate candidate);
 

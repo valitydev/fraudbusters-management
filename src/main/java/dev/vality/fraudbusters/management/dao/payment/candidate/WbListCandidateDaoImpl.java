@@ -44,8 +44,11 @@ public class WbListCandidateDaoImpl extends AbstractDao implements WbListCandida
         Field<String> sortField = StringUtils.hasLength(filter.getSortBy())
                 ? WB_LIST_CANDIDATE.field(filter.getSortBy(), String.class)
                 : WB_LIST_CANDIDATE.LIST_NAME;
+
+        SelectConditionStep<WbListCandidateRecord> defaultWhere =
+                from.where(WB_LIST_CANDIDATE.APPROVED.eq(Boolean.FALSE));
         SelectConditionStep<WbListCandidateRecord> whereQuery = StringUtils.hasLength(filter.getSearchValue())
-                ? from.where(WB_LIST_CANDIDATE.VALUE.like(filter.getSearchValue())
+                ? defaultWhere.and(WB_LIST_CANDIDATE.VALUE.like(filter.getSearchValue())
                 .or(WB_LIST_CANDIDATE.LIST_NAME.like(filter.getSearchValue()))
                 .or(WB_LIST_CANDIDATE.BATCH_ID.like(filter.getSearchValue())))
                 : from.where(DSL.trueCondition());

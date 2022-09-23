@@ -17,12 +17,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
@@ -38,16 +35,14 @@ public class WbListCandidateServiceImpl implements WbListCandidateService {
     private final Converter<WbListCandidate, Row> rowConverter;
 
     @Override
-    public List<String> sendToCandidate(List<FraudDataCandidate> candidates) {
+    public String sendToCandidate(List<FraudDataCandidate> candidates) {
         try {
-            List<String> uuids = new ArrayList<>();
+            String key = candidates.get(0).getBatchId();
             for (FraudDataCandidate candidate : candidates) {
-                String uuid = UUID.randomUUID().toString();
-                kafkaTemplate.send(topicCandidate, uuid, candidate).get();
+                kafkaTemplate.send(topicCandidate, key, candidate).get();
                 log.info("WbListCandidateService send candidate: {}", candidate);
-                uuids.add(uuid);
             }
-            return uuids;
+            return key;
         } catch (InterruptedException e) {
             log.error("InterruptedException e: ", e);
             Thread.currentThread().interrupt();
@@ -59,13 +54,11 @@ public class WbListCandidateServiceImpl implements WbListCandidateService {
     }
 
     @Override
-    @Transactional
     public void save(WbListCandidate candidate) {
         wbListCandidateDao.save(candidate);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public FilterResponse<WbListCandidate> getList(FilterRequest filter) {
         List<WbListCandidate> candidateList = wbListCandidateDao.getList(filter);
         FilterResponse<WbListCandidate> response = new FilterResponse<>();
@@ -84,7 +77,6 @@ public class WbListCandidateServiceImpl implements WbListCandidateService {
     }
 
     @Override
-    @Transactional
     public void approve(List<Long> ids, String initiator) {
         List<WbListCandidate> candidates = wbListCandidateDao.getByIds(ids);
         for (WbListCandidate candidate : candidates) {

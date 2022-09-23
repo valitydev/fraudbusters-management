@@ -1,4 +1,4 @@
-package dev.vality.fraudbusters.management.converter.payment;
+package dev.vality.fraudbusters.management.converter.candidate;
 
 import dev.vality.damsel.wb_list.IdInfo;
 import dev.vality.damsel.wb_list.PaymentId;

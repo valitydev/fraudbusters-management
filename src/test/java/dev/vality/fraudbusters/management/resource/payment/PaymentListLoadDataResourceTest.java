@@ -1,7 +1,11 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
-import dev.vality.fraudbusters.management.converter.payment.*;
+import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
+import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
+import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelToCandidateBatchConverter;
+import dev.vality.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
+import dev.vality.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.service.WbListCommandService;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;

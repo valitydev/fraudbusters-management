@@ -313,8 +313,10 @@ public abstract class TestObjectFactory {
     }
 
     public static List<FraudDataCandidate> testFraudDataCandidates(int i) {
+        String batchId = TestObjectFactory.randomString();
         return IntStream.rangeClosed(1, i)
                 .mapToObj(value -> testFraudDataCandidate())
+                .map(candidate -> candidate.setBatchId(batchId))
                 .collect(Collectors.toList());
     }
 

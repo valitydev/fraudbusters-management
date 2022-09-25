@@ -20,7 +20,8 @@ import java.lang.annotation.Target;
         "kafka.topic.fraudbusters.payment.template",
         "kafka.topic.fraudbusters.payment.reference",
         "kafka.topic.fraudbusters.payment.group.list",
-        "kafka.topic.fraudbusters.payment.group.reference"
+        "kafka.topic.fraudbusters.payment.group.reference",
+        "kafka.topic.wblist.candidate"
 })
 @KafkaSpringBootTest
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class})

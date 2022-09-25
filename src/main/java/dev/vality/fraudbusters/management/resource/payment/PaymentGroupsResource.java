@@ -59,8 +59,14 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
                                                                            @Valid String sortBy,
                                                                            @Valid String sortFieldValue,
                                                                            @Valid Integer size, @Valid String lastId) {
-        var filterRequest = new FilterRequest(searchValue, lastId, sortFieldValue, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .searchValue(searchValue)
+                .lastId(lastId)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .sortBy(sortBy)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .build();
         log.info("filterReference idRegexp: {}", filterRequest.getSearchValue());
         List<PaymentGroupReferenceModel> listByTemplateId = referenceDao.filterReference(filterRequest);
         Integer count = referenceDao.countFilterReference(filterRequest.getSearchValue());

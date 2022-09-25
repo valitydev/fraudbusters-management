@@ -15,5 +15,7 @@ public class FilterResponse<T> {
 
     private List<T> result;
     private Integer count;
+    private Long numericLastId;
+    private String lastId;
 
 }

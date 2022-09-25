@@ -1,7 +1,9 @@
 package dev.vality.fraudbusters.management;
 
-import dev.vality.dao.DaoException;
 import dev.vality.damsel.wb_list.ListType;
+import dev.vality.dao.DaoException;
+import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
+import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.*;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.domain.ListRecord;
@@ -14,6 +16,8 @@ import dev.vality.fraudbusters.management.listener.WbListEventListener;
 import dev.vality.fraudbusters.management.resource.payment.PaymentsListsResource;
 import dev.vality.fraudbusters.management.service.WbListCommandService;
 import dev.vality.fraudbusters.management.service.iface.AuditService;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
 import dev.vality.fraudbusters.management.utils.*;
 import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
@@ -80,6 +84,16 @@ public class ExceptionApplicationTest {
     public PaymentCountInfoRequestToRowConverter countInfoListRecordToRowConverter;
     @MockBean
     public WbListRecordsToCountInfoListRequestConverter wbListRecordsToListRecordWithRowConverter;
+    @MockBean
+    WbListCandidateBatchService wbListCandidateBatchService;
+    @MockBean
+    WbListCandidateService wbListCandidateService;
+    @MockBean
+    WbListCandidateToWbListRecordConverter wbListCandidateToWbListRecordConverter;
+    @MockBean
+    CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
+    @MockBean
+    ChargebacksToFraudDataCandidatesConverter chargebackConverter;
     @Autowired
     RestTemplateBuilder restTemplateBuilder;
     @LocalServerPort

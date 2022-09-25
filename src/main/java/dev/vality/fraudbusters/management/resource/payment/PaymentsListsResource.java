@@ -1,21 +1,28 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
+import dev.vality.fraud_data_crawler.FraudDataCandidate;
+import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
+import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
+import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelToCandidateBatchConverter;
+import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
+import dev.vality.fraudbusters.management.domain.response.FilterResponse;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidate;
 import dev.vality.fraudbusters.management.exception.SaveRowsException;
 import dev.vality.fraudbusters.management.service.WbListCommandService;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
+import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
 import dev.vality.fraudbusters.management.utils.PagingDataUtils;
 import dev.vality.fraudbusters.management.utils.ParametersService;
 import dev.vality.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.swag.fraudbusters.management.api.PaymentsListsApi;
-import dev.vality.swag.fraudbusters.management.model.IdResponse;
-import dev.vality.swag.fraudbusters.management.model.ListResponse;
-import dev.vality.swag.fraudbusters.management.model.RowListRequest;
-import dev.vality.swag.fraudbusters.management.model.WbListRecordsResponse;
+import dev.vality.swag.fraudbusters.management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -35,6 +44,23 @@ public class PaymentsListsResource implements PaymentsListsApi {
     private final UserInfoService userInfoService;
     private final ParametersService parametersService;
     private final PaymentsListsService paymentsListsService;
+    private final WbListCandidateService wbListCandidateService;
+    private final WbListCandidateBatchService wbListCandidateBatchService;
+    private final WbListCandidateToWbListRecordConverter candidateConverter;
+    private final CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
+    private final ChargebacksToFraudDataCandidatesConverter chargebacksConverter;
+
+    @Override
+    @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
+    public ResponseEntity<Void> approveListCandidates(@Valid IdListRequest listRequest) {
+        List<Long> ids = listRequest.getIds();
+        log.info("approveFraudCandidates with ids: {}", Arrays.toString(ids.toArray()));
+        wbListCandidateService.approve(ids, userInfoService.getUserName());
+        log.info("Success approveFraudCandidates with ids: {}", Arrays.toString(ids.toArray()));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
+    }
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
@@ -43,8 +69,14 @@ public class PaymentsListsResource implements PaymentsListsApi {
                                                              @Valid String sortOrder, @Valid String searchValue,
                                                              @Valid String sortBy, @Valid String sortFieldValue,
                                                              @Valid Integer size) {
-        var filterRequest = new FilterRequest(searchValue, lastId, sortFieldValue, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .lastId(lastId)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .searchValue(searchValue)
+                .sortBy(sortBy)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .build();
         String userName = userInfoService.getUserName();
         log.info("filterList initiator: {} listType: {} listNames: {} filterRequest: {}",
                 userName, listType, listNames, filterRequest);
@@ -80,6 +112,56 @@ public class PaymentsListsResource implements PaymentsListsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
+    public ResponseEntity<WbListCandidatesResponse> listCandidates(@Valid Long lastId,
+                                                                   @Valid String sortOrder,
+                                                                   @Valid String searchValue,
+                                                                   @Valid String sortBy,
+                                                                   @Valid String sortFieldValue,
+                                                                   @Valid Integer size) {
+        FilterRequest filter = FilterRequest.builder()
+                .numericLastId(lastId)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .searchValue(searchValue)
+                .sortBy(sortBy)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .build();
+        log.info("listCandidates with filter: {}", filter);
+        FilterResponse<WbListCandidate> filterResponse = wbListCandidateService.getList(filter);
+        WbListCandidatesResponse result = new WbListCandidatesResponse()
+                .lastId(filterResponse.getNumericLastId())
+                .source(filterResponse.getResult().get(0).getSource())
+                .result(candidateConverter.toWbListRecord(filterResponse.getResult()));
+        log.info("Success listCandidates with result: {}", result);
+        return ResponseEntity.ok(result);
+    }
+
+    @Override
+    public ResponseEntity<WbListCandidatesBatchesResponse> listCandidatesBatches(@Valid String lastId,
+                                                                                 @Valid String sortOrder,
+                                                                                 @Valid String searchValue,
+                                                                                 @Valid String sortBy,
+                                                                                 @Valid String sortFieldValue,
+                                                                                 @Valid Integer size) {
+        FilterRequest filter = FilterRequest.builder()
+                .lastId(lastId)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .searchValue(searchValue)
+                .sortBy(sortBy)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .build();
+        log.info("listCandidatesBatches with filter: {}", filter);
+        FilterResponse<WbListCandidateBatchModel> filterResponse = wbListCandidateBatchService.getList(filter);
+        WbListCandidatesBatchesResponse result = new WbListCandidatesBatchesResponse()
+                .lastId(filterResponse.getLastId())
+                .result(candidateBatchConverter.toWbListCandidateBatch(filterResponse.getResult()));
+        log.info("Success listCandidatesBatches with result: {}", result);
+        return ResponseEntity.ok(result);
+    }
+
+    @Override
+    @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
     public ResponseEntity<ListResponse> getCurrentListNames(@NotNull @Valid String listType) {
         var listResponse = new ListResponse();
         listResponse.setResult(paymentsListsService.getCurrentListNames(listType));
@@ -93,6 +175,19 @@ public class PaymentsListsResource implements PaymentsListsApi {
         log.info("Insert from csv initiator: {} listType: {}", userName, listType);
         paymentsListsService.insertCsv(listType, file, userName);
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> insertListCandidates(@Valid WbListCandidatesRequest wbListCandidatesRequest) {
+        String batchId = UUID.randomUUID().toString();
+        log.info("insertListCandidates with request: {}, batchId: {}", wbListCandidatesRequest, batchId);
+        List<FraudDataCandidate> fraudDataCandidates =
+                chargebacksConverter.toCandidates(wbListCandidatesRequest.getRecords(), batchId);
+        String key = wbListCandidateService.sendToCandidate(fraudDataCandidates);
+        log.info("Success insertListCandidates with key: {}", key);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
     @Override

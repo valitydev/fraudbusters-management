@@ -37,8 +37,14 @@ public class AuditResource implements AuditApi {
                                                          @Valid String lastId, @Valid String sortOrder,
                                                          @Valid String searchValue, @Valid String sortBy,
                                                          @Valid String sortFieldValue, @Valid Integer size) {
-        var filterRequest = new FilterRequest(searchValue, lastId, sortFieldValue, size, sortBy,
-                PagingDataUtils.getSortOrder(sortOrder));
+        var filterRequest = FilterRequest.builder()
+                .searchValue(searchValue)
+                .lastId(lastId)
+                .sortFieldValue(sortFieldValue)
+                .size(size)
+                .sortBy(sortBy)
+                .sortOrder(PagingDataUtils.getSortOrder(sortOrder))
+                .build();
         log.info("-> filterLogs initiator: {} from: {} to: {} commandTypes: {} objectTypes: {} filterRequest: {}",
                 userInfoService.getUserName(), from, to, commandTypes, objectTypes, filterRequest);
         var filterLogsResponse = auditService.filterRecords(commandTypes, objectTypes, from, to, filterRequest);

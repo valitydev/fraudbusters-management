@@ -143,40 +143,31 @@ public class WbListDaoImplTest {
 
         assertEquals(5L, paymentCountInfo.getCountInfo().getCount().longValue());
 
+
         //check sorting
         List<WbListRecords> wbListRecordsFirst = wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME),
-                new FilterRequest(
-                        null,
-                        null,
-                        null,
-                        3,
-                        null,
-                        SortOrder.ASC));
+                FilterRequest.builder()
+                        .size(3)
+                        .sortOrder(SortOrder.ASC)
+                        .build());
         List<WbListRecords> wbListRecordsSecond =
-                wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME), new FilterRequest(
-                        null,
-                        null,
-                        null,
-                        3,
-                        null,
-                        SortOrder.DESC));
+                wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME), FilterRequest.builder()
+                        .size(3)
+                        .sortOrder(SortOrder.DESC)
+                        .build());
         assertEquals(wbListRecordsFirst.get(0).getPartyId(), wbListRecordsSecond.get(1).getPartyId());
 
         //check paging
-        wbListRecordsFirst = wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME), new FilterRequest(
-                null,
-                null,
-                null,
-                1,
-                null,
-                SortOrder.ASC));
-        wbListRecordsSecond = wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME), new FilterRequest(
-                null,
-                wbListRecordsFirst.get(0).getId(),
-                wbListRecordsFirst.get(0).getInsertTime().toString(),
-                3,
-                null,
-                SortOrder.ASC));
+        wbListRecordsFirst = wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME), FilterRequest.builder()
+                .size(1)
+                .sortOrder(SortOrder.ASC)
+                .build());
+        wbListRecordsSecond = wbListDao.filterListRecords(ListType.black, List.of(LIST_NAME), FilterRequest.builder()
+                .lastId(wbListRecordsFirst.get(0).getId())
+                .sortFieldValue(wbListRecordsFirst.get(0).getInsertTime().toString())
+                .size(3)
+                .sortOrder(SortOrder.ASC)
+                .build());
         Integer count = wbListDao.countFilterRecords(ListType.black, List.of(LIST_NAME), null);
         assertEquals(Integer.valueOf(2), count);
         assertNotEquals(wbListRecordsFirst.get(0).getPartyId(), wbListRecordsSecond.get(0).getPartyId());

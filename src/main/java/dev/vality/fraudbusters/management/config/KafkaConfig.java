@@ -1,12 +1,14 @@
 package dev.vality.fraudbusters.management.config;
 
-import dev.vality.kafka.common.serialization.ThriftSerializer;
 import dev.vality.damsel.fraudbusters.Command;
 import dev.vality.damsel.fraudbusters.ReferenceInfo;
 import dev.vality.damsel.wb_list.Event;
+import dev.vality.fraud_data_crawler.FraudDataCandidate;
 import dev.vality.fraudbusters.management.serializer.CommandFraudDeserializer;
 import dev.vality.fraudbusters.management.serializer.EventDeserializer;
+import dev.vality.fraudbusters.management.serializer.FraudDataCandidateDeserializer;
 import dev.vality.fraudbusters.management.serializer.ReferenceInfoDeserializer;
+import dev.vality.kafka.common.serialization.ThriftSerializer;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -153,6 +155,24 @@ public class KafkaConfig {
         factory.setConsumerFactory(consumerReferenceFactory);
         factory.setCommonErrorHandler(new CommonLoggingErrorHandler());
         factory.setConcurrency(1);
+        return factory;
+    }
+
+    @Bean
+    public ConsumerFactory<String, FraudDataCandidate> consumerFraudCandidateFactory() {
+        Map<String, Object> configs = consumerConfigs();
+        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, FraudDataCandidateDeserializer.class);
+        return new DefaultKafkaConsumerFactory<>(configs);
+    }
+
+    @Bean
+    @Autowired
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, FraudDataCandidate>> kafkaFraudCandidateListenerContainerFactory(
+            ConsumerFactory<String, FraudDataCandidate> consumerFraudCandidateFactory) {
+        ConcurrentKafkaListenerContainerFactory<String, FraudDataCandidate> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFraudCandidateFactory);
+        factory.setCommonErrorHandler(new CommonLoggingErrorHandler());
         return factory;
     }
 

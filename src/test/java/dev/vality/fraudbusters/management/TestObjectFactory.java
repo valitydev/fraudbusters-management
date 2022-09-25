@@ -2,15 +2,20 @@ package dev.vality.fraudbusters.management;
 
 import dev.vality.damsel.fraudbusters_notificator.ChannelType;
 import dev.vality.damsel.fraudbusters_notificator.NotificationStatus;
+import dev.vality.damsel.wb_list.CountInfo;
 import dev.vality.damsel.wb_list.*;
-import dev.vality.fraudbusters.management.domain.enums.ListType;
+import dev.vality.fraud_data_crawler.FraudDataCandidate;
+import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.payment.PaymentCountInfo;
 import dev.vality.fraudbusters.management.domain.payment.PaymentListRecord;
 import dev.vality.fraudbusters.management.domain.payment.request.ListRowsInsertRequest;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidate;
+import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidateBatch;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
+import dev.vality.fraudbusters.management.domain.tables.records.WbListCandidateBatchRecord;
+import dev.vality.fraudbusters.management.domain.tables.records.WbListCandidateRecord;
 import dev.vality.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
-import dev.vality.swag.fraudbusters.management.model.Channel;
-import dev.vality.swag.fraudbusters.management.model.Notification;
+import dev.vality.swag.fraudbusters.management.model.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -50,11 +55,17 @@ public abstract class TestObjectFactory {
         return UUID.randomUUID().toString();
     }
 
+    public static List<String> listRandomStrings(int i) {
+        return IntStream.rangeClosed(1, i)
+                .mapToObj(value -> randomString())
+                .collect(Collectors.toList());
+    }
+
     public static WbListRecordsRecord createWbListRecordsRecord(String id) {
         WbListRecordsRecord listRecord = new WbListRecordsRecord();
         listRecord.setId(id);
         listRecord.setListName(randomString());
-        listRecord.setListType(ListType.black);
+        listRecord.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
         listRecord.setInsertTime(LocalDateTime.now());
         listRecord.setPartyId(randomString());
         listRecord.setShopId(randomString());
@@ -66,7 +77,7 @@ public abstract class TestObjectFactory {
         WbListRecords listRecord = new WbListRecords();
         listRecord.setId(id);
         listRecord.setListName(randomString());
-        listRecord.setListType(ListType.black);
+        listRecord.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
         listRecord.setInsertTime(LocalDateTime.now());
         listRecord.setPartyId(randomString());
         listRecord.setShopId(randomString());
@@ -103,6 +114,10 @@ public abstract class TestObjectFactory {
 
     public static Float randomFloat() {
         return ThreadLocalRandom.current().nextFloat();
+    }
+
+    public static Integer randomInt() {
+        return ThreadLocalRandom.current().nextInt(200);
     }
 
     public static dev.vality.damsel.fraudbusters_notificator.Notification testInternalNotification() {
@@ -224,4 +239,104 @@ public abstract class TestObjectFactory {
         );
     }
 
+    public static WbListCandidate testWbListCandidate() {
+        WbListCandidate wbListCandidate = new WbListCandidate();
+        wbListCandidate.setListName(randomString());
+        wbListCandidate.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
+        wbListCandidate.setValue(randomString());
+        wbListCandidate.setSource(randomString());
+        wbListCandidate.setApproved(Boolean.FALSE);
+        wbListCandidate.setShopId(randomString());
+        wbListCandidate.setPartyId(randomString());
+        wbListCandidate.setUpdateTime(LocalDateTime.now());
+        wbListCandidate.setBatchId(randomString());
+        return wbListCandidate;
+    }
+
+    public static List<WbListCandidate> testWbListCandidates(int i) {
+        return IntStream.rangeClosed(1, i)
+                .mapToObj(value -> testWbListCandidate())
+                .collect(Collectors.toList());
+    }
+
+    public static WbListCandidateRecord testWbListCandidateRecord() {
+        WbListCandidateRecord record = new WbListCandidateRecord();
+        record.setListType(dev.vality.fraudbusters.management.domain.enums.ListType.black);
+        record.setListName(randomString());
+        record.setApproved(Boolean.FALSE);
+        record.setSource(randomString());
+        record.setValue(randomString());
+        return record;
+    }
+
+    public static WbListCandidateBatchRecord testWbListCandidateBatchRecord() {
+        WbListCandidateBatchRecord record = new WbListCandidateBatchRecord();
+        record.setId(TestObjectFactory.randomString());
+        record.setSource(randomString());
+        record.setInsertTime(LocalDateTime.now());
+        return record;
+    }
+
+    public static WbListCandidateBatch testWbListCandidateBatch() {
+        WbListCandidateBatch candidateBatch = new WbListCandidateBatch();
+        candidateBatch.setId(TestObjectFactory.randomString());
+        candidateBatch.setSource(randomString());
+        return candidateBatch;
+    }
+
+    public static WbListCandidateBatchModel testWbListCandidateBatchModel() {
+        WbListCandidateBatchModel candidateBatch = new WbListCandidateBatchModel();
+        candidateBatch.setId(TestObjectFactory.randomString());
+        candidateBatch.setSource(randomString());
+        candidateBatch.setFields(randomString());
+        candidateBatch.setSize(randomInt());
+        candidateBatch.setInsertTime(LocalDateTime.now());
+        return candidateBatch;
+    }
+
+    public static List<WbListCandidateBatchModel> testWbListCandidateBatchModels(int i) {
+        return IntStream.rangeClosed(1, i)
+                .mapToObj(value -> testWbListCandidateBatchModel())
+                .collect(Collectors.toList());
+    }
+
+    public static FraudDataCandidate testFraudDataCandidate() {
+        FraudDataCandidate fraudDataCandidate = new FraudDataCandidate();
+        fraudDataCandidate.setSource(randomString());
+        fraudDataCandidate.setType(randomString());
+        fraudDataCandidate.setListType(dev.vality.fraud_data_crawler.ListType.black);
+        fraudDataCandidate.setValue(randomString());
+        fraudDataCandidate.setShopId(randomString());
+        fraudDataCandidate.setMerchantId(randomString());
+        fraudDataCandidate.setBatchId(randomString());
+        return fraudDataCandidate;
+    }
+
+    public static List<FraudDataCandidate> testFraudDataCandidates(int i) {
+        String batchId = TestObjectFactory.randomString();
+        return IntStream.rangeClosed(1, i)
+                .mapToObj(value -> testFraudDataCandidate())
+                .map(candidate -> candidate.setBatchId(batchId))
+                .collect(Collectors.toList());
+    }
+
+    public static Chargeback testChargeback() {
+        ClientInfo clientInfo = new ClientInfo();
+        clientInfo.setEmail(randomString());
+        clientInfo.setFingerprint(randomString());
+        clientInfo.setIp(randomString());
+        MerchantInfo merchantInfo = new MerchantInfo();
+        merchantInfo.setPartyId(randomString());
+        merchantInfo.setShopId(randomString());
+        Chargeback chargeback = new Chargeback();
+        chargeback.setClientInfo(clientInfo);
+        chargeback.setMerchantInfo(merchantInfo);
+        return chargeback;
+    }
+
+    public static List<Chargeback> testChargebacks(int i) {
+        return IntStream.rangeClosed(1, i)
+                .mapToObj(value -> testChargeback())
+                .collect(Collectors.toList());
+    }
 }

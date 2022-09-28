@@ -59,11 +59,12 @@ public class WbListCandidateBatchDaoImpl extends AbstractDao implements WbListCa
         SelectHavingStep<Record> groupBy = whereQuery.groupBy(WB_LIST_CANDIDATE_BATCH.ID);
         SelectSeekStep2<Record, Object, String> candidateBatchRecords =
                 addSortCondition(WB_LIST_CANDIDATE_BATCH.ID, sortField, filter.getSortOrder(), groupBy);
-        return fetch(addSeekIfNeed(
+        List<WbListCandidateBatchModel> fetchResult = fetch(addSeekIfNeed(
                         filter.getLastId(),
                         filter.getSortFieldValue(),
                         filter.getSize(),
                         candidateBatchRecords),
                 wbListCandidateBatchRowMapper);
+        return fetchResult != null ? fetchResult : List.of();
     }
 }

@@ -39,6 +39,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PaymentsListsResource implements PaymentsListsApi {
 
+    public static final String UNKNOWN = "UNKNOWN";
     private final WbListCommandService wbListCommandService;
     private final PaymentCountInfoGenerator paymentCountInfoGenerator;
     private final UserInfoService userInfoService;
@@ -130,7 +131,9 @@ public class PaymentsListsResource implements PaymentsListsApi {
         FilterResponse<WbListCandidate> filterResponse = wbListCandidateService.getList(filter);
         WbListCandidatesResponse result = new WbListCandidatesResponse()
                 .lastId(filterResponse.getNumericLastId())
-                .source(filterResponse.getResult().get(0).getSource())
+                .source(filterResponse.getResult().size() > 0
+                        ? filterResponse.getResult().get(0).getSource()
+                        : UNKNOWN)
                 .result(candidateConverter.toWbListRecord(filterResponse.getResult()));
         log.info("Success listCandidates with result: {}", result);
         return ResponseEntity.ok(result);

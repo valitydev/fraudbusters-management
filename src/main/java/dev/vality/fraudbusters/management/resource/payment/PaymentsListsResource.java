@@ -40,6 +40,7 @@ import java.util.UUID;
 public class PaymentsListsResource implements PaymentsListsApi {
 
     public static final String UNKNOWN = "UNKNOWN";
+
     private final WbListCommandService wbListCommandService;
     private final PaymentCountInfoGenerator paymentCountInfoGenerator;
     private final UserInfoService userInfoService;

@@ -242,7 +242,7 @@
         <dependency>
             <groupId>dev.vality</groupId>
             <artifactId>testcontainers-annotations</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.3</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

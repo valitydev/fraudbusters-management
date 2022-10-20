@@ -39,6 +39,7 @@ spring:
     consumer:
       group-id: FraudBusterListener
       auto-offset-reset: earliest
+      max-poll-records: 1
 
 info:
   version: '@project.version@'

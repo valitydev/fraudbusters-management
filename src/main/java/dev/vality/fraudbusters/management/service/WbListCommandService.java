@@ -56,14 +56,13 @@ public class WbListCommandService {
                                             BiFunction<T, ListType, Row> func,
                                             String initiator) {
         try {
-            List<String> recordIds = records.stream()
+            return records.stream()
                     .map(record -> func.apply(record, listType))
                     .map(row -> {
                         log.info("WbListResource list add row {}", row);
                         return sendCommandSync(row, listType, Command.CREATE, initiator);
                     })
                     .collect(Collectors.toList());
-            return recordIds;
         } catch (Exception e) {
             log.error("Error when insert rows: {} e: ", records, e);
             throw new SaveRowsException(e);

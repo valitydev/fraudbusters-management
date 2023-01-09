@@ -30,18 +30,10 @@ public class PaymentCountInfoGenerator {
     }
 
     public Row initRow(PaymentCountInfo record, dev.vality.damsel.wb_list.ListType listType) {
-        Row row = null;
-        switch (listType) {
-            case black:
-            case white:
-                row = paymentListRecordToRowConverter.convert(record.getListRecord());
-                break;
-            case grey:
-                row = countInfoListRecordToRowConverter.convert(record);
-                break;
-            default:
-                throw new UnknownEventException();
-        }
-        return row;
+        return switch (listType) {
+            case black, white -> paymentListRecordToRowConverter.convert(record.getListRecord());
+            case grey -> countInfoListRecordToRowConverter.convert(record);
+            default -> throw new UnknownEventException();
+        };
     }
 }

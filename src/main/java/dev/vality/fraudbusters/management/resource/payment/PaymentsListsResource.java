@@ -2,6 +2,7 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.fraud_data_crawler.FraudDataCandidate;
+import dev.vality.fraudbusters.management.ListRowValidator;
 import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
 import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelToCandidateBatchConverter;
@@ -51,6 +52,7 @@ public class PaymentsListsResource implements PaymentsListsApi {
     private final WbListCandidateToWbListRecordConverter candidateConverter;
     private final CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
     private final ChargebacksToFraudDataCandidatesConverter chargebacksConverter;
+    private final ListRowValidator listRowValidator;
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
@@ -100,6 +102,7 @@ public class PaymentsListsResource implements PaymentsListsApi {
     public ResponseEntity<ListResponse> insertRow(@Valid RowListRequest request) {
         log.info("insertRowsToList initiator: {} request {}", userInfoService.getUserName(), request);
         try {
+            listRowValidator.validate(request.getRecords());
             List<String> ids = wbListCommandService.sendListRecords(
                     request.getRecords(),
                     ListType.valueOf(request.getListType().getValue()),

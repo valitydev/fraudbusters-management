@@ -2,7 +2,7 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.fraud_data_crawler.FraudDataCandidate;
-import dev.vality.fraudbusters.management.ListRowValidator;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
 import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelToCandidateBatchConverter;

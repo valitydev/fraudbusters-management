@@ -1,4 +1,4 @@
-package dev.vality.fraudbusters.management;
+package dev.vality.fraudbusters.management.validator;
 
 import dev.vality.fraudbusters.management.exception.SaveRowsException;
 import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
@@ -19,7 +19,7 @@ public class ListRowValidator {
                         || !StringUtils.hasText(paymentCountInfo.getListRecord().getValue()))
                 .findFirst();
         if (invalidData.isPresent()) {
-            log.error("Has invalid data: {}", invalidData);
+            log.error("Has invalid data: {}", invalidData.get());
             throw new SaveRowsException("Has invalid data: " + invalidData);
         }
     }

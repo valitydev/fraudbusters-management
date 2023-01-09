@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.management.service.payment;
 
 import dev.vality.damsel.wb_list.Command;
-import dev.vality.fraudbusters.management.ListRowValidator;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;

@@ -16,6 +16,7 @@ import dev.vality.fraudbusters.management.utils.ParametersService;
 import dev.vality.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import org.apache.commons.compress.utils.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {PaymentsListsResource.class, CsvPaymentCountInfoParser.class,
-        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class})
+        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
 public class PaymentListLoadDataResourceTest {
 
     @MockBean

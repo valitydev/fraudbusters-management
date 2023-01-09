@@ -468,7 +468,9 @@ class AnalyticsResourceTest {
     }
 
     private long getDateWithMonthOffset(int monthOffset) {
-        return LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue() - monthOffset, 1)
+        LocalDate now = LocalDate.now();
+        return LocalDate.of(TestObjectFactory.getYearWithOffset(monthOffset, now),
+                        TestObjectFactory.getMonthWithOffset(monthOffset, now), 1)
                 .atStartOfDay()
                 .atZone(UTC)
                 .toInstant().toEpochMilli();

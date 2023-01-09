@@ -16,6 +16,7 @@ import dev.vality.fraudbusters.management.domain.tables.records.WbListCandidateB
 import dev.vality.fraudbusters.management.domain.tables.records.WbListCandidateRecord;
 import dev.vality.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
 import dev.vality.swag.fraudbusters.management.model.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -230,13 +231,25 @@ public abstract class TestObjectFactory {
     }
 
     public static Map<String, String> testRiskScoreOffsetCountRatioByMonthRowFieldsMap(int monthOffset) {
+        LocalDate now = LocalDate.now();
         return Map.of(
                 LOW_SCORE, TestObjectFactory.randomFloat().toString(),
                 HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
                 FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
-                YEAR.getValue(), String.valueOf(LocalDate.now().getYear()),
-                MONTH.getValue(), String.valueOf(LocalDate.now().getMonth().getValue() - monthOffset)
+                YEAR.getValue(), String.valueOf(getYearWithOffset(monthOffset, now)),
+                MONTH.getValue(), String.valueOf(getMonthWithOffset(monthOffset, now))
         );
+    }
+
+    @NotNull
+    public static int getYearWithOffset(int monthOffset, LocalDate now) {
+        return monthOffset < now.getMonth().getValue()
+                ? now.getYear()
+                : now.getYear() - 1;
+    }
+
+    public static int getMonthWithOffset(int monthOffset, LocalDate now) {
+        return now.getMonth().minus(monthOffset).getValue();
     }
 
     public static WbListCandidate testWbListCandidate() {

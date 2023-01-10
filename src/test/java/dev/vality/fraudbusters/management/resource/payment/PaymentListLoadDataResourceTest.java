@@ -7,6 +7,7 @@ import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelT
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
+import dev.vality.fraudbusters.management.exception.SaveRowsException;
 import dev.vality.fraudbusters.management.service.WbListCommandService;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
@@ -15,8 +16,9 @@ import dev.vality.fraudbusters.management.utils.ParametersService;
 import dev.vality.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import org.apache.commons.compress.utils.IOUtils;
-import org.apache.thrift.TException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -35,7 +37,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {PaymentsListsResource.class, CsvPaymentCountInfoParser.class,
-        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class})
+        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
 public class PaymentListLoadDataResourceTest {
 
     @MockBean
@@ -65,7 +67,7 @@ public class PaymentListLoadDataResourceTest {
     PaymentsListsResource paymentsListsResource;
 
     @Test
-    void loadFraudOperation() throws IOException, TException {
+    void loadFraudOperation() throws IOException {
         File file = new File("src/test/resources/csv/list-test.csv");
         FileInputStream input = new FileInputStream(file);
         MultipartFile multipartFile =
@@ -74,5 +76,16 @@ public class PaymentListLoadDataResourceTest {
         paymentsListsResource.insertFromCsv(ListType.black.name(), multipartFile);
 
         Mockito.verify(wbListCommandService, Mockito.times(1)).sendListRecords(any(), any(), any(), any());
+    }
+
+    @Test
+    void loadFraudOperationInvalidateData() throws IOException {
+        File file = new File("src/test/resources/csv/invalidate-list-test.csv");
+        FileInputStream input = new FileInputStream(file);
+        MultipartFile multipartFile =
+                new MockMultipartFile("file", file.getName(), "text/csv", IOUtils.toByteArray(input));
+
+        Assertions.assertThrows(SaveRowsException.class, () ->
+                paymentsListsResource.insertFromCsv(ListType.black.name(), multipartFile));
     }
 }

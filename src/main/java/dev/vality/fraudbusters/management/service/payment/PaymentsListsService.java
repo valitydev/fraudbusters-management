@@ -1,6 +1,7 @@
 package dev.vality.fraudbusters.management.service.payment;
 
 import dev.vality.damsel.wb_list.Command;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
@@ -35,6 +36,7 @@ public class PaymentsListsService {
     private final UserInfoService userInfoService;
     private final CsvPaymentCountInfoParser csvPaymentCountInfoParser;
     private final WbListRecordsModelToWbListRecordConverter wbListRecordsModelToWbListRecordConverter;
+    private final ListRowValidator listRowValidator;
 
     public WbListRecordsResponse filterLists(List<String> listNames, String listType,
                                              FilterRequest filterRequest) {
@@ -54,6 +56,7 @@ public class PaymentsListsService {
             try {
                 List<PaymentCountInfo> paymentCountInfos = csvPaymentCountInfoParser.parse(file.getInputStream());
                 log.info("Insert from csv paymentCountInfos size: {}", paymentCountInfos.size());
+                listRowValidator.validate(paymentCountInfos);
                 wbListCommandService.sendListRecords(
                         paymentCountInfos,
                         dev.vality.damsel.wb_list.ListType.valueOf(listType),

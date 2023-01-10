@@ -21,6 +21,7 @@ import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
 import dev.vality.fraudbusters.management.service.payment.PaymentsListsService;
 import dev.vality.fraudbusters.management.utils.*;
 import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = {ParametersService.class, PaymentsListsResource.class,
         UserInfoService.class, WbListRecordToRowConverter.class, PaymentCountInfoGenerator.class,
         CountInfoUtils.class, CountInfoApiUtils.class, CsvPaymentCountInfoParser.class,
-        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class})
+        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class})
 public class ExceptionApplicationTest {
 

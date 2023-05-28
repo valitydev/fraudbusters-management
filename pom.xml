@@ -6,11 +6,11 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.0.18</version>
+        <version>1.0.20</version>
     </parent>
 
     <artifactId>fraudbusters-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>fraudbusters-management</name>
@@ -22,20 +22,20 @@
         <server.port>8080</server.port>
         <management.port>8023</management.port>
         <exposed.ports>${server.port} ${management.port}</exposed.ports>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.4.2.Fin1.5.5.Final</mapstruct.version>
         <db.name>fraudbusters</db.name>
         <db.port>5432</db.port>
         <db.url>jdbc:postgresql://localhost:${db.port}/${db.name}</db.url>
         <db.user>postgres</db.user>
         <db.password>postgres</db.password>
         <db.schema>af</db.schema>
-        <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
-        <fraudbusters.proto.version>1.102-269908f</fraudbusters.proto.version>
+        <wb.list.proto.version>1.44-5dbd1.49-d0256f0</wb.list.proto.version>
+        <fraudbusters.proto.version>1.102-2691.108-0800fde</fraudbusters.proto.version>
         <fraudo.version>0.3.0</fraudo.version>
         <swag-fraudbusters-management.version>1.134-5de4467-server</swag-fraudbusters-management.version>
-        <fraudbusters.notificator.proto.version>1.27-4907168</fraudbusters.notificator.proto.version>
-        <warehouse.proto.version>1.12-afdcd48</warehouse.proto.version>
-        <fraud.data.crawler.proto.version>1.6-326f056</fraud.data.crawler.proto.version>
+        <fraudbusters.notificator.proto.version>1.27-49071.31-bb16e68</fraudbusters.notificator.proto.version>
+        <warehouse.proto.version>1.12-afdc1.17-ad5d5bb</warehouse.proto.version>
+        <fraud.data.crawler.proto.version>1.6-326f01.9-1314582</fraud.data.crawler.proto.version>
         <testcontainers.annotations.version>1.3.2</testcontainers.annotations.version>
     </properties>
 
@@ -200,7 +200,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
-            <version>1.8</version>
+            <version>1.8</vers1.10.0
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -226,13 +226,12 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.3</ve4.2.0
         </dependency>
         <dependency>
             <groupId>io.github.benas</groupId>
             <artifactId>random-beans</artifactId>
-            <version>3.6.0</version>
-            <scope>test</scope>
+            <version>3.6.0</ve3.9.0</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -283,9 +282,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>15</source>
+                <version>3.8.1</ve3.11.0</source>
                     <target>15</target>
                     <annotationProcessorPaths>
                         <path>
@@ -309,7 +306,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>1.7.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.shared</groupId>

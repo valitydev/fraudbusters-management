@@ -53,6 +53,10 @@
             <version>2.0.4-epic-4</version>
         </dependency>
         <dependency>
+            <groupId>dev.vality</groupId>
+            <artifactId>shared-resources</artifactId>
+        </dependency>
+        <dependency>
             <groupId>dev.vality.geck</groupId>
             <artifactId>filter</artifactId>
         </dependency>

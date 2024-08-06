@@ -6,7 +6,7 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.0.18</version>
+        <version>2.2.0</version>
     </parent>
 
     <artifactId>fraudbusters-management</artifactId>
@@ -51,10 +51,6 @@
             <groupId>dev.vality.woody</groupId>
             <artifactId>woody-thrift</artifactId>
             <version>2.0.4-epic-4</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.vality</groupId>
-            <artifactId>shared-resources</artifactId>
         </dependency>
         <dependency>
             <groupId>dev.vality.geck</groupId>
@@ -177,7 +173,6 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>

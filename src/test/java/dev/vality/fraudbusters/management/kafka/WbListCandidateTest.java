@@ -6,7 +6,7 @@ import dev.vality.fraudbusters.management.config.KafkaITest;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidate;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateBatchService;
 import dev.vality.fraudbusters.management.service.iface.WbListCandidateService;
-import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
+import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import org.apache.thrift.TBase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ class WbListCandidateTest {
     public WbListCandidateBatchService wbListCandidateBatchService;
 
     @Autowired
-    private KafkaProducer<TBase<?, ?>> testThriftKafkaProducer;
+    private TestKafkaProducer<TBase<?, ?>> testKafkaProducer;
 
     @Test
     void listenCandidate() {
@@ -37,7 +37,7 @@ class WbListCandidateTest {
         doNothing().when(wbListCandidateService).save(any(WbListCandidate.class));
         doNothing().when(wbListCandidateBatchService).save(anyString(), anyString());
 
-        testThriftKafkaProducer.send(topicCandidate, fraudDataCandidate);
+        testKafkaProducer.send(topicCandidate, fraudDataCandidate);
 
         verify(wbListCandidateService, timeout(5000).times(1)).save(any(WbListCandidate.class));
     }

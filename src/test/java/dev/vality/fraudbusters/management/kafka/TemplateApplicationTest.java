@@ -21,6 +21,7 @@ import dev.vality.fraudbusters.management.resource.payment.PaymentGroupsResource
 import dev.vality.fraudbusters.management.resource.payment.PaymentsReferenceResource;
 import dev.vality.fraudbusters.management.resource.payment.PaymentsTemplatesResource;
 import dev.vality.fraudbusters.management.service.iface.AuditService;
+import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import dev.vality.swag.fraudbusters.management.model.*;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
@@ -85,7 +86,7 @@ public class TemplateApplicationTest {
     PaymentGroupsResource paymentGroupsResource;
 
     @Autowired
-    private KafkaProducer<TBase<?, ?>> testThriftKafkaProducer;
+    private TestKafkaProducer<TBase<?, ?>> testKafkaProducer;
 
     @Test
     void templateTest() throws TException {
@@ -194,7 +195,7 @@ public class TemplateApplicationTest {
         ReferenceInfo referenceInfo = ReferenceInfo.merchant_info(new MerchantInfo()
                 .setPartyId(PARTY_ID)
                 .setShopId(SHOP_ID));
-        testThriftKafkaProducer.send(topicUnknownInitiatingEntity, referenceInfo);
+        testKafkaProducer.send(topicUnknownInitiatingEntity, referenceInfo);
 
         await().untilAsserted(() -> {
             verify(referenceDao, times(1)).insert(any());

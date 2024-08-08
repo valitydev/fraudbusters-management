@@ -9,6 +9,7 @@ import dev.vality.fraudbusters.management.domain.payment.request.ListRowsInsertR
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import dev.vality.fraudbusters.management.service.iface.AuditService;
 import dev.vality.fraudbusters.management.utils.MethodPaths;
+import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
@@ -60,7 +61,7 @@ public class WbListApplicationTest {
     private int port;
 
     @Autowired
-    private KafkaProducer<TBase<?, ?>> testThriftKafkaProducer;
+    private TestKafkaProducer<TBase<?, ?>> testKafkaProducer;
 
     @Autowired
     private KafkaConsumer<ChangeCommand> testCommandKafkaConsumer;
@@ -79,9 +80,9 @@ public class WbListApplicationTest {
         Row row = createRow(ListType.black);
         event.setRow(row);
         event.setEventType(EventType.CREATED);
-        testThriftKafkaProducer.send(topicEventSink, event);
-        testThriftKafkaProducer.send(topicEventSink, event);
-        testThriftKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
 
         await().untilAsserted(() -> {
             Mockito.verify(wbListDao, Mockito.times(3)).saveListRecord(any());
@@ -104,9 +105,9 @@ public class WbListApplicationTest {
 
         event.setRow(row);
 
-        testThriftKafkaProducer.send(topicEventSink, event);
-        testThriftKafkaProducer.send(topicEventSink, event);
-        testThriftKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
 
         await().untilAsserted(() -> {
             Mockito.verify(wbListDao, Mockito.times(3)).saveListRecord(any(WbListRecords.class));
@@ -119,7 +120,7 @@ public class WbListApplicationTest {
         Row row = createRow(ListType.black);
         event.setRow(row);
         event.setEventType(EventType.DELETED);
-        testThriftKafkaProducer.send(topicEventSink, event);
+        testKafkaProducer.send(topicEventSink, event);
 
         await().untilAsserted(() -> {
             Mockito.verify(wbListDao, Mockito.times(1)).removeRecord(any(WbListRecords.class));

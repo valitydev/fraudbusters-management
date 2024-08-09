@@ -20,17 +20,6 @@ import java.io.IOException;
 public class WebConfig {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOriginPatterns("*");
-            }
-        };
-    }
-
-    @Bean
     public FilterRegistrationBean woodyFilter() {
         WFlow woodyFlow = new WFlow();
         Filter filter = new OncePerRequestFilter() {

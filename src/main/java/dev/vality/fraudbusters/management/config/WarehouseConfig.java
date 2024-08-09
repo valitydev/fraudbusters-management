@@ -19,6 +19,7 @@ public class WarehouseConfig {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI())
+                .withLogEnabled(true)
                 .build(QueryServiceSrv.Iface.class);
     }
 

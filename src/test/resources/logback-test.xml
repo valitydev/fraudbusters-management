@@ -6,10 +6,5 @@
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
-    <logger name="dev.vality.fraudbusters.management" level="info"/>
-    <logger name="org.springframework.kafka" level="WARN"/>
-    <logger name="org.apache.http" level="DEBUG"/>
-    <logger name="org.keycloak" level="ALL"/>
-    <logger name="org.apache.kafka" level="warn"/>
-    <logger name="org.springframework.boot.test.context" level="warn"/>
+    <logger name="dev.vality" level="DEBUG"/>
 </configuration>

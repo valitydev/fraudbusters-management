@@ -101,3 +101,5 @@ spring.servlet.multipart.max-file-size: 10MB
 spring.servlet.multipart.max-request-size: 10MB
 
 parameters.listNames: EMAIL,IP,FINGERPRINT,CARD_TOKEN,BIN,PAN
+
+otel.resource: http://localhost:4318

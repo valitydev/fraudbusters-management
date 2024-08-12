@@ -3,7 +3,9 @@ package dev.vality.fraudbusters.management.config;
 import dev.vality.damsel.fraudbusters_notificator.ChannelServiceSrv;
 import dev.vality.damsel.fraudbusters_notificator.NotificationServiceSrv;
 import dev.vality.damsel.fraudbusters_notificator.NotificationTemplateServiceSrv;
+import dev.vality.fraudbusters.management.config.properties.OtelProperties;
 import dev.vality.woody.thrift.impl.http.THSpawnClientBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +16,16 @@ import java.io.IOException;
 @Configuration
 public class NotificatorConfig {
 
+    @Autowired
+    private OtelProperties otelProperties;
+
     @Bean
     public NotificationServiceSrv.Iface notificationClient(
             @Value("${service.notification.url}") Resource resource,
             @Value("${service.notification.networkTimeout}") int networkTimeout) throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
+                .withOtelResource(otelProperties.getResource())
                 .withAddress(resource.getURI())
                 .build(NotificationServiceSrv.Iface.class);
     }
@@ -30,6 +36,7 @@ public class NotificatorConfig {
             @Value("${service.notification-channel.networkTimeout}") int networkTimeout) throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
+                .withOtelResource(otelProperties.getResource())
                 .withAddress(resource.getURI())
                 .build(ChannelServiceSrv.Iface.class);
     }
@@ -40,6 +47,7 @@ public class NotificatorConfig {
             @Value("${service.notification-template.networkTimeout}") int networkTimeout) throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
+                .withOtelResource(otelProperties.getResource())
                 .withAddress(resource.getURI())
                 .build(NotificationTemplateServiceSrv.Iface.class);
     }

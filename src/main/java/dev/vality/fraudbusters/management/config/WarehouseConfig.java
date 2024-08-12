@@ -10,16 +10,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class WarehouseConfig {
 
     @Autowired
     private OtelProperties otelProperties;
+
     @Bean
     public QueryServiceSrv.Iface bouncerClient(@Value("${service.warehouse.url}") Resource resource,
                                                @Value("${service.warehouse.networkTimeout}") int networkTimeout)

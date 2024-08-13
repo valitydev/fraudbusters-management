@@ -14,9 +14,6 @@ import java.io.IOException;
 @Configuration
 public class WarehouseConfig {
 
-    @Autowired
-    private OtelProperties otelProperties;
-
     @Bean
     public QueryServiceSrv.Iface bouncerClient(@Value("${service.warehouse.url}") Resource resource,
                                                @Value("${service.warehouse.networkTimeout}") int networkTimeout)
@@ -24,7 +21,6 @@ public class WarehouseConfig {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI())
-                .withOtelResource(otelProperties.getResource())
                 .withLogEnabled(true)
                 .build(QueryServiceSrv.Iface.class);
     }

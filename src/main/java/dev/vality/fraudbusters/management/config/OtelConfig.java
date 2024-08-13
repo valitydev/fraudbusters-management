@@ -42,7 +42,8 @@ public class OtelConfig {
             GlobalOpenTelemetry.set(openTelemetry);
         } catch (Exception e) {
             log.warn("please initialize the ObservabilitySdk before starting the application");
-            // will throw an exception if it was already set - problem is that we cannot check if was set by a third-party library before
+            // will throw an exception if it was already set - problem is that we cannot check if was set
+            // by a third-party library before
             GlobalOpenTelemetry.resetForTest();
             try {
                 GlobalOpenTelemetry.set(openTelemetry);

@@ -61,10 +61,31 @@ public class PaymentsListsService {
                         paymentCountInfos,
                         dev.vality.damsel.wb_list.ListType.valueOf(listType),
                         paymentCountInfoGenerator::initRow,
+                        Command.CREATE,
                         initiator);
                 log.info("Insert loaded fraudPayments: {}", paymentCountInfos);
             } catch (IOException e) {
                 log.error("Insert error when loadFraudOperation e: ", e);
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void deleteByCsv(String listType, MultipartFile file, String initiator) {
+        if (csvPaymentCountInfoParser.hasCsvFormat(file)) {
+            try {
+                List<PaymentCountInfo> paymentCountInfos = csvPaymentCountInfoParser.parse(file.getInputStream());
+                log.info("Delete by csv paymentCountInfos size: {}", paymentCountInfos.size());
+                listRowValidator.validate(paymentCountInfos);
+                wbListCommandService.sendListRecords(
+                        paymentCountInfos,
+                        dev.vality.damsel.wb_list.ListType.valueOf(listType),
+                        paymentCountInfoGenerator::initRow,
+                        Command.DELETE,
+                        initiator);
+                log.info("Delete by csv fraudPayments: {}", paymentCountInfos);
+            } catch (IOException e) {
+                log.error("Error when deleteByCsv e: ", e);
                 throw new RuntimeException(e);
             }
         }

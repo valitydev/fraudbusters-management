@@ -7,18 +7,17 @@ import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.propagation.ContextPropagators;
 import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter;
-import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.resources.Resource;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
-import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 import io.opentelemetry.sdk.trace.export.SimpleSpanProcessor;
 import io.opentelemetry.semconv.resource.attributes.ResourceAttributes;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Duration;
 
 @Slf4j
 @Configuration
@@ -39,6 +38,7 @@ public class OtelConfig {
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
                 .addSpanProcessor(SimpleSpanProcessor.builder(OtlpHttpSpanExporter.builder()
                         .setEndpoint(otelProperties.getResource())
+                        .setTimeout(Duration.ofMillis(otelProperties.getTimeout()))
                         .build()).build())
                 .setResource(resource)
                 .build();

@@ -102,4 +102,6 @@ spring.servlet.multipart.max-request-size: 10MB
 
 parameters.listNames: EMAIL,IP,FINGERPRINT,CARD_TOKEN,BIN,PAN
 
-otel.resource: http://localhost:4318
+otel:
+  resource: http://localhost:4318
+  timeout: 60000

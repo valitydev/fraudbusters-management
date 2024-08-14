@@ -75,7 +75,11 @@ public class PaymentListLoadDataResourceTest {
 
         paymentsListsResource.insertFromCsv(ListType.black.name(), multipartFile);
 
-        Mockito.verify(wbListCommandService, Mockito.times(1)).sendListRecords(any(), any(), any(), any());
+        Mockito.verify(wbListCommandService, Mockito.times(1)).sendListRecords(any(), any(), any(), any(), any());
+
+        paymentsListsResource.deleteByCsv(ListType.black.name(), multipartFile);
+
+        Mockito.verify(wbListCommandService, Mockito.times(2)).sendListRecords(any(), any(), any(), any(), any());
     }
 
     @Test

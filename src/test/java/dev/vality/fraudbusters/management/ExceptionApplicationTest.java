@@ -123,7 +123,7 @@ public class ExceptionApplicationTest {
     @Test
     void executionRestTest() {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any()))
+        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any(), any()))
                 .thenReturn(List.of(ID_TEST));
 
         ResponseEntity<ListResponse> response = restTemplate.exchange(paymentListPath, HttpMethod.POST,
@@ -136,7 +136,7 @@ public class ExceptionApplicationTest {
     @Test
     void executionRestDaoExceptionTest() {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any()))
+        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any(), any()))
                 .thenThrow(new DaoException(TEST_MESSAGE));
         assertThrows(HttpServerErrorException.InternalServerError.class,
                 () -> restTemplate.postForEntity(paymentListPath, createRequest(), ErrorResponse.class));
@@ -154,7 +154,7 @@ public class ExceptionApplicationTest {
     @Test
     void executionRestKafkaSerializationTest() {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any()))
+        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any(), any()))
                 .thenThrow(new KafkaSerializationException(TEST_MESSAGE));
 
         assertThrows(HttpServerErrorException.InternalServerError.class,
@@ -163,7 +163,7 @@ public class ExceptionApplicationTest {
 
     @Test
     void getRestTestBadRequest() {
-        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any()))
+        Mockito.when(wbListCommandService.sendListRecords(any(), any(), any(), any(), any()))
                 .thenThrow(new KafkaSerializationException(TEST_MESSAGE));
         HashMap<String, Object> uriVariables = new HashMap<>();
         UriComponentsBuilder builder =

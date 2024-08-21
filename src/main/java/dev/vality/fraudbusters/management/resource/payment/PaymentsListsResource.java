@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
+import dev.vality.damsel.wb_list.Command;
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.fraud_data_crawler.FraudDataCandidate;
 import dev.vality.fraudbusters.management.validator.ListRowValidator;
@@ -107,6 +108,7 @@ public class PaymentsListsResource implements PaymentsListsApi {
                     request.getRecords(),
                     ListType.valueOf(request.getListType().getValue()),
                     paymentCountInfoGenerator::initRow,
+                    Command.CREATE,
                     userInfoService.getUserName());
             return ResponseEntity.ok().body(new ListResponse()
                     .result(ids));
@@ -181,6 +183,15 @@ public class PaymentsListsResource implements PaymentsListsApi {
         String userName = userInfoService.getUserName();
         log.info("Insert from csv initiator: {} listType: {}", userName, listType);
         paymentsListsService.insertCsv(listType, file, userName);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
+    public ResponseEntity<Void> deleteByCsv(@Valid String listType, @Valid MultipartFile file) {
+        String userName = userInfoService.getUserName();
+        log.info("Delete by csv initiator: {} listType: {}", userName, listType);
+        paymentsListsService.deleteByCsv(listType, file, userName);
         return ResponseEntity.ok().build();
     }
 

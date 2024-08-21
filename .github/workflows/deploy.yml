@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'ft/up-woody'
 
 jobs:
   build-and-deploy:

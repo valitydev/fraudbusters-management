@@ -54,13 +54,14 @@ public class WbListCommandService {
     public <T> List<String> sendListRecords(List<T> records,
                                             ListType listType,
                                             BiFunction<T, ListType, Row> func,
+                                            Command command,
                                             String initiator) {
         try {
             return records.stream()
                     .map(record -> func.apply(record, listType))
                     .map(row -> {
                         log.info("WbListResource list add row {}", row);
-                        return sendCommandSync(row, listType, Command.CREATE, initiator);
+                        return sendCommandSync(row, listType, command, initiator);
                     })
                     .collect(Collectors.toList());
         } catch (Exception e) {

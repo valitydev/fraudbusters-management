@@ -21,13 +21,14 @@ public class PaymentToApiPaymentConverter
         var bankCard = paymentTool.getBankCard();
         var cost = payment.getCost();
         var referenceInfo = payment.getReferenceInfo();
+        dev.vality.damsel.fraudbusters.ClientInfo clientInfo = payment.getClientInfo();
         return new Payment()
                 .cardToken(bankCard.getToken())
                 .amount(cost.getAmount())
                 .clientInfo(new ClientInfo()
-                        .email(payment.getClientInfo().getEmail())
-                        .fingerprint(payment.getClientInfo().getFingerprint())
-                        .ip(payment.getClientInfo().getIp())
+                        .email(clientInfo.getEmail())
+                        .fingerprint(clientInfo.getFingerprint())
+                        .ip(clientInfo.getIp())
                 )
                 .currency(cost.getCurrency().getSymbolicCode())
                 .error(new Error()
@@ -43,7 +44,7 @@ public class PaymentToApiPaymentConverter
                                 ? referenceInfo.getMerchantInfo().getShopId()
                                 : null)
                 )
-                .paymentCountry(bankCard.isSetIssuerCountry() ? bankCard.getIssuerCountry().name() : null)
+                .paymentCountry(clientInfo.getPaymentCountry())
                 .paymentSystem(bankCard.isSetPaymentSystem() ? bankCard.getPaymentSystem().getId() : null)
                 .paymentTool(paymentTool.getFieldValue().toString())
                 .bin(bankCard.getBin())

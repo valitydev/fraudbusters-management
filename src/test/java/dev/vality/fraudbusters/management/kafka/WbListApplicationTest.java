@@ -12,7 +12,6 @@ import dev.vality.fraudbusters.management.utils.MethodPaths;
 import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
-import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +19,8 @@ import org.mockito.Mockito;
 import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -39,7 +40,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
 @KafkaITest
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";

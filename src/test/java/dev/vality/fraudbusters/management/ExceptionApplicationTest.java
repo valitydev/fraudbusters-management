@@ -28,9 +28,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -56,7 +58,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = {ParametersService.class, PaymentsListsResource.class,
         UserInfoService.class, WbListRecordToRowConverter.class, PaymentCountInfoGenerator.class,
         CountInfoUtils.class, CountInfoApiUtils.class, CsvPaymentCountInfoParser.class,
-        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
+        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class,
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class})
 public class ExceptionApplicationTest {
 

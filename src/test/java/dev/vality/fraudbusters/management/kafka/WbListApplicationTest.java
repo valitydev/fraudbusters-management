@@ -41,8 +41,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
 @KafkaITest
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EnableAutoConfiguration(exclude = {ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+@SpringBootTest
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";

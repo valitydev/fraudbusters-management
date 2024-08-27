@@ -11,9 +11,11 @@ import dev.vality.swag.fraudbusters.management.model.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,7 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
-@EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 class PaymentDataSetsResourceTest {
 
     @Autowired
@@ -64,7 +67,7 @@ class PaymentDataSetsResourceTest {
     void filterDataSets() throws Exception {
         when(paymentsDataSetService.filterDataSets(any(), any(), any())).thenReturn(List.of(new DataSetModel()));
         this.mockMvc.perform(get("/payments-data-set/data-sets/filter")
-                .queryParams(DataSourceBeanUtils.createParams()))
+                        .queryParams(DataSourceBeanUtils.createParams()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -93,8 +96,8 @@ class PaymentDataSetsResourceTest {
     void insertDataSet() throws Exception {
         when(paymentsDataSetService.insertDataSet(any())).thenReturn(1L);
         this.mockMvc.perform(post("/payments-data-set/data-sets")
-                .content(objectMapper.writeValueAsString(new DataSet()))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(new DataSet()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -107,8 +110,8 @@ class PaymentDataSetsResourceTest {
         when(historicalDataServiceSrv.applyRuleOnHistoricalDataSet(any()))
                 .thenReturn(DataSourceBeanUtils.createHistoricalResponse());
         this.mockMvc.perform(post("/payments-data-set/data-sets/applyRuleOnHistoricalDataSet")
-                .content(objectMapper.writeValueAsString(DataSourceBeanUtils.createApplyRequst(payment)))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(DataSourceBeanUtils.createApplyRequst(payment)))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("0"));

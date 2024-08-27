@@ -6,9 +6,11 @@ import dev.vality.fraudbusters.management.resource.utils.ExternalModelBeanFactor
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,7 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
-@EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class PaymentHistoricalDataResourceTest {
 
     @Autowired
@@ -40,7 +43,7 @@ public class PaymentHistoricalDataResourceTest {
                 .setData(ExternalModelBeanFactory.createHistoricalData()));
         LinkedMultiValueMap<String, String> params = createParams();
         this.mockMvc.perform(get("/payments-historical-data/payments-info")
-                .queryParams(params))
+                        .queryParams(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -62,7 +65,7 @@ public class PaymentHistoricalDataResourceTest {
                 .setData(ExternalModelBeanFactory.createHistoricalDataRefunds()));
         LinkedMultiValueMap<String, String> params = createParams();
         this.mockMvc.perform(get("/payments-historical-data/refunds")
-                .queryParams(params))
+                        .queryParams(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -83,7 +86,7 @@ public class PaymentHistoricalDataResourceTest {
                 .setData(ExternalModelBeanFactory.createHistoricalDataInspectResults()));
         LinkedMultiValueMap<String, String> params = createParams();
         this.mockMvc.perform(get("/payments-historical-data/inspect-results")
-                .queryParams(params))
+                        .queryParams(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -107,7 +110,7 @@ public class PaymentHistoricalDataResourceTest {
                 .setData(ExternalModelBeanFactory.createHistoricalDataFraudPaymentInfos()));
         LinkedMultiValueMap<String, String> params = createParams();
         this.mockMvc.perform(get("/payments-historical-data/fraud-payments")
-                .queryParams(params))
+                        .queryParams(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -130,7 +133,7 @@ public class PaymentHistoricalDataResourceTest {
                 .setData(ExternalModelBeanFactory.createHistoricalDataChargebacks()));
         LinkedMultiValueMap<String, String> params = createParams();
         this.mockMvc.perform(get("/payments-historical-data/chargebacks")
-                .queryParams(params))
+                        .queryParams(params))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content()

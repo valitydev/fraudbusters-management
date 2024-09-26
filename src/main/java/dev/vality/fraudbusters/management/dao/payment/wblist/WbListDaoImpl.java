@@ -27,6 +27,7 @@ import static org.jooq.Comparator.EQUALS;
 public class WbListDaoImpl extends AbstractDao implements WbListDao {
 
     private static final int LIMIT_TOTAL = 100;
+    public static final String EMPTY = "";
     private final RowMapper<WbListRecords> listRecordRowMapper;
 
     public WbListDaoImpl(DataSource dataSource) {
@@ -60,7 +61,7 @@ public class WbListDaoImpl extends AbstractDao implements WbListDao {
     }
 
     private Condition isNullOrValueCondition(TableField<WbListRecordsRecord, String> key, String value) {
-        return value == null ? key.isNull() : key.eq(value);
+        return value == null ? key.isNull().or(key.eq(EMPTY)) : key.eq(value);
     }
 
     @Override

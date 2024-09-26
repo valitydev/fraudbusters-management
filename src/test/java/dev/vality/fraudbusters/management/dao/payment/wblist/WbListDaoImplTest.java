@@ -69,6 +69,36 @@ public class WbListDaoImplTest {
         wbListDao.removeRecord(listRecord);
         byId = wbListDao.getById(id);
         assertNull(byId);
+
+        //test null party and shop
+        listRecord.setPartyId(null);
+        listRecord.setShopId(null);
+        wbListDao.saveListRecord(listRecord);
+        byId = wbListDao.getById(id);
+        assertEquals(listRecord.getListType(), byId.getListType());
+        assertEquals(listRecord.getListName(), byId.getListName());
+        assertEquals(listRecord.getValue(), byId.getValue());
+        assertEquals(listRecord.getId(), byId.getId());
+
+        wbListDao.removeRecord(listRecord);
+        byId = wbListDao.getById(id);
+        assertNull(byId);
+
+        //test empty party and shop
+        listRecord.setPartyId("");
+        listRecord.setShopId("");
+        wbListDao.saveListRecord(listRecord);
+        byId = wbListDao.getById(id);
+        assertEquals(listRecord.getListType(), byId.getListType());
+        assertEquals(listRecord.getListName(), byId.getListName());
+        assertEquals(listRecord.getValue(), byId.getValue());
+        assertEquals(listRecord.getId(), byId.getId());
+
+        listRecord.setPartyId(null);
+        listRecord.setShopId(null);
+        wbListDao.removeRecord(listRecord);
+        byId = wbListDao.getById(id);
+        assertNull(byId);
     }
 
     @Test

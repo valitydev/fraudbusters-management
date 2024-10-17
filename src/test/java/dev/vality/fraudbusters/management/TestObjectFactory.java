@@ -223,6 +223,7 @@ public abstract class TestObjectFactory {
 
     public static Map<String, String> testRiskScoreOffsetCountRatioByDayRowFieldsMap() {
         return Map.of(
+                TRUSTED_SCORE, TestObjectFactory.randomFloat().toString(),
                 LOW_SCORE, TestObjectFactory.randomFloat().toString(),
                 HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
                 FATAL_SCORE, TestObjectFactory.randomFloat().toString(),
@@ -233,6 +234,7 @@ public abstract class TestObjectFactory {
     public static Map<String, String> testRiskScoreOffsetCountRatioByMonthRowFieldsMap(int monthOffset) {
         LocalDate now = LocalDate.now();
         return Map.of(
+                TRUSTED_SCORE, TestObjectFactory.randomFloat().toString(),
                 LOW_SCORE, TestObjectFactory.randomFloat().toString(),
                 HIGH_SCORE, TestObjectFactory.randomFloat().toString(),
                 FATAL_SCORE, TestObjectFactory.randomFloat().toString(),

@@ -381,7 +381,9 @@ class AnalyticsResourceTest {
                 objectMapper.readValue(responseAsString, SplitRiskScoreCountRatioResponse.class);
 
         assertEquals(DAY, response.getSplitUnit());
-        assertEquals(3, response.getOffsetCountRatios().size());
+        assertEquals(4, response.getOffsetCountRatios().size());
+        assertTrue(hasCorrectCountRatio(response, firstRow, TRUSTED_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, TRUSTED_SCORE));
         assertTrue(hasCorrectCountRatio(response, firstRow, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(response, secondRow, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(response, firstRow, HIGH_SCORE));
@@ -392,6 +394,7 @@ class AnalyticsResourceTest {
         long firstRowOffset = LocalDate.parse(firstRow.getValues().get(DAY.getValue()))
                 .atStartOfDay(UTC).toInstant()
                 .toEpochMilli();
+        assertTrue(hasCorrectOffset(response, firstRowOffset, TRUSTED_SCORE));
         assertTrue(hasCorrectOffset(response, firstRowOffset, LOW_SCORE));
         assertTrue(hasCorrectOffset(response, firstRowOffset, HIGH_SCORE));
         assertTrue(hasCorrectOffset(response, firstRowOffset, FATAL_SCORE));
@@ -399,6 +402,7 @@ class AnalyticsResourceTest {
         long secondRowOffset = LocalDate.parse(secondRow.getValues().get(DAY.getValue()))
                 .atStartOfDay(UTC).toInstant()
                 .toEpochMilli();
+        assertTrue(hasCorrectOffset(response, secondRowOffset, TRUSTED_SCORE));
         assertTrue(hasCorrectOffset(response, secondRowOffset, LOW_SCORE));
         assertTrue(hasCorrectOffset(response, secondRowOffset, HIGH_SCORE));
         assertTrue(hasCorrectOffset(response, secondRowOffset, FATAL_SCORE));
@@ -448,7 +452,9 @@ class AnalyticsResourceTest {
                 objectMapper.readValue(responseAsString, SplitRiskScoreCountRatioResponse.class);
 
         assertEquals(MONTH, response.getSplitUnit());
-        assertEquals(3, response.getOffsetCountRatios().size());
+        assertEquals(4, response.getOffsetCountRatios().size());
+        assertTrue(hasCorrectCountRatio(response, firstRow, TRUSTED_SCORE));
+        assertTrue(hasCorrectCountRatio(response, secondRow, TRUSTED_SCORE));
         assertTrue(hasCorrectCountRatio(response, firstRow, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(response, secondRow, LOW_SCORE));
         assertTrue(hasCorrectCountRatio(response, firstRow, HIGH_SCORE));
@@ -459,6 +465,8 @@ class AnalyticsResourceTest {
         long previousMonthDate = getDateWithMonthOffset(1);
         long previousTwoMonthsDate = getDateWithMonthOffset(2);
 
+        assertTrue(hasCorrectOffset(response, previousMonthDate, TRUSTED_SCORE));
+        assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, TRUSTED_SCORE));
         assertTrue(hasCorrectOffset(response, previousMonthDate, LOW_SCORE));
         assertTrue(hasCorrectOffset(response, previousTwoMonthsDate, LOW_SCORE));
         assertTrue(hasCorrectOffset(response, previousMonthDate, HIGH_SCORE));

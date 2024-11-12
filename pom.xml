@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>fraudbusters-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>fraudbusters-management</name>
@@ -22,7 +22,7 @@
         <server.port>8080</server.port>
         <management.port>8023</management.port>
         <exposed.ports>${server.port} ${management.port}</exposed.ports>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <db.name>fraudbusters</db.name>
         <db.port>5432</db.port>
         <db.url>jdbc:postgresql://localhost:${db.port}/${db.name}</db.url>
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
-            <version>5.2.3</version>
+            <version>5.4.1</version>
         </dependency>
         <dependency>
             <groupId>dev.vality.geck</groupId>
@@ -211,7 +211,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
-            <version>1.8</version>
+            <version>1.12.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -237,7 +237,7 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>4.0.3</version>
+            <version>4.2.2</version>
         </dependency>
         <dependency>
             <groupId>io.github.benas</groupId>
@@ -294,7 +294,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>15</source>
                     <target>15</target>
@@ -320,7 +320,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>1.7.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.shared</groupId>

@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.sql.DataSource;
+import jakarta.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 

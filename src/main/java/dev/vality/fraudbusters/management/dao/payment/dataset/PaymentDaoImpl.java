@@ -9,7 +9,7 @@ import org.jooq.Query;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
+import jakarta.sql.DataSource;
 import java.util.List;
 import java.util.stream.Collectors;
 

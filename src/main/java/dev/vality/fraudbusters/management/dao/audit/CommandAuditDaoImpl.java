@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.sql.DataSource;
+import jakarta.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
 

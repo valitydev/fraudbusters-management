@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 @ServletComponentScan
 @SpringBootApplication

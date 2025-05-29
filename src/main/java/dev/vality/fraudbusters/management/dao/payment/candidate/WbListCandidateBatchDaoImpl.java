@@ -11,7 +11,7 @@ import org.jooq.impl.DSL;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.sql.DataSource;
+import jakarta.sql.DataSource;
 import java.util.List;
 
 import static dev.vality.fraudbusters.management.dao.payment.candidate.mapper.WbListCandidateBatchRowMapper.FIELDS_FIELD_NANE;

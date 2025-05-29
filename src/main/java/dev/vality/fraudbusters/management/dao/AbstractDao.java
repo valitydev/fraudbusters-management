@@ -8,7 +8,7 @@ import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.util.StringUtils;
 
-import javax.sql.DataSource;
+import jakarta.sql.DataSource;
 
 public abstract class AbstractDao extends AbstractGenericDao {
 

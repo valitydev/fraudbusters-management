@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.mockito.Mockito.*;
 
 @KafkaITest
@@ -32,7 +34,7 @@ class WbListCandidateTest {
     private TestKafkaProducer<TBase<?, ?>> testKafkaProducer;
 
     @Test
-    void listenCandidate() {
+    void listenCandidate() throws ExecutionException, InterruptedException {
         FraudDataCandidate fraudDataCandidate = TestObjectFactory.testFraudDataCandidate();
         doNothing().when(wbListCandidateService).save(any(WbListCandidate.class));
         doNothing().when(wbListCandidateBatchService).save(anyString(), anyString());

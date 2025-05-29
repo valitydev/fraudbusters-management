@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import jakarta.sql.DataSource;
+import javax.sql.DataSource;
 import java.util.List;
 
 import static dev.vality.fraudbusters.management.domain.tables.FReference.F_REFERENCE;

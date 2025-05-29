@@ -15,7 +15,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import jakarta.sql.DataSource;
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
 

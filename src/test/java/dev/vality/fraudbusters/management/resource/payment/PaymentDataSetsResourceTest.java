@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -41,9 +41,9 @@ class PaymentDataSetsResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     PaymentsDataSetService paymentsDataSetService;
-    @MockBean
+    @MockitoBean
     HistoricalDataServiceSrv.Iface historicalDataServiceSrv;
 
     ObjectMapper objectMapper = new ObjectMapper();

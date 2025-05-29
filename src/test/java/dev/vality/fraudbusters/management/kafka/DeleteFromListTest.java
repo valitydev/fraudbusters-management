@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -34,7 +34,7 @@ public class DeleteFromListTest {
 
     @Value("${kafka.topic.wblist.command}")
     public String topicCommand;
-    @MockBean
+    @MockitoBean
     public WbListDao wbListDao;
 
     @Autowired

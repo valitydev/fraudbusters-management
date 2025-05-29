@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.mockito.Mockito.*;
 
@@ -22,10 +22,10 @@ class WbListCandidateTest {
 
     @Value("${kafka.topic.wblist.candidate}")
     public String topicCandidate;
-    @MockBean
+    @MockitoBean
     public WbListCandidateService wbListCandidateService;
 
-    @MockBean
+    @MockitoBean
     public WbListCandidateBatchService wbListCandidateBatchService;
 
     @Autowired

@@ -2,7 +2,6 @@ package dev.vality.fraudbusters.management;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.dao.DaoException;
-import dev.vality.fraudbusters.management.config.SecurityConfig;
 import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
 import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.*;
@@ -35,14 +34,14 @@ import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -73,31 +72,31 @@ public class ExceptionApplicationTest {
 
     @Value("${kafka.topic.wblist.event.sink}")
     public String topicEventSink;
-    @MockBean
+    @MockitoBean
     public AuditService auditService;
-    @MockBean
+    @MockitoBean
     public WbListCommandService wbListCommandService;
-    @MockBean
+    @MockitoBean
     public PaymentListRecordToRowConverter paymentListRecordToRowConverter;
-    @MockBean
+    @MockitoBean
     public WbListEventListener wbListEventListener;
-    @MockBean
+    @MockitoBean
     public WbListDao wbListDao;
-    @MockBean
+    @MockitoBean
     public WbListRecordsToListRecordConverter wbListRecordsToListRecordConverter;
-    @MockBean
+    @MockitoBean
     public PaymentCountInfoRequestToRowConverter countInfoListRecordToRowConverter;
-    @MockBean
+    @MockitoBean
     public WbListRecordsToCountInfoListRequestConverter wbListRecordsToListRecordWithRowConverter;
-    @MockBean
+    @MockitoBean
     WbListCandidateBatchService wbListCandidateBatchService;
-    @MockBean
+    @MockitoBean
     WbListCandidateService wbListCandidateService;
-    @MockBean
+    @MockitoBean
     WbListCandidateToWbListRecordConverter wbListCandidateToWbListRecordConverter;
-    @MockBean
+    @MockitoBean
     CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
-    @MockBean
+    @MockitoBean
     ChargebacksToFraudDataCandidatesConverter chargebackConverter;
     @Autowired
     RestTemplateBuilder restTemplateBuilder;

@@ -14,15 +14,23 @@ public class TestKafkaProducer<T> {
 
     private final KafkaTemplate<String, T> kafkaTemplate;
 
-    public void send(String topic, T payload) throws ExecutionException, InterruptedException {
+    public void send(String topic, T payload) {
         log.info("Sending payload='{}' to topic='{}'", payload, topic);
-        kafkaTemplate.send(topic, payload).get();
+        try {
+            kafkaTemplate.send(topic, payload).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
         kafkaTemplate.getProducerFactory().reset();
     }
 
-    public void send(String topic, String key, T payload) throws ExecutionException, InterruptedException {
+    public void send(String topic, String key, T payload) {
         log.info("Sending key='{}' payload='{}' to topic='{}'", key, payload, topic);
-        kafkaTemplate.send(topic, key, payload).get();
+        try {
+            kafkaTemplate.send(topic, key, payload).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
         kafkaTemplate.getProducerFactory().reset();
     }
 

@@ -34,6 +34,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
@@ -79,7 +80,7 @@ public class WbListApplicationTest {
     }
 
     @Test
-    void listenCreated() {
+    void listenCreated() throws ExecutionException, InterruptedException {
         Mockito.clearInvocations(wbListDao);
 
         Event event = new Event();

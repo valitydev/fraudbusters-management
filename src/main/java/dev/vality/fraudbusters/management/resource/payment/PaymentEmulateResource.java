@@ -29,8 +29,8 @@ public class PaymentEmulateResource implements PaymentsEmulationsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-support', 'fraud-monitoring', 'fraud-officer')")
-    public ResponseEntity<EmulateResponse> getTemplatesFlow(@NotNull @Valid String partyId,
-                                                            @NotNull @Valid String shopId) {
+    public ResponseEntity<EmulateResponse> getTemplatesFlow(String partyId,
+                                                            String shopId) {
         log.info("EmulateResource getRulesByPartyAndShop initiator: {} partyId: {} shopId: {}",
                 userInfoService.getUserName(), partyId, shopId);
         List<TemplateModel> resultModels = paymentEmulateService.getTemplatesFlow(partyId, shopId);

@@ -48,7 +48,7 @@ public class PaymentDataSetsResource implements PaymentsDataSetApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> applyRuleOnHistoricalDataSet(@Valid ApplyRuleOnHistoricalDataSetRequest request) {
+    public ResponseEntity<String> applyRuleOnHistoricalDataSet(ApplyRuleOnHistoricalDataSetRequest request) {
         String userName = userInfoService.getUserName();
         log.info("applyRuleOnHistoricalDataSet initiator: {} request: {}", userName, request);
         try {
@@ -65,10 +65,10 @@ public class PaymentDataSetsResource implements PaymentsDataSetApi {
     }
 
     @Override
-    public ResponseEntity<DataSetsResponse> filterDataSets(@Valid String continuationId, @Valid String sortOrder,
-                                                           @Valid String sortBy, @Valid Integer size,
-                                                           @Valid String from, @Valid String to,
-                                                           @Valid String dataSetName) {
+    public ResponseEntity<DataSetsResponse> filterDataSets(String continuationId, String sortOrder,
+                                                           String sortBy, Integer size,
+                                                           String from, String to,
+                                                           String dataSetName) {
         var filterRequest = FilterRequest.builder()
                 .searchValue(dataSetName)
                 .lastId(continuationId)
@@ -99,7 +99,7 @@ public class PaymentDataSetsResource implements PaymentsDataSetApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<IdResponse> insertDataSet(@Valid DataSet dataSet) {
+    public ResponseEntity<IdResponse> insertDataSet(DataSet dataSet) {
         String userName = userInfoService.getUserName();
         log.info("insertDataSet initiator: {} dataSet: {}", userName, dataSet);
         DataSetModel dataSetModel = dataSetToTestDataSetModelConverter.convert(dataSet);

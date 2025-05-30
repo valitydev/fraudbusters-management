@@ -33,15 +33,15 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
     @SneakyThrows
     @Override
     @PreAuthorize("hasAnyRole('fraud-support', 'fraud-monitoring', 'fraud-officer')")
-    public ResponseEntity<PaymentsResponse> filterPayments(@NotNull @Valid String from, @NotNull @Valid String to,
-                                                           @Valid String continuationId, @Valid String sortOrder,
-                                                           @Valid String sortBy, @Valid Integer size,
-                                                           @Valid String partyId, @Valid String shopId,
-                                                           @Valid String paymentId, @Valid String status,
-                                                           @Valid String email, @Valid String providerCountry,
-                                                           @Valid String cardToken, @Valid String fingerprint,
-                                                           @Valid String terminal, @Valid String invoiceId,
-                                                           @Valid String maskedPan) {
+    public ResponseEntity<PaymentsResponse> filterPayments(String from, String to,
+                                                           String continuationId, String sortOrder,
+                                                           String sortBy, Integer size,
+                                                           String partyId, String shopId,
+                                                           String paymentId, String status,
+                                                           String email, String providerCountry,
+                                                           String cardToken, String fingerprint,
+                                                           String terminal, String invoiceId,
+                                                           String maskedPan) {
         log.info("-> filterPaymentsInfo continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
                         "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
                 continuationId, size, partyId, shopId, paymentId, status, email, providerCountry, cardToken,
@@ -62,15 +62,15 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
     @SneakyThrows
     @Override
     @PreAuthorize("hasAnyRole('fraud-support', 'fraud-monitoring', 'fraud-officer')")
-    public ResponseEntity<ChargebacksResponse> filterChargebacks(@NotNull @Valid String from, @NotNull @Valid String to,
-                                                                 @Valid String continuationId, @Valid String sortOrder,
-                                                                 @Valid String sortBy, @Valid Integer size,
-                                                                 @Valid String partyId, @Valid String shopId,
-                                                                 @Valid String paymentId, @Valid String status,
-                                                                 @Valid String email, @Valid String providerCountry,
-                                                                 @Valid String cardToken, @Valid String fingerprint,
-                                                                 @Valid String terminal, @Valid String invoiceId,
-                                                                 @Valid String maskedPan) {
+    public ResponseEntity<ChargebacksResponse> filterChargebacks(String from, String to,
+                                                                 String continuationId, String sortOrder,
+                                                                 String sortBy, Integer size,
+                                                                 String partyId, String shopId,
+                                                                 String paymentId, String status,
+                                                                 String email, String providerCountry,
+                                                                 String cardToken, String fingerprint,
+                                                                 String terminal, String invoiceId,
+                                                                 String maskedPan) {
         log.info("-> filterChargebacks continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
                         "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
                 continuationId, size, partyId, shopId, paymentId, status, email, providerCountry, cardToken,
@@ -91,17 +91,17 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
 
     @SneakyThrows
     @Override
-    public ResponseEntity<FraudPaymentsResponse> filterFraudPayments(@NotNull @Valid String from,
-                                                                     @NotNull @Valid String to,
-                                                                     @Valid String continuationId,
-                                                                     @Valid String sortOrder, @Valid String sortBy,
-                                                                     @Valid Integer size, @Valid String partyId,
-                                                                     @Valid String shopId, @Valid String paymentId,
-                                                                     @Valid String status, @Valid String email,
-                                                                     @Valid String providerCountry,
-                                                                     @Valid String cardToken, @Valid String fingerprint,
-                                                                     @Valid String terminal, @Valid String invoiceId,
-                                                                     @Valid String maskedPan) {
+    public ResponseEntity<FraudPaymentsResponse> filterFraudPayments(String from,
+                                                                     String to,
+                                                                     String continuationId,
+                                                                     String sortOrder, String sortBy,
+                                                                     Integer size, String partyId,
+                                                                     String shopId, String paymentId,
+                                                                     String status, String email,
+                                                                     String providerCountry,
+                                                                     String cardToken, String fingerprint,
+                                                                     String terminal, String invoiceId,
+                                                                     String maskedPan) {
         log.info("-> filterFraudPayments continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
                         "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
                 continuationId, size, partyId, shopId, paymentId, status, email, providerCountry, cardToken,
@@ -122,18 +122,18 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
 
     @SneakyThrows
     @Override
-    public ResponseEntity<InspectResultsResponse> filterInspectResults(@NotNull @Valid String from,
-                                                                       @NotNull @Valid String to,
-                                                                       @Valid String continuationId,
-                                                                       @Valid String sortOrder, @Valid String sortBy,
-                                                                       @Valid Integer size, @Valid String partyId,
-                                                                       @Valid String shopId, @Valid String paymentId,
-                                                                       @Valid String status, @Valid String email,
-                                                                       @Valid String providerCountry,
-                                                                       @Valid String cardToken,
-                                                                       @Valid String fingerprint,
-                                                                       @Valid String terminal, @Valid String invoiceId,
-                                                                       @Valid String maskedPan) {
+    public ResponseEntity<InspectResultsResponse> filterInspectResults(String from,
+                                                                       String to,
+                                                                       String continuationId,
+                                                                       String sortOrder, String sortBy,
+                                                                       Integer size, String partyId,
+                                                                       String shopId, String paymentId,
+                                                                       String status, String email,
+                                                                       String providerCountry,
+                                                                       String cardToken,
+                                                                       String fingerprint,
+                                                                       String terminal, String invoiceId,
+                                                                       String maskedPan) {
         log.info(
                 "-> filterInspectResults continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
                         "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
@@ -155,15 +155,15 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
 
     @SneakyThrows
     @Override
-    public ResponseEntity<RefundsResponse> filterRefunds(@NotNull @Valid String from, @NotNull @Valid String to,
-                                                         @Valid String continuationId, @Valid String sortOrder,
-                                                         @Valid String sortBy, @Valid Integer size,
-                                                         @Valid String partyId, @Valid String shopId,
-                                                         @Valid String paymentId, @Valid String status,
-                                                         @Valid String email, @Valid String providerCountry,
-                                                         @Valid String cardToken, @Valid String fingerprint,
-                                                         @Valid String terminal, @Valid String invoiceId,
-                                                         @Valid String maskedPan) {
+    public ResponseEntity<RefundsResponse> filterRefunds(String from, String to,
+                                                         String continuationId, String sortOrder,
+                                                         String sortBy, Integer size,
+                                                         String partyId, String shopId,
+                                                         String paymentId, String status,
+                                                         String email, String providerCountry,
+                                                         String cardToken, String fingerprint,
+                                                         String terminal, String invoiceId,
+                                                         String maskedPan) {
         log.info("-> filterFraudPayments continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
                         "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
                 continuationId, size, partyId, shopId, paymentId, status, email, providerCountry, cardToken,

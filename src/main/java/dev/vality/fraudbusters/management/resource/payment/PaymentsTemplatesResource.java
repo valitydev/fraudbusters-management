@@ -37,9 +37,9 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<TemplatesResponse> filterTemplates(@Valid String lastId, @Valid String sortOrder,
-                                                             @Valid String searchValue, @Valid String sortBy,
-                                                             @Valid String sortFieldValue, @Valid Integer size) {
+    public ResponseEntity<TemplatesResponse> filterTemplates(String lastId, String sortOrder,
+                                                             String searchValue, String sortBy,
+                                                             String sortFieldValue, Integer size) {
         var filterRequest = FilterRequest.builder()
                 .searchValue(searchValue)
                 .lastId(lastId)
@@ -56,7 +56,7 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<ListResponse> getTemplateNames(@Valid String regexpName) {
+    public ResponseEntity<ListResponse> getTemplateNames(String regexpName) {
         log.info("getTemplatesName initiator: {} regexpName: {}", userInfoService.getUserName(), regexpName);
         List<String> list = paymentTemplateDao.getListNames(regexpName);
         return ResponseEntity.ok().body(new ListResponse()
@@ -66,7 +66,7 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<CreateTemplateResponse> insertTemplate(
-            dev.vality.swag.fraudbusters.management.model.@Valid Template template) {
+            dev.vality.swag.fraudbusters.management.model.Template template) {
         String userName = userInfoService.getUserName();
         log.info("insertTemplate initiator: {} templateModel: {}", userName,
                 template);
@@ -88,7 +88,7 @@ public class PaymentsTemplatesResource implements PaymentsTemplatesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<ValidateTemplatesResponse> validateTemplate(@Valid Template template) {
+    public ResponseEntity<ValidateTemplatesResponse> validateTemplate(Template template) {
         log.info("validateTemplate initiator: {} templateModel: {}", userInfoService.getUserName(),
                 template);
         List<TemplateValidateError> templateValidateErrors = paymentValidationService.validateTemplate(

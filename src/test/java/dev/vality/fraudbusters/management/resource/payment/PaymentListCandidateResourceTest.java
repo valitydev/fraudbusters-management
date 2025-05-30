@@ -1,6 +1,7 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.fraudbusters.management.TestObjectFactory;
+import dev.vality.fraudbusters.management.config.KafkaConfig;
 import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.response.FilterResponse;

@@ -41,7 +41,7 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<GroupsResponse> filterGroups(@Valid String searchValue) {
+    public ResponseEntity<GroupsResponse> filterGroups(String searchValue) {
         log.info("-> filterGroup initiator: {} searchValue: {}", userInfoService.getUserName(), searchValue);
         List<GroupModel> groupModels = groupDao.filterGroup(searchValue);
         log.info("filterGroup groupModels: {}", groupModels);
@@ -54,11 +54,11 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<GroupsReferencesResponse> filterGroupsReferences(@Valid String sortOrder,
-                                                                           @Valid String searchValue,
-                                                                           @Valid String sortBy,
-                                                                           @Valid String sortFieldValue,
-                                                                           @Valid Integer size, @Valid String lastId) {
+    public ResponseEntity<GroupsReferencesResponse> filterGroupsReferences(String sortOrder,
+                                                                           String searchValue,
+                                                                           String sortBy,
+                                                                           String sortFieldValue,
+                                                                           Integer size, String lastId) {
         var filterRequest = FilterRequest.builder()
                 .searchValue(searchValue)
                 .lastId(lastId)
@@ -91,7 +91,7 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<IdResponse> insertGroup(@Valid Group group) {
+    public ResponseEntity<IdResponse> insertGroup(Group group) {
         String userName = userInfoService.getUserName();
         log.info("insertTemplate initiator: {} group: {}", userName, group);
         var command = groupToCommandConverter.convert(group);
@@ -104,7 +104,7 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<ListResponse> insertGroupReferences(String id, @Valid List<GroupReference> groupReference) {
+    public ResponseEntity<ListResponse> insertGroupReferences(String id, List<GroupReference> groupReference) {
         String userName = userInfoService.getUserName();
         log.info("insertReference initiator: {} referenceModels: {}", userName, groupReference);
         List<String> ids = groupReference.stream()
@@ -130,8 +130,8 @@ public class PaymentGroupsResource implements PaymentsGroupsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<String> removeGroupReference(String id, @NotNull @Valid String partyId,
-                                                       @NotNull @Valid String shopId, @Valid String groupId) {
+    public ResponseEntity<String> removeGroupReference(String id, String partyId,
+                                                       String shopId, String groupId) {
         String userName = userInfoService.getUserName();
         log.info("removeGroupReference initiator: {} groupId: {} partyId: {} shopId: {}",
                 userName, groupId, partyId, shopId);

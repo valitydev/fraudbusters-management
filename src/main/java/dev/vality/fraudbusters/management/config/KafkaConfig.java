@@ -10,14 +10,11 @@ import dev.vality.fraudbusters.management.serializer.FraudDataCandidateDeseriali
 import dev.vality.fraudbusters.management.serializer.ReferenceInfoDeserializer;
 import dev.vality.kafka.common.serialization.ThriftSerializer;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.config.SslConfigs;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.thrift.TBase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,11 +25,7 @@ import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.CommonLoggingErrorHandler;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 
-import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
-
-import static org.apache.kafka.clients.consumer.ConsumerConfig.MAX_POLL_RECORDS_CONFIG;
 
 @Configuration
 @RequiredArgsConstructor
@@ -60,7 +53,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Event>> kafkaListenerContainerFactory(
             ConsumerFactory<String, Event> consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, Event> factory =
@@ -78,7 +70,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Command>> kafkaTemplateListenerContainerFactory(
             ConsumerFactory<String, Command> consumerTemplateFactory) {
         return createDefaultContainerFactory(consumerTemplateFactory);
@@ -93,7 +84,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, ReferenceInfo>> kafkaReferenceInfoListenerContainerFactory(
             ConsumerFactory<String, ReferenceInfo> consumerReferenceInfoFactory) {
         ConcurrentKafkaListenerContainerFactory<String, ReferenceInfo> factory =
@@ -104,7 +94,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Command>> kafkaGroupListenerContainerFactory(
             ConsumerFactory<String, Command> consumerTemplateFactory) {
         return createDefaultContainerFactory(consumerTemplateFactory);
@@ -118,14 +107,12 @@ public class KafkaConfig {
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Command>> kafkaReferenceListenerContainerFactory(
             ConsumerFactory<String, Command> consumerReferenceFactory) {
         return createDefaultContainerFactory(consumerReferenceFactory);
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Command>> kafkaGroupReferenceListenerContainerFactory(
             ConsumerFactory<String, Command> consumerReferenceFactory) {
         return createDefaultContainerFactory(consumerReferenceFactory);
@@ -149,7 +136,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    @Autowired
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, FraudDataCandidate>> kafkaFraudCandidateListenerContainerFactory(
             ConsumerFactory<String, FraudDataCandidate> consumerFraudCandidateFactory) {
         ConcurrentKafkaListenerContainerFactory<String, FraudDataCandidate> factory =

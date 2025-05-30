@@ -32,11 +32,11 @@ public class AnalyticsResource implements AnalyticsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<CountResponse> getBlockedFraudPaymentsCount(
-            @NotNull @Valid String fromTime,
-            @NotNull @Valid String toTime,
-            @NotNull @Valid String currency,
-            @Valid String merchantId,
-            @Valid String shopId) {
+            String fromTime,
+            String toTime,
+            String currency,
+            String merchantId,
+            String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getBlockedFraudPaymentsCount with params: {}", params);
         Integer blockedFraudPaymentsCount = baseAnalyticsService.getBlockedFraudPaymentsCount(params);
@@ -50,11 +50,11 @@ public class AnalyticsResource implements AnalyticsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<RatioResponse> getBlockedFraudPaymentsCountRatio(
-            @NotNull @Valid String fromTime,
-            @NotNull @Valid String toTime,
-            @NotNull @Valid String currency,
-            @Valid String merchantId,
-            @Valid String shopId) {
+            String fromTime,
+            String toTime,
+            String currency,
+            String merchantId,
+            String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getBlockedFraudPaymentsCountRatio with params: {}", params);
         Float blockedFraudPaymentsCountRatio = baseAnalyticsService.getBlockedFraudPaymentsCountRatio(params);
@@ -68,11 +68,11 @@ public class AnalyticsResource implements AnalyticsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<SumResponse> getBlockedFraudPaymentsSum(
-            @NotNull @Valid String fromTime,
-            @NotNull @Valid String toTime,
-            @NotNull @Valid String currency,
-            @Valid String merchantId,
-            @Valid String shopId) {
+            String fromTime,
+            String toTime,
+            String currency,
+            String merchantId,
+            String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getBlockedFraudPaymentsSum with params: {}", params);
         Float blockedFraudPaymentsSum = baseAnalyticsService.getBlockedFraudPaymentsSum(params);
@@ -86,11 +86,11 @@ public class AnalyticsResource implements AnalyticsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<CountResponse> getFraudPaymentsCount(
-            @NotNull @Valid String fromTime,
-            @NotNull @Valid String toTime,
-            @NotNull @Valid String currency,
-            @Valid String merchantId,
-            @Valid String shopId) {
+            String fromTime,
+            String toTime,
+            String currency,
+            String merchantId,
+            String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getFraudPaymentsCount with params: {}", params);
         Integer fraudPaymentsCount = baseAnalyticsService.getFraudPaymentsCount(params);
@@ -104,11 +104,11 @@ public class AnalyticsResource implements AnalyticsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<FraudResultListSummaryResponse> getFraudPaymentsResultsSummary(
-            @NotNull @Valid String fromTime,
-            @NotNull @Valid String toTime,
-            @NotNull @Valid String currency,
-            @Valid String merchantId,
-            @Valid String shopId) {
+            String fromTime,
+            String toTime,
+            String currency,
+            String merchantId,
+            String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getFraudPaymentsResultsSummary with params: {}", params);
         List<Map<String, String>> rows = baseAnalyticsService.getFraudPaymentsResultsSummary(params);
@@ -132,12 +132,12 @@ public class AnalyticsResource implements AnalyticsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring')")
     public ResponseEntity<SplitRiskScoreCountRatioResponse> getFraudPaymentsScoreSplitCountRatio(
-            @NotNull @Valid String fromTime,
-            @NotNull @Valid String toTime,
-            @NotNull @Valid String currency,
-            @NotNull @Valid String splitUnit,
-            @Valid String merchantId,
-            @Valid String shopId) {
+            String fromTime,
+            String toTime,
+            String currency,
+            String splitUnit,
+            String merchantId,
+            String shopId) {
         Map<String, String> params = paramsConverter.convert(fromTime, toTime, currency, merchantId, shopId);
         log.info("-> getFraudPaymentsScoreSplitCountRatio with params: {}", params);
         SplitUnit unit = SplitUnit.fromValue(splitUnit);

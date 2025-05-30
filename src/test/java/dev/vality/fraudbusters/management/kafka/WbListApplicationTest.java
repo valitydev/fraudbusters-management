@@ -45,8 +45,11 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
 
 @KafkaITest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {
+        FlywayAutoConfiguration.class,
+        JooqAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class,
+        SecurityAutoConfiguration.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";

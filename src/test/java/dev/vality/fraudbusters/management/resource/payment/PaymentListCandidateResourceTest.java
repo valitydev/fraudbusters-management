@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.fraudbusters.management.TestObjectFactory;
-import dev.vality.fraudbusters.management.config.KafkaConfig;
 import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.response.FilterResponse;
@@ -19,8 +18,8 @@ import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;

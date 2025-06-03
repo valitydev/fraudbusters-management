@@ -1,8 +1,8 @@
 package dev.vality.fraudbusters.management.converter.payment;
 
 import dev.vality.fraudbusters.management.utils.DateTimeUtils;
-import dev.vality.swag.fraudbusters.management.model.Error;
 import dev.vality.swag.fraudbusters.management.model.*;
+import dev.vality.swag.fraudbusters.management.model.Error;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;

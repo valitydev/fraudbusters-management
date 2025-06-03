@@ -1,9 +1,7 @@
 package dev.vality.fraudbusters.management.config;
 
-import dev.vality.fraudbusters.management.config.properties.OtelProperties;
 import dev.vality.fraudbusters.warehouse.QueryServiceSrv;
 import dev.vality.woody.thrift.impl.http.THSpawnClientBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

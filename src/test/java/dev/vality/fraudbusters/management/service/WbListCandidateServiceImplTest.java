@@ -24,8 +24,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.util.concurrent.SettableListenableFuture;
-import org.testcontainers.shaded.com.google.common.util.concurrent.SettableFuture;
 
 import java.util.Comparator;
 import java.util.List;

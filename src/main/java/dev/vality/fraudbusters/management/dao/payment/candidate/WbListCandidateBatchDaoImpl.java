@@ -5,8 +5,8 @@ import dev.vality.fraudbusters.management.dao.payment.candidate.mapper.WbListCan
 import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListCandidateBatch;
-import org.jooq.Record;
 import org.jooq.*;
+import org.jooq.Record;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

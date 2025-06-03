@@ -23,16 +23,15 @@ import dev.vality.fraudbusters.management.resource.payment.PaymentsTemplatesReso
 import dev.vality.fraudbusters.management.service.iface.AuditService;
 import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import dev.vality.swag.fraudbusters.management.model.*;
-import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

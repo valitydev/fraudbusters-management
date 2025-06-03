@@ -1,11 +1,11 @@
 package dev.vality.fraudbusters.management.dao.payment.group;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.management.dao.AbstractDao;
 import dev.vality.fraudbusters.management.dao.condition.ConditionParameterSource;
 import dev.vality.fraudbusters.management.domain.payment.PaymentGroupReferenceModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.tables.records.FGroupReferenceRecord;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,9 +1,9 @@
 package dev.vality.fraudbusters.management.dao.payment.dataset;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.management.dao.AbstractDao;
 import dev.vality.fraudbusters.management.domain.payment.PaymentModel;
 import dev.vality.fraudbusters.management.domain.tables.records.TestPaymentRecord;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.DeleteConditionStep;
 import org.jooq.Query;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,11 +1,11 @@
 package dev.vality.fraudbusters.management.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.vality.geck.common.util.TBaseUtil;
 import dev.vality.damsel.fraudbusters.Command;
 import dev.vality.fraudbusters.management.domain.enums.CommandType;
 import dev.vality.fraudbusters.management.domain.enums.ObjectType;
 import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
+import dev.vality.geck.common.util.TBaseUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

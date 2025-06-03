@@ -18,7 +18,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,9 +38,9 @@ public class NotificationResource implements NotificationsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<NotificationListResponse> getNotifications(
-            @Valid @RequestParam(value = "lastId", required = false) Long lastId,
-            @Valid @RequestParam(value = "size", required = false) Integer size,
-            @Valid @RequestParam(value = "searchValue", required = false) String searchValue) {
+            @RequestParam(value = "lastId", required = false) Long lastId,
+            @RequestParam(value = "size", required = false) Integer size,
+            @RequestParam(value = "searchValue", required = false) String searchValue) {
         Page page = new Page()
                 .setContinuationId(String.valueOf(lastId))
                 .setSize(size);
@@ -60,7 +59,7 @@ public class NotificationResource implements NotificationsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<Notification> createOrUpdateNotification(@Valid Notification notification) {
+    public ResponseEntity<Notification> createOrUpdateNotification(Notification notification) {
         var createdNotification = notificationService.create(notificationConverter.toSource(notification));
         Notification response = notificationConverter.toTarget(createdNotification);
         log.info("NotificationResource create notification: {}", response);
@@ -87,7 +86,7 @@ public class NotificationResource implements NotificationsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<ValidationResponse> validateNotification(
-            dev.vality.swag.fraudbusters.management.model.@Valid Notification notification) {
+            dev.vality.swag.fraudbusters.management.model.Notification notification) {
         var validationResponse = notificationService.validate(notificationConverter.toSource(notification));
         ValidationResponse response = validationConverter.convert(validationResponse);
         log.info("NotificationResource validate notification with result {}", response);
@@ -97,7 +96,7 @@ public class NotificationResource implements NotificationsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<Void> updateNotificationStatus(Long id,
-                                                         @Valid String notificationStatus) {
+                                                         String notificationStatus) {
         var status = dev.vality.damsel.fraudbusters_notificator.NotificationStatus
                 .valueOf(notificationStatus);
         notificationService.updateStatus(id, status);
@@ -108,9 +107,9 @@ public class NotificationResource implements NotificationsApi {
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
     public ResponseEntity<ChannelListResponse> getChannels(
-            @Valid @RequestParam(value = "lastId", required = false) String lastId,
-            @Valid @RequestParam(value = "size", required = false) Integer size,
-            @Valid @RequestParam(value = "searchValue", required = false) String searchValue) {
+            @RequestParam(value = "lastId", required = false) String lastId,
+            @RequestParam(value = "size", required = false) Integer size,
+            @RequestParam(value = "searchValue", required = false) String searchValue) {
         Page page = new Page()
                 .setContinuationId(lastId)
                 .setSize(size);
@@ -129,7 +128,7 @@ public class NotificationResource implements NotificationsApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<Channel> createChannel(@Valid Channel channel) {
+    public ResponseEntity<Channel> createChannel(Channel channel) {
         var createdChannel = channelService.create(channelConverter.toSource(channel));
         Channel response = channelConverter.toTarget(createdChannel);
         log.info("NotificationResource create channel: {}", response);

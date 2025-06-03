@@ -1,8 +1,7 @@
 package dev.vality.fraudbusters.management.domain;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 public class ListRecord {

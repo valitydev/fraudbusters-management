@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,12 +29,12 @@ public class AuditResource implements AuditApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-monitoring', 'fraud-officer')")
-    public ResponseEntity<FilterLogsResponse> filterLogs(@NotNull @Valid List<String> commandTypes,
-                                                         @NotNull @Valid List<String> objectTypes,
-                                                         @NotNull @Valid String from, @NotNull @Valid String to,
-                                                         @Valid String lastId, @Valid String sortOrder,
-                                                         @Valid String searchValue, @Valid String sortBy,
-                                                         @Valid String sortFieldValue, @Valid Integer size) {
+    public ResponseEntity<FilterLogsResponse> filterLogs(List<String> commandTypes,
+                                                         List<String> objectTypes,
+                                                         String from, String to,
+                                                         String lastId, String sortOrder,
+                                                         String searchValue, String sortBy,
+                                                         String sortFieldValue, Integer size) {
         var filterRequest = FilterRequest.builder()
                 .searchValue(searchValue)
                 .lastId(lastId)

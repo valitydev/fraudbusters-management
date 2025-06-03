@@ -1,8 +1,8 @@
 package dev.vality.fraudbusters.management.resource.utils;
 
 import dev.vality.damsel.domain.*;
-import dev.vality.damsel.fraudbusters.ClientInfo;
 import dev.vality.damsel.fraudbusters.*;
+import dev.vality.damsel.fraudbusters.ClientInfo;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -10,8 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ public class PaymentLoadDataResource implements PaymentsLoadDataApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<Void> loadFraudPayments(@Valid MultipartFile file) {
+    public ResponseEntity<Void> loadFraudPayments(MultipartFile file) {
         String userName = userInfoService.getUserName();
         log.info("-> loadFraudPayments initiator: {} fileName: {}", userName, file.getName());
         paymentLoadDataService.loadFraudPayments(file, userName);

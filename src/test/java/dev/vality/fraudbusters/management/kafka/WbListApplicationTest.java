@@ -24,17 +24,17 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
@@ -45,8 +45,11 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
 
 @KafkaITest
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {
+        FlywayAutoConfiguration.class,
+        JooqAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class,
+        SecurityAutoConfiguration.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";
@@ -58,9 +61,9 @@ public class WbListApplicationTest {
     public String topicEventSink;
     @Value("${kafka.topic.wblist.command}")
     public String topicCommand;
-    @MockBean
+    @MockitoBean
     public AuditService auditService;
-    @MockBean
+    @MockitoBean
     public WbListDao wbListDao;
     TestRestTemplate restTemplate = new TestRestTemplate();
     String paymentListPath;
@@ -80,7 +83,7 @@ public class WbListApplicationTest {
     }
 
     @Test
-    void listenCreated() {
+    void listenCreated() throws ExecutionException, InterruptedException {
         Mockito.clearInvocations(wbListDao);
 
         Event event = new Event();

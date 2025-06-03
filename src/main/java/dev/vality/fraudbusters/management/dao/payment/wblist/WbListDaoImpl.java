@@ -1,12 +1,12 @@
 package dev.vality.fraudbusters.management.dao.payment.wblist;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.management.dao.AbstractDao;
 import dev.vality.fraudbusters.management.dao.condition.ConditionParameterSource;
 import dev.vality.fraudbusters.management.domain.enums.ListType;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import dev.vality.fraudbusters.management.domain.tables.records.WbListRecordsRecord;
+import dev.vality.mapper.RecordRowMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.*;
 import org.jooq.impl.DSL;

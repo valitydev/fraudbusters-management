@@ -1,10 +1,10 @@
 package dev.vality.fraudbusters.management.dao.audit;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.management.dao.AbstractDao;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.tables.pojos.CommandAudit;
 import dev.vality.fraudbusters.management.domain.tables.records.CommandAuditRecord;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.*;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

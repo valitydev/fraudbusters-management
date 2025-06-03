@@ -27,7 +27,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,10 +47,10 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<ReferencesResponse> filterDefaultReferences(@Valid String lastId, @Valid String sortOrder,
-                                                                      @Valid String searchValue, @Valid String sortBy,
-                                                                      @Valid String sortFieldValue,
-                                                                      @Valid Integer size) {
+    public ResponseEntity<ReferencesResponse> filterDefaultReferences(String lastId, String sortOrder,
+                                                                      String searchValue, String sortBy,
+                                                                      String sortFieldValue,
+                                                                      Integer size) {
         var filterRequest = FilterRequest.builder()
                 .searchValue(searchValue)
                 .lastId(lastId)
@@ -74,7 +73,7 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<IdResponse> insertDefaultReference(@Valid PaymentReference paymentReference) {
+    public ResponseEntity<IdResponse> insertDefaultReference(PaymentReference paymentReference) {
         log.info("insertDefaultReference initiator: {} referenceModels: {}", userInfoService.getUserName(),
                 paymentReference);
         String uid = paymentsDefaultReferenceService.insertDefaultReference(paymentReference);
@@ -94,9 +93,9 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<ReferencesResponse> filterReferences(@Valid String lastId, @Valid String sortOrder,
-                                                               @Valid String searchValue, @Valid String sortBy,
-                                                               @Valid String sortFieldValue, @Valid Integer size) {
+    public ResponseEntity<ReferencesResponse> filterReferences(String lastId, String sortOrder,
+                                                               String searchValue, String sortBy,
+                                                               String sortFieldValue, Integer size) {
         var filterRequest = FilterRequest.builder()
                 .searchValue(searchValue)
                 .lastId(lastId)
@@ -117,7 +116,7 @@ public class PaymentsReferenceResource implements PaymentsReferencesApi {
 
     @Override
     @PreAuthorize("hasAnyRole('fraud-officer')")
-    public ResponseEntity<ListResponse> insertReferences(@Valid List<PaymentReference> paymentReference) {
+    public ResponseEntity<ListResponse> insertReferences(List<PaymentReference> paymentReference) {
         String userName = userInfoService.getUserName();
         log.info("insertReference initiator: {} referenceModels: {}", userName, paymentReference);
         List<String> unknownTemplates =

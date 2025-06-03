@@ -3,8 +3,8 @@ package dev.vality.fraudbusters.management.dao;
 import dev.vality.dao.impl.AbstractGenericDao;
 import dev.vality.fraudbusters.management.dao.condition.ConditionField;
 import dev.vality.fraudbusters.management.dao.condition.ConditionParameterSource;
-import org.jooq.Record;
 import org.jooq.*;
+import org.jooq.Record;
 import org.jooq.impl.DSL;
 import org.springframework.util.StringUtils;
 

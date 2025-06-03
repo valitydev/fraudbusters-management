@@ -2,8 +2,8 @@ package dev.vality.fraudbusters.management;
 
 import dev.vality.damsel.fraudbusters_notificator.ChannelType;
 import dev.vality.damsel.fraudbusters_notificator.NotificationStatus;
-import dev.vality.damsel.wb_list.CountInfo;
 import dev.vality.damsel.wb_list.*;
+import dev.vality.damsel.wb_list.CountInfo;
 import dev.vality.fraud_data_crawler.FraudDataCandidate;
 import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.payment.PaymentCountInfo;

@@ -23,9 +23,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,27 +40,27 @@ import static org.mockito.ArgumentMatchers.any;
         WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
 public class PaymentListLoadDataResourceTest {
 
-    @MockBean
+    @MockitoBean
     WbListDao wbListDao;
-    @MockBean
+    @MockitoBean
     WbListCommandService wbListCommandService;
-    @MockBean
+    @MockitoBean
     WbListRecordToRowConverter wbListRecordToRowConverter;
-    @MockBean
+    @MockitoBean
     PaymentCountInfoGenerator paymentCountInfoGenerator;
-    @MockBean
+    @MockitoBean
     UserInfoService userInfoService;
-    @MockBean
+    @MockitoBean
     ParametersService parametersService;
-    @MockBean
+    @MockitoBean
     WbListCandidateBatchService wbListCandidateBatchService;
-    @MockBean
+    @MockitoBean
     WbListCandidateService wbListCandidateService;
-    @MockBean
+    @MockitoBean
     WbListCandidateToWbListRecordConverter wbListCandidateToWbListRecordConverter;
-    @MockBean
+    @MockitoBean
     CandidateBatchModelToCandidateBatchConverter candidateBatchConverter;
-    @MockBean
+    @MockitoBean
     ChargebacksToFraudDataCandidatesConverter chargebackConverter;
 
     @Autowired

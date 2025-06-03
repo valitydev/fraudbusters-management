@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.service.payment;
 
 import dev.vality.damsel.wb_list.Command;
-import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordToRowConverter;
 import dev.vality.fraudbusters.management.converter.payment.WbListRecordsModelToWbListRecordConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
@@ -13,6 +12,7 @@ import dev.vality.fraudbusters.management.service.WbListCommandService;
 import dev.vality.fraudbusters.management.utils.PaymentCountInfoGenerator;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.fraudbusters.management.utils.parser.CsvPaymentCountInfoParser;
+import dev.vality.fraudbusters.management.validator.ListRowValidator;
 import dev.vality.swag.fraudbusters.management.model.PaymentCountInfo;
 import dev.vality.swag.fraudbusters.management.model.WbListRecordsResponse;
 import lombok.RequiredArgsConstructor;

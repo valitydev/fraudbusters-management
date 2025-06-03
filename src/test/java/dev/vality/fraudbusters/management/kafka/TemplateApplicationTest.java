@@ -23,16 +23,15 @@ import dev.vality.fraudbusters.management.resource.payment.PaymentsTemplatesReso
 import dev.vality.fraudbusters.management.service.iface.AuditService;
 import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import dev.vality.swag.fraudbusters.management.model.*;
-import dev.vality.testcontainers.annotations.kafka.config.KafkaProducer;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -57,23 +56,23 @@ public class TemplateApplicationTest {
     @Value("${kafka.topic.fraudbusters.unknown-initiating-entity}")
     public String topicUnknownInitiatingEntity;
 
-    @MockBean
+    @MockitoBean
     public PaymentTemplateDao paymentTemplateDao;
-    @MockBean
+    @MockitoBean
     public PaymentGroupDao paymentGroupDao;
-    @MockBean
+    @MockitoBean
     public WbListDao wbListDao;
-    @MockBean
+    @MockitoBean
     public PaymentReferenceDaoImpl referenceDao;
-    @MockBean
+    @MockitoBean
     public DefaultPaymentReferenceDaoImpl defaultReferenceDao;
-    @MockBean
+    @MockitoBean
     public PaymentGroupReferenceDao groupReferenceDao;
-    @MockBean
+    @MockitoBean
     public PaymentServiceSrv.Iface iface;
-    @MockBean
+    @MockitoBean
     public AuditService auditService;
-    @MockBean
+    @MockitoBean
     public UnknownPaymentTemplateInReferenceFilter unknownPaymentTemplateInReferenceFilter;
 
     @Autowired

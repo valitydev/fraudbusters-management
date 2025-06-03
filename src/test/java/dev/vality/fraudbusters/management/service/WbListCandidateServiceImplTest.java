@@ -24,10 +24,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.util.concurrent.SettableListenableFuture;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static dev.vality.fraudbusters.management.domain.tables.WbListCandidate.WB_LIST_CANDIDATE;
@@ -56,7 +56,7 @@ class WbListCandidateServiceImplTest {
     @Mock
     private WbListCommandService wbListCommandService;
     @Mock
-    private SettableListenableFuture<SendResult<String, TBase>> listenableFuture;
+    private CompletableFuture<SendResult<String, TBase>> listenableFuture;
 
     @BeforeEach
     void setUp() {

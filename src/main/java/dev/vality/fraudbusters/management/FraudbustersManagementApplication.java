@@ -1,12 +1,11 @@
 package dev.vality.fraudbusters.management;
 
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
-
-import javax.annotation.PreDestroy;
 
 @ServletComponentScan
 @SpringBootApplication

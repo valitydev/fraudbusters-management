@@ -29,9 +29,9 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/**/health/liveness").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/**/health/readiness").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/**/actuator/prometheus").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
                                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
@@ -44,7 +44,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.applyPermitDefaultValues();
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.addAllowedMethod(HttpMethod.PUT);
+        configuration.addAllowedMethod(HttpMethod.DELETE);
+        configuration.addAllowedMethod(HttpMethod.OPTIONS);
+        configuration.addAllowedMethod(HttpMethod.POST);
+        configuration.addAllowedMethod(HttpMethod.GET);
         configuration.setAllowedOrigins(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

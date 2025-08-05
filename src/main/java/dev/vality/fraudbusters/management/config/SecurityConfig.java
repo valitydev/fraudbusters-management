@@ -32,6 +32,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
                 .cors(c -> c.configurationSource(corsConfigurationSource()))

@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.config;
 
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,12 +26,14 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthConverter jwtAuthConverter)
+            throws Exception {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
                                 .anyRequest().permitAll())
                 .csrf((csrf) -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
+                .oauth2ResourceServer(server -> server.jwt(token -> token.jwtAuthenticationConverter(jwtAuthConverter)))
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )

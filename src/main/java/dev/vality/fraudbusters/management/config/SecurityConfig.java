@@ -37,7 +37,6 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/**").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
                                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))

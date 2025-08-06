@@ -31,9 +31,10 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/**").authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()

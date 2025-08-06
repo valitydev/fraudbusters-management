@@ -31,14 +31,14 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
-                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/**").authenticated()
-                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/**").authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
                                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
                 .cors(c -> c.configurationSource(corsConfigurationSource()))

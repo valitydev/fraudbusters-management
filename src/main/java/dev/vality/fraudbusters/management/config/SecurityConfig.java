@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -29,6 +31,10 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/**").authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
@@ -70,6 +76,5 @@ public class SecurityConfig {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         }
     }
-
 }
 

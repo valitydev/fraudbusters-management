@@ -20,6 +20,15 @@ spring:
   output:
     ansi:
       enabled: always
+  security:
+    oauth2:
+      resourceserver:
+        url: https://auth.domain
+        jwt:
+          realm: internal
+          issuer-uri: >
+            ${spring.security.oauth2.resourceserver.url}/auth/realms/
+            ${spring.security.oauth2.resourceserver.jwt.realm}
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver

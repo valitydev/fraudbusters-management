@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,15 +32,10 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
-                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/health/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                                 .anyRequest().authenticated())
-                .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())

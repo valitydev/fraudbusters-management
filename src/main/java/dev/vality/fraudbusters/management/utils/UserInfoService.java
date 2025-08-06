@@ -23,6 +23,7 @@ public class UserInfoService {
     }
 
     public String getUserName(Principal principal) {
+        log.info("principal: {}", principal);
         if (principal == null || !StringUtils.hasText(principal.getName())) {
             return UNKNOWN;
         }

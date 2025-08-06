@@ -29,10 +29,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
-                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator/health", "/actuator/health/**",
-                                        "/actuator/prometheus").permitAll()
-                                .anyRequest().authenticated())
+                                .anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .exceptionHandling(exceptions -> exceptions

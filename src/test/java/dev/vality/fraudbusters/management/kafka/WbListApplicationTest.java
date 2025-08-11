@@ -2,6 +2,7 @@ package dev.vality.fraudbusters.management.kafka;
 
 import dev.vality.damsel.wb_list.*;
 import dev.vality.fraudbusters.management.config.KafkaITest;
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.domain.payment.PaymentCountInfo;
 import dev.vality.fraudbusters.management.domain.payment.PaymentListRecord;
@@ -49,7 +50,7 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
         FlywayAutoConfiguration.class,
         JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class,
-        SecurityAutoConfiguration.class})
+        SecurityAutoConfiguration.class, JwtAuthConverter.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";

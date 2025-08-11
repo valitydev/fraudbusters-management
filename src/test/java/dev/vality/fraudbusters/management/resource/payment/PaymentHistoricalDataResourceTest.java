@@ -2,6 +2,7 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.fraudbusters.HistoricalDataResponse;
 import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.resource.utils.ExternalModelBeanFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class, JwtAuthConverter.class})
 public class PaymentHistoricalDataResourceTest {
 
     @Autowired
@@ -48,15 +49,15 @@ public class PaymentHistoricalDataResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":[{\"id\":\"test\"," +
-                                "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":" +
-                                "{\"partyId\":\"party\",\"shopId\":\"shop\"},\"amount\":123,\"currency\":\"RUB\"," +
-                                "\"cardToken\":null,\"clientInfo\":{\"ip\":\"123.123.123.123\"," +
-                                "\"fingerprint\":\"finger\",\"email\":\"email\"},\"status\":\"captured\"," +
-                                "\"payerType\":null,\"mobile\":null,\"recurrent\":null,\"error\":{\"errorCode\":null," +
-                                "\"errorReason\":null},\"paymentSystem\":\"visa\",\"paymentCountry\":null," +
-                                "\"paymentTool\":\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa)," +
-                                " bin:1234, last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"" +
-                                ",\"terminalId\":\"1234\",\"country\":\"RUS\"}}]}"));
+                              "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":" +
+                              "{\"partyId\":\"party\",\"shopId\":\"shop\"},\"amount\":123,\"currency\":\"RUB\"," +
+                              "\"cardToken\":null,\"clientInfo\":{\"ip\":\"123.123.123.123\"," +
+                              "\"fingerprint\":\"finger\",\"email\":\"email\"},\"status\":\"captured\"," +
+                              "\"payerType\":null,\"mobile\":null,\"recurrent\":null,\"error\":{\"errorCode\":null," +
+                              "\"errorReason\":null},\"paymentSystem\":\"visa\",\"paymentCountry\":null," +
+                              "\"paymentTool\":\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa)," +
+                              " bin:1234, last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"" +
+                              ",\"terminalId\":\"1234\",\"country\":\"RUS\"}}]}"));
     }
 
     @Test
@@ -70,14 +71,14 @@ public class PaymentHistoricalDataResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":[{\"id\":\"test\",\"paymentId\":null," +
-                                "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
-                                ",\"shopId\":\"shop\"},\"paymentTool\":" +
-                                "\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa), bin:1234, " +
-                                "last_digits:null, bank_name:test)\",\"amount\":123,\"currency\":\"RUB\"," +
-                                "\"provider\":{\"providerId\":\"test\",\"terminalId\":\"1234\",\"country\":\"RUS\"}," +
-                                "\"status\":\"succeeded\",\"error\":{\"errorCode\":null,\"errorReason\":null}," +
-                                "\"clientInfo\":{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\"," +
-                                "\"email\":\"email\"},\"payerType\":null}]}"));
+                              "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
+                              ",\"shopId\":\"shop\"},\"paymentTool\":" +
+                              "\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa), bin:1234, " +
+                              "last_digits:null, bank_name:test)\",\"amount\":123,\"currency\":\"RUB\"," +
+                              "\"provider\":{\"providerId\":\"test\",\"terminalId\":\"1234\",\"country\":\"RUS\"}," +
+                              "\"status\":\"succeeded\",\"error\":{\"errorCode\":null,\"errorReason\":null}," +
+                              "\"clientInfo\":{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\"," +
+                              "\"email\":\"email\"},\"payerType\":null}]}"));
     }
 
     @Test
@@ -91,17 +92,17 @@ public class PaymentHistoricalDataResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":[{\"payment\":{\"id\":\"test\"," +
-                                "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
-                                ",\"shopId\":\"shop\"},\"amount\":123,\"currency\":\"RUB\",\"cardToken\":null," +
-                                "\"clientInfo\":{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\"," +
-                                "\"email\":\"email\"},\"status\":\"captured\",\"payerType\":null,\"mobile\":null," +
-                                "\"recurrent\":null,\"error\":{\"errorCode\":null,\"errorReason\":null}," +
-                                "\"paymentSystem\":\"visa\",\"paymentCountry\":null,\"paymentTool\":" +
-                                "\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa), bin:1234, " +
-                                "last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"," +
-                                "\"terminalId\":\"1234\",\"country\":\"RUS\"}},\"checkedTemplate\":null," +
-                                "\"resultStatus\":\"accept\",\"ruleChecked\":null," +
-                                "\"notificationsRule\":null}]}"));
+                              "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
+                              ",\"shopId\":\"shop\"},\"amount\":123,\"currency\":\"RUB\",\"cardToken\":null," +
+                              "\"clientInfo\":{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\"," +
+                              "\"email\":\"email\"},\"status\":\"captured\",\"payerType\":null,\"mobile\":null," +
+                              "\"recurrent\":null,\"error\":{\"errorCode\":null,\"errorReason\":null}," +
+                              "\"paymentSystem\":\"visa\",\"paymentCountry\":null,\"paymentTool\":" +
+                              "\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa), bin:1234, " +
+                              "last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"," +
+                              "\"terminalId\":\"1234\",\"country\":\"RUS\"}},\"checkedTemplate\":null," +
+                              "\"resultStatus\":\"accept\",\"ruleChecked\":null," +
+                              "\"notificationsRule\":null}]}"));
     }
 
     @Test
@@ -115,16 +116,16 @@ public class PaymentHistoricalDataResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":[{\"payment\":{\"id\":\"test\"," +
-                                "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
-                                ",\"shopId\":\"shop\"},\"amount\":123,\"currency\":\"RUB\",\"cardToken\":null," +
-                                "\"clientInfo\":{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\"," +
-                                "\"email\":\"email\"},\"status\":\"captured\",\"payerType\":null,\"mobile\":null," +
-                                "\"recurrent\":null,\"error\":{\"errorCode\":null,\"errorReason\":null}," +
-                                "\"paymentSystem\":\"visa\",\"paymentCountry\":null,\"paymentTool\":" +
-                                "\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa), bin:1234, " +
-                                "last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"," +
-                                "\"terminalId\":\"1234\",\"country\":\"RUS\"}},\"type\":\"type_test\"," +
-                                "\"comment\":\"test_comment\"}]}"));
+                              "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
+                              ",\"shopId\":\"shop\"},\"amount\":123,\"currency\":\"RUB\",\"cardToken\":null," +
+                              "\"clientInfo\":{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\"," +
+                              "\"email\":\"email\"},\"status\":\"captured\",\"payerType\":null,\"mobile\":null," +
+                              "\"recurrent\":null,\"error\":{\"errorCode\":null,\"errorReason\":null}," +
+                              "\"paymentSystem\":\"visa\",\"paymentCountry\":null,\"paymentTool\":" +
+                              "\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa), bin:1234, " +
+                              "last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"," +
+                              "\"terminalId\":\"1234\",\"country\":\"RUS\"}},\"type\":\"type_test\"," +
+                              "\"comment\":\"test_comment\"}]}"));
     }
 
     @Test
@@ -138,15 +139,15 @@ public class PaymentHistoricalDataResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":[{\"id\":\"test\",\"paymentId\":null," +
-                                "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
-                                ",\"shopId\":\"shop\"},\"paymentTool\":\"BankCard(token:null, " +
-                                "payment_system:PaymentSystemRef(id:visa), bin:1234, last_digits:null, " +
-                                "bank_name:test)\",\"amount\":123,\"currency\":\"RUB\",\"provider\":" +
-                                "{\"providerId\":\"test\"," +
-                                "\"terminalId\":\"1234\",\"country\":\"RUS\"},\"status\":\"accepted\"," +
-                                "\"category\":\"authorisation\",\"chargebackCode\":\"123\",\"clientInfo\":" +
-                                "{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\",\"email\":\"email\"}," +
-                                "\"payerType\":null}]}"));
+                              "\"eventTime\":\"2021-07-29T13:16:18.348795\",\"merchantInfo\":{\"partyId\":\"party\"" +
+                              ",\"shopId\":\"shop\"},\"paymentTool\":\"BankCard(token:null, " +
+                              "payment_system:PaymentSystemRef(id:visa), bin:1234, last_digits:null, " +
+                              "bank_name:test)\",\"amount\":123,\"currency\":\"RUB\",\"provider\":" +
+                              "{\"providerId\":\"test\"," +
+                              "\"terminalId\":\"1234\",\"country\":\"RUS\"},\"status\":\"accepted\"," +
+                              "\"category\":\"authorisation\",\"chargebackCode\":\"123\",\"clientInfo\":" +
+                              "{\"ip\":\"123.123.123.123\",\"fingerprint\":\"finger\",\"email\":\"email\"}," +
+                              "\"payerType\":null}]}"));
     }
 
     private LinkedMultiValueMap<String, String> createParams() {

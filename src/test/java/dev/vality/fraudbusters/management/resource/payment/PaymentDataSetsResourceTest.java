@@ -2,6 +2,7 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import dev.vality.fraudbusters.management.domain.payment.DataSetModel;
 import dev.vality.fraudbusters.management.service.payment.PaymentsDataSetService;
@@ -35,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class, JwtAuthConverter.class})
 class PaymentDataSetsResourceTest {
 
     @Autowired
@@ -57,8 +58,8 @@ class PaymentDataSetsResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"id\":\"null\",\"testDataSetId\":\"null\",\"template\":null," +
-                                "\"rows\":[],\"createdAt\":null,\"checkingTimestamp\":null," +
-                                "\"initiator\":null,\"merchantInfo\":{\"partyId\":null,\"shopId\":null}}"));
+                              "\"rows\":[],\"createdAt\":null,\"checkingTimestamp\":null," +
+                              "\"initiator\":null,\"merchantInfo\":{\"partyId\":null,\"shopId\":null}}"));
 
         verify(paymentsDataSetService, times(1)).getCheckedDataSet(id);
     }
@@ -72,8 +73,8 @@ class PaymentDataSetsResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":" +
-                                "[{\"id\":null,\"name\":null,\"rows\":[]," +
-                                "\"lastModificationAt\":null,\"lastModificationInitiator\":null}]}"));
+                              "[{\"id\":null,\"name\":null,\"rows\":[]," +
+                              "\"lastModificationAt\":null,\"lastModificationInitiator\":null}]}"));
 
         verify(paymentsDataSetService, times(1)).filterDataSets(any(), any(), any());
     }
@@ -87,7 +88,7 @@ class PaymentDataSetsResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"id\":null,\"name\":null,\"rows\":[]," +
-                                "\"lastModificationAt\":null,\"lastModificationInitiator\":null}"));
+                              "\"lastModificationAt\":null,\"lastModificationInitiator\":null}"));
 
         verify(paymentsDataSetService, times(1)).getDataSet(id);
     }

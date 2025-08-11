@@ -1,6 +1,7 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.wb_list.ListType;
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
 import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.CandidateBatchModelToCandidateBatchConverter;
@@ -37,7 +38,8 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {PaymentsListsResource.class, CsvPaymentCountInfoParser.class,
-        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
+        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class,
+        JwtAuthConverter.class})
 public class PaymentListLoadDataResourceTest {
 
     @MockitoBean

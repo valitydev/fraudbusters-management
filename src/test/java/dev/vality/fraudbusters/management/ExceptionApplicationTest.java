@@ -2,7 +2,6 @@ package dev.vality.fraudbusters.management;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.dao.DaoException;
-import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
 import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.*;
@@ -60,8 +59,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = {ParametersService.class, PaymentsListsResource.class,
         UserInfoService.class, WbListRecordToRowConverter.class, PaymentCountInfoGenerator.class,
         CountInfoUtils.class, CountInfoApiUtils.class, CsvPaymentCountInfoParser.class,
-        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class,
-        JwtAuthConverter.class})
+        WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class})
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
         OAuth2ResourceServerAutoConfiguration.class})

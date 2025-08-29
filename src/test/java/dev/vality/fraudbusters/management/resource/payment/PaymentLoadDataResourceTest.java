@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.fraudbusters.PaymentServiceSrv;
-import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.service.payment.PaymentLoadDataService;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.fraudbusters.management.utils.parser.CsvFraudPaymentParser;
@@ -25,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {PaymentLoadDataResource.class, CsvFraudPaymentParser.class,
-        UserInfoService.class, PaymentLoadDataService.class, JwtAuthConverter.class})
+        UserInfoService.class, PaymentLoadDataService.class})
 public class PaymentLoadDataResourceTest {
 
     @Autowired

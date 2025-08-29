@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.fraudbusters.management.TestObjectFactory;
-import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.domain.WbListCandidateBatchModel;
 import dev.vality.fraudbusters.management.domain.request.FilterRequest;
 import dev.vality.fraudbusters.management.domain.response.FilterResponse;
@@ -41,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class, JwtAuthConverter.class})
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 class PaymentListCandidateResourceTest {
 
     @Autowired

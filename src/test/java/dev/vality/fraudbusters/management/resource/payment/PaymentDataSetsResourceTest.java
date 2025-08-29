@@ -2,7 +2,6 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
-import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import dev.vality.fraudbusters.management.domain.payment.DataSetModel;
 import dev.vality.fraudbusters.management.service.payment.PaymentsDataSetService;
@@ -38,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
-        OAuth2ResourceServerAutoConfiguration.class, JwtAuthConverter.class})
+        OAuth2ResourceServerAutoConfiguration.class})
 class PaymentDataSetsResourceTest {
 
     @Autowired

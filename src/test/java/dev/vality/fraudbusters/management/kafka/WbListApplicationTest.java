@@ -2,7 +2,6 @@ package dev.vality.fraudbusters.management.kafka;
 
 import dev.vality.damsel.wb_list.*;
 import dev.vality.fraudbusters.management.config.KafkaITest;
-import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.domain.payment.PaymentCountInfo;
 import dev.vality.fraudbusters.management.domain.payment.PaymentListRecord;

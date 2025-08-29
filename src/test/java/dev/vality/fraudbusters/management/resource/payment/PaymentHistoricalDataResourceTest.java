@@ -2,7 +2,6 @@ package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.fraudbusters.HistoricalDataResponse;
 import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
-import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.resource.utils.ExternalModelBeanFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class, JwtAuthConverter.class})
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class PaymentHistoricalDataResourceTest {
 
     @Autowired

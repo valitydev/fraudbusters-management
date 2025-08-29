@@ -61,7 +61,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         UserInfoService.class, WbListRecordToRowConverter.class, PaymentCountInfoGenerator.class,
         CountInfoUtils.class, CountInfoApiUtils.class, CsvPaymentCountInfoParser.class,
         WbListRecordsModelToWbListRecordConverter.class, PaymentsListsService.class, ListRowValidator.class,
-        JwtAuthConverter.class})
+        JwtAuthConverter.class}, properties = {"keycloak.enabled=false"})
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
         OAuth2ResourceServerAutoConfiguration.class})

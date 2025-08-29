@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @PostgresqlTestcontainerSingleton
 @ContextConfiguration(classes = {PaymentEmulateResource.class, PaymentGroupDao.class, PaymentTemplateDao.class,
         GroupReferenceDaoImpl.class, PaymentReferenceDaoImpl.class, GroupRowToModelMapper.class, UserInfoService.class,
-        TemplateModelToTemplateConverterImpl.class, PaymentEmulateService.class})
+        TemplateModelToTemplateConverterImpl.class, PaymentEmulateService.class, JwtAuthConverter.class})
 public class PaymentEmulateResourceTest {
 
     private static final String PARTY_ID = "partyId";

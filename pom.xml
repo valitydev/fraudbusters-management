@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>fraudbusters-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>fraudbusters-management</name>
@@ -29,7 +29,7 @@
         <db.user>postgres</db.user>
         <db.password>postgres</db.password>
         <db.schema>af</db.schema>
-        <wb.list.proto.version>1.44-5dbd6d4</wb.list.proto.version>
+        <wb.list.proto.version>1.49-d0256f0</wb.list.proto.version>
         <fraudbusters.proto.version>1.112-e9d16e0</fraudbusters.proto.version>
         <fraudo.version>1.0.7</fraudo.version>
         <swag-fraudbusters-management.version>1.141-b9f3cf6-server</swag-fraudbusters-management.version>

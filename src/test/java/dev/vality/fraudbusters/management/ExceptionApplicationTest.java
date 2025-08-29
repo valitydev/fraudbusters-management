@@ -2,6 +2,7 @@ package dev.vality.fraudbusters.management;
 
 import dev.vality.damsel.wb_list.ListType;
 import dev.vality.dao.DaoException;
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.converter.candidate.ChargebacksToFraudDataCandidatesConverter;
 import dev.vality.fraudbusters.management.converter.candidate.WbListCandidateToWbListRecordConverter;
 import dev.vality.fraudbusters.management.converter.payment.*;
@@ -74,8 +75,11 @@ public class ExceptionApplicationTest {
 
     @Value("${kafka.topic.wblist.event.sink}")
     public String topicEventSink;
+    public WbListCommandService wbListCommandService;
     @MockitoBean
     public AuditService auditService;
+    @MockitoBean
+    public JwtAuthConverter jwtAuthConverter;
     @MockitoBean
     public WbListCommandService wbListCommandService;
     @MockitoBean

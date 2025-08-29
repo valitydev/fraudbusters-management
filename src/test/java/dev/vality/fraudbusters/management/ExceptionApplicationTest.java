@@ -75,7 +75,7 @@ public class ExceptionApplicationTest {
 
     @Value("${kafka.topic.wblist.event.sink}")
     public String topicEventSink;
-    public WbListCommandService wbListCommandService;
+
     @MockitoBean
     public AuditService auditService;
     @MockitoBean

@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.resource;
 
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.converter.payment.TemplateModelToTemplateConverterImpl;
 import dev.vality.fraudbusters.management.dao.GroupDao;
 import dev.vality.fraudbusters.management.dao.TemplateDao;
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -58,6 +60,8 @@ public class PaymentEmulateResourceTest {
     PaymentReferenceDao referenceDao;
     @Autowired
     TemplateDao templateDao;
+    @MockitoBean
+    JwtAuthConverter jwtAuthConverter;
 
     @Test
     void getRulesByPartyAndShop() {

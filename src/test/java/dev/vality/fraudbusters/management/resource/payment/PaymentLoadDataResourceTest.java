@@ -1,6 +1,7 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
 import dev.vality.damsel.fraudbusters.PaymentServiceSrv;
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.service.payment.PaymentLoadDataService;
 import dev.vality.fraudbusters.management.utils.UserInfoService;
 import dev.vality.fraudbusters.management.utils.parser.CsvFraudPaymentParser;
@@ -31,6 +32,8 @@ public class PaymentLoadDataResourceTest {
     PaymentLoadDataResource paymentLoadDataResource;
     @MockitoBean
     PaymentServiceSrv.Iface paymentServiceSrv;
+    @MockitoBean
+    JwtAuthConverter jwtAuthConverter;
 
     @Test
     void loadFraudOperation() throws IOException, TException {

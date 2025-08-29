@@ -33,8 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
-        OAuth2ResourceServerAutoConfiguration.class
-        , JwtAuthConverter.class})
+        OAuth2ResourceServerAutoConfiguration.class, JwtAuthConverter.class})
 class AuditResourceTest {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimeUtils.YYYY_MM_DD_HH_MM_SS);

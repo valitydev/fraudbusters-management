@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.resource;
 
+import dev.vality.fraudbusters.management.config.SecurityConfig;
 import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import dev.vality.fraudbusters.management.dao.audit.CommandAuditDao;
 import dev.vality.fraudbusters.management.utils.DateTimeUtils;
@@ -29,11 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
-@SpringBootTest(properties = {"keycloak.enabled=false"})
+@SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
-        OAuth2ResourceServerAutoConfiguration.class, JwtAuthConverter.class})
+        OAuth2ResourceServerAutoConfiguration.class, SecurityConfig.class})
 class AuditResourceTest {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimeUtils.YYYY_MM_DD_HH_MM_SS);

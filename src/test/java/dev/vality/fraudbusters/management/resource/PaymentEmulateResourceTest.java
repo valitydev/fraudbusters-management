@@ -34,11 +34,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@JooqTest(properties = {"keycloak.enabled=false"})
+@JooqTest
 @PostgresqlTestcontainerSingleton
 @ContextConfiguration(classes = {PaymentEmulateResource.class, PaymentGroupDao.class, PaymentTemplateDao.class,
         GroupReferenceDaoImpl.class, PaymentReferenceDaoImpl.class, GroupRowToModelMapper.class, UserInfoService.class,
-        TemplateModelToTemplateConverterImpl.class, PaymentEmulateService.class, JwtAuthConverter.class})
+        TemplateModelToTemplateConverterImpl.class, PaymentEmulateService.class})
 public class PaymentEmulateResourceTest {
 
     private static final String PARTY_ID = "partyId";

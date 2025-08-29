@@ -16,8 +16,6 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
 import java.io.IOException;
 import java.util.List;

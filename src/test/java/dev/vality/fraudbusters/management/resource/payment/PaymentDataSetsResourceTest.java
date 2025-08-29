@@ -15,6 +15,7 @@ import org.springframework.boot.actuate.autoconfigure.security.servlet.Managemen
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class})
+        ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
+        OAuth2ResourceServerAutoConfiguration.class})
 class PaymentDataSetsResourceTest {
 
     @Autowired
@@ -57,8 +59,8 @@ class PaymentDataSetsResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"id\":\"null\",\"testDataSetId\":\"null\",\"template\":null," +
-                                "\"rows\":[],\"createdAt\":null,\"checkingTimestamp\":null," +
-                                "\"initiator\":null,\"merchantInfo\":{\"partyId\":null,\"shopId\":null}}"));
+                              "\"rows\":[],\"createdAt\":null,\"checkingTimestamp\":null," +
+                              "\"initiator\":null,\"merchantInfo\":{\"partyId\":null,\"shopId\":null}}"));
 
         verify(paymentsDataSetService, times(1)).getCheckedDataSet(id);
     }
@@ -72,8 +74,8 @@ class PaymentDataSetsResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"continuationId\":null,\"result\":" +
-                                "[{\"id\":null,\"name\":null,\"rows\":[]," +
-                                "\"lastModificationAt\":null,\"lastModificationInitiator\":null}]}"));
+                              "[{\"id\":null,\"name\":null,\"rows\":[]," +
+                              "\"lastModificationAt\":null,\"lastModificationInitiator\":null}]}"));
 
         verify(paymentsDataSetService, times(1)).filterDataSets(any(), any(), any());
     }
@@ -87,7 +89,7 @@ class PaymentDataSetsResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{\"id\":null,\"name\":null,\"rows\":[]," +
-                                "\"lastModificationAt\":null,\"lastModificationInitiator\":null}"));
+                              "\"lastModificationAt\":null,\"lastModificationInitiator\":null}"));
 
         verify(paymentsDataSetService, times(1)).getDataSet(id);
     }

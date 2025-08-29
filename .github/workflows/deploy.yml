@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'master'
-      - 'ft/up-woody'
+      - 'epic/*'
 
 jobs:
   build-and-deploy:

@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.management.config;
 
+import dev.vality.fraudbusters.management.config.converter.JwtAuthConverter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -27,24 +26,14 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthConverter jwtAuthConverter)
+            throws Exception {
         return http.authorizeHttpRequests(
                         (authorize) -> authorize
-                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
-                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/**").authenticated()
-                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/health/liveness").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/health/readiness").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator/prometheus").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
-                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
-                                .anyRequest().authenticated())
-                .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
+                                .anyRequest().permitAll())
+                .csrf((csrf) -> csrf.requireCsrfProtectionMatcher(new KeycloakCsrfRequestMatcher()))
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
+                .oauth2ResourceServer(server -> server.jwt(token -> token.jwtAuthenticationConverter(jwtAuthConverter)))
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )

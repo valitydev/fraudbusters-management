@@ -51,7 +51,7 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
         FlywayAutoConfiguration.class,
         JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class,
-        SecurityAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class, JwtAuthConverter.class})
+        SecurityAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";

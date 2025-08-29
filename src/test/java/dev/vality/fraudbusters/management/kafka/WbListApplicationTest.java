@@ -24,6 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.security.servlet.Managemen
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -50,7 +51,7 @@ import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOU
         FlywayAutoConfiguration.class,
         JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class,
-        SecurityAutoConfiguration.class, JwtAuthConverter.class})
+        SecurityAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class, JwtAuthConverter.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";

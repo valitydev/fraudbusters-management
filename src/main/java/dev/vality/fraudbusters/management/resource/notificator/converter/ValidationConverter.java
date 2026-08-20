@@ -17,6 +17,7 @@ public class ValidationConverter
     public ValidationResponse convert(
             dev.vality.damsel.fraudbusters_notificator.ValidationResponse validationResponse) {
         ValidationResponse response = new ValidationResponse();
+        response.setErrors(null);
         if (validationResponse.isSetErrors()) {
             List<String> errors = validationResponse.getErrors();
             List<ValidationError> validationErrors = errors.stream()

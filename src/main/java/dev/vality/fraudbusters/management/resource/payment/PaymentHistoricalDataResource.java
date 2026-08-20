@@ -38,15 +38,19 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
                                                            String email, String providerCountry,
                                                            String cardToken, String fingerprint,
                                                            String terminal, String invoiceId,
-                                                           String maskedPan) {
+                                                           String maskedPan, String template,
+                                                           String rule) {
         log.info("-> filterPaymentsInfo continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
-                        "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
+                        "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {} " +
+                        "template: {} rule: {}",
                 continuationId, size, partyId, shopId, paymentId, status, email, providerCountry, cardToken,
-                fingerprint,
-                terminal);
+                fingerprint, terminal, template, rule);
+        var filter = createFilter(createTimestampInterval(from, to), partyId, shopId, paymentId, status, email,
+                providerCountry, cardToken, fingerprint, terminal)
+                .setTemplate(template)
+                .setRule(rule);
         var payments = historicalDataServiceSrv.getPayments(
-                createFilter(createTimestampInterval(from, to), partyId, shopId, paymentId, status, email,
-                        providerCountry, cardToken, fingerprint, terminal),
+                filter,
                 createPage(continuationId, size),
                 createSort(sortOrder, sortBy));
         var paymentsResponse = new PaymentsResponse()
@@ -130,16 +134,20 @@ public class PaymentHistoricalDataResource implements PaymentsHistoricalDataApi 
                                                                        String cardToken,
                                                                        String fingerprint,
                                                                        String terminal, String invoiceId,
-                                                                       String maskedPan) {
+                                                                       String maskedPan, String template,
+                                                                       String rule) {
         log.info(
                 "-> filterInspectResults continuationId: {} size: {} partyId: {} shopId: {} paymentId: {} status: {} " +
-                        "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {}",
+                        "email: {} providerCountry: {} cardToken: {} fingerprint: {} terminal: {} " +
+                        "template: {} rule: {}",
                 continuationId, size, partyId, shopId, paymentId, status, email, providerCountry, cardToken,
-                fingerprint,
-                terminal);
+                fingerprint, terminal, template, rule);
+        var filter = createFilter(createTimestampInterval(from, to), partyId, shopId, paymentId, status, email,
+                providerCountry, cardToken, fingerprint, terminal)
+                .setTemplate(template)
+                .setRule(rule);
         var fraudResults = historicalDataServiceSrv.getFraudResults(
-                createFilter(createTimestampInterval(from, to), partyId, shopId, paymentId, status, email,
-                        providerCountry, cardToken, fingerprint, terminal),
+                filter,
                 createPage(continuationId, size),
                 createSort(sortOrder, sortBy));
         var inspectResultsResponse = new InspectResultsResponse()

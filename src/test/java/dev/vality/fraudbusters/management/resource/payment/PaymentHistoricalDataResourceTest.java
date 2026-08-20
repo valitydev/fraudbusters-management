@@ -1,10 +1,12 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
+import dev.vality.damsel.fraudbusters.Filter;
 import dev.vality.damsel.fraudbusters.HistoricalDataResponse;
 import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
 import dev.vality.fraudbusters.management.resource.utils.ExternalModelBeanFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,7 +20,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,6 +48,8 @@ public class PaymentHistoricalDataResourceTest {
         when(iface.getPayments(any(), any(), any())).thenReturn(new HistoricalDataResponse()
                 .setData(ExternalModelBeanFactory.createHistoricalData()));
         LinkedMultiValueMap<String, String> params = createParams();
+        params.add("template", "shop-template");
+        params.add("rule", "many_emails_per_card");
         this.mockMvc.perform(get("/payments-historical-data/payments-info")
                         .queryParams(params))
                 .andDo(print())
@@ -59,6 +65,11 @@ public class PaymentHistoricalDataResourceTest {
                               "\"paymentTool\":\"BankCard(token:null, payment_system:PaymentSystemRef(id:visa)," +
                               " bin:1234, last_digits:null, bank_name:test)\",\"provider\":{\"providerId\":\"test\"" +
                               ",\"terminalId\":\"1234\",\"country\":\"RUS\"}}]}"));
+
+        ArgumentCaptor<Filter> filterCaptor = ArgumentCaptor.forClass(Filter.class);
+        verify(iface).getPayments(filterCaptor.capture(), any(), any());
+        assertEquals("shop-template", filterCaptor.getValue().getTemplate());
+        assertEquals("many_emails_per_card", filterCaptor.getValue().getRule());
     }
 
     @Test
@@ -87,6 +98,8 @@ public class PaymentHistoricalDataResourceTest {
         when(iface.getFraudResults(any(), any(), any())).thenReturn(new HistoricalDataResponse()
                 .setData(ExternalModelBeanFactory.createHistoricalDataInspectResults()));
         LinkedMultiValueMap<String, String> params = createParams();
+        params.add("template", "shop-template");
+        params.add("rule", "many_emails_per_card");
         this.mockMvc.perform(get("/payments-historical-data/inspect-results")
                         .queryParams(params))
                 .andDo(print())
@@ -104,6 +117,11 @@ public class PaymentHistoricalDataResourceTest {
                               "\"terminalId\":\"1234\",\"country\":\"RUS\"}},\"checkedTemplate\":null," +
                               "\"resultStatus\":\"accept\",\"ruleChecked\":null," +
                               "\"notificationsRule\":null}]}"));
+
+        ArgumentCaptor<Filter> filterCaptor = ArgumentCaptor.forClass(Filter.class);
+        verify(iface).getFraudResults(filterCaptor.capture(), any(), any());
+        assertEquals("shop-template", filterCaptor.getValue().getTemplate());
+        assertEquals("many_emails_per_card", filterCaptor.getValue().getRule());
     }
 
     @Test

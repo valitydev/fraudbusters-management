@@ -9,7 +9,9 @@ public class AnalyticsQuery {
     public static final String BLOCKED_FRAUD_PAYMENTS_COUNT =
             """
                         SELECT
-                            countIf(status = 'failed' AND errorCode='no_route_found:risk_score_is_too_high') AS count
+                            uniqExactIf(id,
+                                status = 'failed'
+                                AND errorCode = 'no_route_found:risk_score_is_too_high') AS count
                         FROM fraud.payment
                         WHERE
                             timestamp >= toDate(:from)
@@ -19,12 +21,15 @@ public class AnalyticsQuery {
                             AND currency = :currency
                             AND like(shopId, :shopId)
                             AND like(partyId, :partyId)
+                            AND shopId != 'TEST'
                     """;
 
     public static final String BLOCKED_FRAUD_PAYMENTS_COUNT_RATIO =
             """
                SELECT
-                  countIf(status = 'failed' AND errorCode='no_route_found:risk_score_is_too_high') / count() AS ratio
+                  uniqExactIf(id,
+                      status = 'failed'
+                      AND errorCode = 'no_route_found:risk_score_is_too_high') / uniqExact(id) AS ratio
                FROM fraud.payment
                WHERE
                   timestamp >= toDate(:from)
@@ -34,6 +39,7 @@ public class AnalyticsQuery {
                   AND currency = :currency
                   AND like(shopId, :shopId)
                   AND like(partyId, :partyId)
+                  AND shopId != 'TEST'
             """;
 
     public static final String BLOCKED_FRAUD_PAYMENTS_SUM =
@@ -51,12 +57,13 @@ public class AnalyticsQuery {
                             AND currency = :currency
                             AND like(shopId, :shopId)
                             AND like(partyId, :partyId)
+                            AND shopId != 'TEST'
                     """;
 
     public static final String FRAUD_PAYMENTS_COUNT =
             """
                         SELECT
-                            count(*) AS count
+                            uniqExact(id) AS count
                         FROM fraud.payment
                         WHERE
                             timestamp >= toDate(:from)
@@ -66,6 +73,7 @@ public class AnalyticsQuery {
                             AND currency = :currency
                             AND like(shopId, :shopId)
                             AND like(partyId, :partyId)
+                            AND shopId != 'TEST'
                     """;
 
     public static final String FRAUD_PAYMENTS_RESULTS_SUMMARY =

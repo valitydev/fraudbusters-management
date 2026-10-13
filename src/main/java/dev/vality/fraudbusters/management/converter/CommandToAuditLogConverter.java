@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.converter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.fraudbusters.Command;
 import dev.vality.fraudbusters.management.domain.enums.CommandType;
 import dev.vality.fraudbusters.management.domain.enums.ObjectType;
@@ -20,7 +20,7 @@ public class CommandToAuditLogConverter implements Converter<Command, CommandAud
 
     public static final String UNKNOWN = "UNKNOWN";
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonMapper objectMapper;
 
     @Override
     public CommandAudit convert(Command command) {

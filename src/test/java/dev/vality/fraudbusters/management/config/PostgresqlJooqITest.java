@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.management.config;
 
 import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
-import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
+import org.springframework.boot.jooq.test.autoconfigure.JooqTest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

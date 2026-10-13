@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.kafka;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.wb_list.ChangeCommand;
 import dev.vality.damsel.wb_list.Command;
 import dev.vality.damsel.wb_list.ListType;
@@ -49,7 +48,7 @@ public class InsertInListTest {
     @Autowired
     private KafkaConsumer<ChangeCommand> testCommandKafkaConsumer;
 
-    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
 
     @Autowired
     private PaymentsListsResource paymentsListsResource;

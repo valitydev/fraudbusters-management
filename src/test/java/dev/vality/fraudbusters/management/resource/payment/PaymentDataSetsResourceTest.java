@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.resource.payment;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.fraudbusters.HistoricalDataServiceSrv;
 import dev.vality.fraudbusters.management.domain.payment.CheckedDataSetModel;
 import dev.vality.fraudbusters.management.domain.payment.DataSetModel;
@@ -11,13 +11,14 @@ import dev.vality.swag.fraudbusters.management.model.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.actuate.web.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
-import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration;
+import org.springframework.boot.jooq.autoconfigure.JooqAutoConfiguration;
+import org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.web.servlet.ServletWebSecurityAutoConfiguration;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -37,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = {FlywayAutoConfiguration.class, JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class, SecurityAutoConfiguration.class,
+        ServletWebSecurityAutoConfiguration.class,
         OAuth2ResourceServerAutoConfiguration.class})
 class PaymentDataSetsResourceTest {
 
@@ -48,7 +50,7 @@ class PaymentDataSetsResourceTest {
     @MockitoBean
     HistoricalDataServiceSrv.Iface historicalDataServiceSrv;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
 
     @Test
     void getCheckedDataSet() throws Exception {

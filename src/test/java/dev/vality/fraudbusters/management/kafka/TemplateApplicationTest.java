@@ -32,9 +32,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
-import java.io.IOException;
+import tools.jackson.core.JacksonException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -114,7 +114,7 @@ public class TemplateApplicationTest {
     }
 
     @Test
-    void groupTest() throws IOException {
+    void groupTest() throws JacksonException {
         Group groupModel = new Group();
         groupModel.setGroupId(ID);
         groupModel.setPriorityTemplates(List.of(new PriorityId()
@@ -133,8 +133,8 @@ public class TemplateApplicationTest {
         });
     }
 
-    private void checkSerialization(Group group) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    private void checkSerialization(Group group) throws JacksonException {
+        JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
         String json = objectMapper.writeValueAsString(group);
         Group groupModelAfterSerialization = objectMapper.readValue(json, Group.class);
 

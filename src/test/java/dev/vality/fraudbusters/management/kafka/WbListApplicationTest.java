@@ -19,14 +19,16 @@ import org.mockito.Mockito;
 import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.actuate.web.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
-import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration;
+import org.springframework.boot.jooq.autoconfigure.JooqAutoConfiguration;
+import org.springframework.boot.security.oauth2.server.resource.autoconfigure.OAuth2ResourceServerAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.web.servlet.ServletWebSecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -45,12 +47,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
 @KafkaITest
+@AutoConfigureTestRestTemplate
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration(exclude = {
         FlywayAutoConfiguration.class,
         JooqAutoConfiguration.class,
         ManagementWebSecurityAutoConfiguration.class,
-        SecurityAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class})
+        SecurityAutoConfiguration.class,
+        ServletWebSecurityAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class})
 public class WbListApplicationTest {
 
     public static final String BASE_URL = "http://localhost:";
@@ -66,7 +70,8 @@ public class WbListApplicationTest {
     public AuditService auditService;
     @MockitoBean
     public WbListDao wbListDao;
-    TestRestTemplate restTemplate = new TestRestTemplate();
+    @Autowired
+    private TestRestTemplate restTemplate;
     String paymentListPath;
     @LocalServerPort
     private int port;
@@ -154,7 +159,8 @@ public class WbListApplicationTest {
         String value = VALUE + 66;
         HttpEntity<ListRowsInsertRequest> entity =
                 new HttpEntity<>(createListRowsInsertRequest(value), new org.springframework.http.HttpHeaders());
-        restTemplate.exchange(paymentListPath, HttpMethod.POST, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(paymentListPath, HttpMethod.POST, entity, String.class);
+        assertTrue(response.getStatusCode().is2xxSuccessful(), response.toString());
 
         List<ChangeCommand> eventList = new ArrayList<>();
         testCommandKafkaConsumer.read(topicCommand, data -> eventList.add(data.value()));

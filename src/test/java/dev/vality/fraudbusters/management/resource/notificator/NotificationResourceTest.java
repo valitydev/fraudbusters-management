@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.management.resource.notificator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.fraudbusters_notificator.*;
 import dev.vality.fraudbusters.management.TestObjectFactory;
 import dev.vality.fraudbusters.management.controller.ErrorController;
@@ -47,7 +46,7 @@ class NotificationResourceTest {
 
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
 
     @Mock
     private NotificationServiceSrv.Iface notificationClient;

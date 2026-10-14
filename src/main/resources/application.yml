@@ -107,5 +107,3 @@ spring.servlet.multipart.max-file-size: 10MB
 spring.servlet.multipart.max-request-size: 10MB
 
 parameters.listNames: EMAIL,IP,FINGERPRINT,CARD_TOKEN,BIN,PAN
-
-spring.jackson.use-jackson2-defaults: true

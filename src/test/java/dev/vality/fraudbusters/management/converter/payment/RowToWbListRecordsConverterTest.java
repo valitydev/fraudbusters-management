@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RowToWbListRecordsConverterTest {
 
-    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
     private RowToWbListRecordsConverter converter;
     private RowUtilsService rowUtilsService;
 

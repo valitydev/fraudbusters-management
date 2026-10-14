@@ -13,10 +13,10 @@ import dev.vality.fraudbusters.management.utils.TestKafkaProducer;
 import dev.vality.swag.fraudbusters.management.model.ListResponse;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
 import org.apache.thrift.TBase;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.security.autoconfigure.actuate.web.servlet.ManagementWebSecurityAutoConfiguration;
@@ -35,16 +35,15 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
 @KafkaITest
 @AutoConfigureTestRestTemplate
@@ -162,9 +161,10 @@ public class WbListApplicationTest {
         ResponseEntity<String> response = restTemplate.exchange(paymentListPath, HttpMethod.POST, entity, String.class);
         assertTrue(response.getStatusCode().is2xxSuccessful(), response.toString());
 
-        List<ChangeCommand> eventList = new ArrayList<>();
+        List<ChangeCommand> eventList = new CopyOnWriteArrayList<>();
         testCommandKafkaConsumer.read(topicCommand, data -> eventList.add(data.value()));
-        Unreliables.retryUntilTrue(TIMEOUT, TimeUnit.SECONDS, () -> eventList.size() == 1);
+        Awaitility.await().atMost(Duration.ofSeconds(30))
+                .untilAsserted(() -> assertEquals(1, eventList.size()));
 
         assertEquals(1, eventList.size());
         assertEquals(eventList.get(0).command, Command.CREATE);

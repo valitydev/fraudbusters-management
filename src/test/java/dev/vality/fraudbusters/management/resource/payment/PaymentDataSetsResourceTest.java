@@ -50,7 +50,7 @@ class PaymentDataSetsResourceTest {
     @MockitoBean
     HistoricalDataServiceSrv.Iface historicalDataServiceSrv;
 
-    JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Test
     void getCheckedDataSet() throws Exception {

@@ -46,7 +46,7 @@ class NotificationResourceTest {
 
     private MockMvc mockMvc;
 
-    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Mock
     private NotificationServiceSrv.Iface notificationClient;

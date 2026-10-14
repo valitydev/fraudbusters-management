@@ -12,10 +12,10 @@ import dev.vality.fraudbusters.management.domain.payment.PaymentListRecord;
 import dev.vality.fraudbusters.management.domain.payment.request.ListRowsInsertRequest;
 import dev.vality.fraudbusters.management.resource.payment.PaymentsListsResource;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -23,15 +23,14 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
 @KafkaITest
 public class InsertInListTest {
@@ -48,7 +47,7 @@ public class InsertInListTest {
     @Autowired
     private KafkaConsumer<ChangeCommand> testCommandKafkaConsumer;
 
-    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Autowired
     private PaymentsListsResource paymentsListsResource;
@@ -79,9 +78,10 @@ public class InsertInListTest {
                 .content(objectMapper.writeValueAsString(listRowsInsertRequest)))
                 .andExpect(status().isOk());
 
-        List<ChangeCommand> eventList = new ArrayList<>();
+        List<ChangeCommand> eventList = new CopyOnWriteArrayList<>();
         testCommandKafkaConsumer.read(topicCommand, data -> eventList.add(data.value()));
-        Unreliables.retryUntilTrue(TIMEOUT, TimeUnit.SECONDS, () -> eventList.size() == 2);
+        Awaitility.await().atMost(Duration.ofSeconds(30))
+                .untilAsserted(() -> assertEquals(2, eventList.size()));
 
         assertEquals(2, eventList.size());
         assertEquals(eventList.get(0).command, Command.CREATE);

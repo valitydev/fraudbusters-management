@@ -47,7 +47,7 @@ class AnalyticsResourceTest {
     private static final String CURRENCY = "currency";
     private MockMvc mockMvc;
 
-    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Mock
     private WarehouseQueryService warehouseQueryService;

@@ -56,7 +56,7 @@ class PaymentListCandidateResourceTest {
     @MockitoBean
     private WbListCandidateBatchService wbListCandidateBatchService;
 
-    private final JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Test
     void approveListCandidates() throws Exception {

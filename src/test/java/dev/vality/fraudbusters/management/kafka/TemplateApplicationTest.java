@@ -134,7 +134,7 @@ public class TemplateApplicationTest {
     }
 
     private void checkSerialization(Group group) throws JacksonException {
-        JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+        JsonMapper objectMapper = JsonMapper.builder().build();
         String json = objectMapper.writeValueAsString(group);
         Group groupModelAfterSerialization = objectMapper.readValue(json, Group.class);
 

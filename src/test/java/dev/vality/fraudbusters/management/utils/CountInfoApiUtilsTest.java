@@ -16,7 +16,7 @@ class CountInfoApiUtilsTest {
     public static final String START_TIME = "2021-08-05T07:43:13.416Z";
     public static final String END_TIME = "2021-09-05T07:43:16Z";
 
-    CountInfoApiUtils countInfoApiUtils = new CountInfoApiUtils(JsonMapper.builder().configureForJackson2().build());
+    CountInfoApiUtils countInfoApiUtils = new CountInfoApiUtils(JsonMapper.builder().build());
 
     @Test
     void initExternalRowCountInfo() {

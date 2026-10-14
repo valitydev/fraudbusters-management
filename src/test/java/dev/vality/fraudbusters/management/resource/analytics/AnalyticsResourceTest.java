@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.resource.analytics;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.fraudbusters.management.TestObjectFactory;
 import dev.vality.fraudbusters.management.controller.ErrorController;
 import dev.vality.fraudbusters.management.converter.QueryParamsToAnalyticParamsConverter;
@@ -47,7 +47,7 @@ class AnalyticsResourceTest {
     private static final String CURRENCY = "currency";
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
 
     @Mock
     private WarehouseQueryService warehouseQueryService;

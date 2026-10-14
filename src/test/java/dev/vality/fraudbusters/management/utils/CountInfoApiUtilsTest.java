@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.wb_list.RowInfo;
 import dev.vality.swag.fraudbusters.management.model.CountInfo;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ class CountInfoApiUtilsTest {
     public static final String START_TIME = "2021-08-05T07:43:13.416Z";
     public static final String END_TIME = "2021-09-05T07:43:16Z";
 
-    CountInfoApiUtils countInfoApiUtils = new CountInfoApiUtils(new ObjectMapper());
+    CountInfoApiUtils countInfoApiUtils = new CountInfoApiUtils(JsonMapper.builder().build());
 
     @Test
     void initExternalRowCountInfo() {

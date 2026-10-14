@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.management.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.wb_list.CountInfo;
 import dev.vality.damsel.wb_list.Row;
 import dev.vality.damsel.wb_list.RowInfo;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RowUtilsService {
 
-    private final ObjectMapper objectMapper;
+    private final JsonMapper objectMapper;
 
     public ListType initListType(Row destination) {
         return switch (destination.getListType()) {
@@ -33,7 +33,7 @@ public class RowUtilsService {
         if (destination.getRowInfo() != null && destination.getRowInfo().isSetCountInfo()) {
             try {
                 return objectMapper.writeValueAsString(destination.getRowInfo().getCountInfo());
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 throw new RuntimeException("Unknown list type!");
             }
         }

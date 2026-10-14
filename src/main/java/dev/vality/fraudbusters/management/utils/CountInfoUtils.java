@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.wb_list.Row;
 import dev.vality.damsel.wb_list.RowInfo;
 import dev.vality.fraudbusters.management.domain.CountInfo;
@@ -8,14 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException;
+import tools.jackson.core.JacksonException;
 import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
 public class CountInfoUtils {
 
-    private final ObjectMapper objectMapper;
+    private final JsonMapper objectMapper;
 
     public CountInfo initRowCountInfo(String rowInfo) {
         var countInfoValue = new CountInfo();
@@ -24,7 +24,7 @@ public class CountInfoUtils {
             countInfoValue.setCount(countInfo.getCount());
             countInfoValue.setEndCountTime(countInfo.getTimeToLive());
             countInfoValue.setStartCountTime(countInfo.getStartCountTime());
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new RuntimeException("Error when read countInfo for rowInfo: " + rowInfo, e);
         }
         return countInfoValue;

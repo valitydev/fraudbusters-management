@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.management.converter.payment;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.damsel.wb_list.Row;
 import dev.vality.fraudbusters.management.TestObjectFactory;
 import dev.vality.fraudbusters.management.domain.enums.ListType;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RowToWbListRecordsConverterTest {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JsonMapper objectMapper = JsonMapper.builder().build();
     private RowToWbListRecordsConverter converter;
     private RowUtilsService rowUtilsService;
 

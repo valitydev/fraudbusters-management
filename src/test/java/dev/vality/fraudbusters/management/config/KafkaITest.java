@@ -3,8 +3,8 @@ package dev.vality.fraudbusters.management.config;
 import dev.vality.testcontainers.annotations.KafkaSpringBootTest;
 import dev.vality.testcontainers.annotations.kafka.KafkaTestcontainer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
-import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
+import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration;
+import org.springframework.boot.jooq.autoconfigure.JooqAutoConfiguration;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

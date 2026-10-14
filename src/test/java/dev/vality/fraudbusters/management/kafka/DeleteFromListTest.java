@@ -9,9 +9,9 @@ import dev.vality.fraudbusters.management.dao.payment.wblist.WbListDao;
 import dev.vality.fraudbusters.management.domain.tables.pojos.WbListRecords;
 import dev.vality.fraudbusters.management.resource.payment.PaymentsListsResource;
 import dev.vality.testcontainers.annotations.kafka.config.KafkaConsumer;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -19,15 +19,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.testcontainers.shaded.com.trilead.ssh2.ChannelCondition.TIMEOUT;
 
 @KafkaITest
 public class DeleteFromListTest {
@@ -64,9 +63,10 @@ public class DeleteFromListTest {
         mockMvc.perform(delete("/payments-lists/{id}", test))
                 .andExpect(status().isOk());
 
-        List<ChangeCommand> eventList = new ArrayList<>();
+        List<ChangeCommand> eventList = new CopyOnWriteArrayList<>();
         testCommandKafkaConsumer.read(topicCommand, data -> eventList.add(data.value()));
-        Unreliables.retryUntilTrue(TIMEOUT, TimeUnit.SECONDS, () -> eventList.size() == 1);
+        Awaitility.await().atMost(Duration.ofSeconds(30))
+                .untilAsserted(() -> assertEquals(1, eventList.size()));
 
         assertEquals(1, eventList.size());
         assertEquals(eventList.get(0).command, Command.DELETE);
